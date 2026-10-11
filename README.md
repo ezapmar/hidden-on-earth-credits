@@ -15,4 +15,4 @@ Design follows the brainless family: night, bone and vermilion, flat fills, step
 
 The painting list on the home page and the hiding places in the playable painting are copied from the game's `levels.json`. When a painting or a count changes in the game, change it here too.
 
-The three pictures in *Your collection* are original works by Dünya Üçer, used with the family's permission. They are not published on this site.
+The four pictures in *Your collection* are original works by Dünya Üçer, used with the family's permission. They are not published on this site.

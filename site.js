@@ -156,7 +156,10 @@
     { id: 'monkeys', name: 'Monkeys', targets: [
       { x: 0.257, y: 0.363, r: 0.06 }, { x: 0.41, y: 0.604, r: 0.07 }, { x: 0.677, y: 0.396, r: 0.06 },
       { x: 0.747, y: 0.317, r: 0.05 }, { x: 0.67, y: 0.771, r: 0.08 } ] },
-    { id: 'snake', name: 'Snake', targets: [ { x: 0.283, y: 0.727, r: 0.06 } ] }
+    { id: 'snake', name: 'Snake', targets: [ { x: 0.283, y: 0.727, r: 0.06 } ] },
+    { id: 'flowers', name: 'White flowers', targets: [
+      { x: 0.089, y: 0.532, r: 0.04 }, { x: 0.182, y: 0.624, r: 0.04 },
+      { x: 0.303, y: 0.633, r: 0.04 }, { x: 0.449, y: 0.675, r: 0.04 } ] }
   ];
   var win = document.getElementById('win'), miss = document.getElementById('miss');
   var hintTimer = null, hintEl = null;
