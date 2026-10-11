@@ -1,0 +1,9 @@
+{
+  // Static site served straight from the repository root.
+  // There is no build step: the files committed here are the files served.
+  "name": "hidden-on-earth-credits",
+  "compatibility_date": "2025-01-01",
+  "assets": {
+    "directory": "."
+  }
+}

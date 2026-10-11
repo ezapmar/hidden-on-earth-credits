@@ -1,0 +1,7 @@
+# Keep build-time and VCS directories out of the Workers asset upload.
+# Workers Builds installs dependencies before deploying, and wrangler's own
+# workerd binary is ~129 MiB, well over the 25 MiB per-asset limit.
+node_modules
+.git
+.wrangler
+wrangler.jsonc
