@@ -4,7 +4,8 @@
    Local (always):
      * every public level in levels.json (when --levels is given) is in the manifest, and no
        private one is
-     * every level has all four tiers in both formats, every HUD thumb and the sticker
+     * every level has all four tiers (card and fit in both formats, play and zoom as AVIF),
+       every HUD thumb and the sticker
      * every file exists and decodes to the pixel size the manifest claims
      * every tier matches the level's aspect within 1px (a rotated or mis-cropped derivative
        would displace every target), and its long edge is min(tier, source) — never upscaled
@@ -26,7 +27,7 @@ import sharp from 'sharp';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { TIERS, THUMB_PX, STICKER_PX, FORMATS, tierSize } from './build-images.mjs';
+import { TIERS, TIER_FORMATS, THUMB_PX, STICKER_PX, FORMATS, formatsOf, tierSize } from './build-images.mjs';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -47,9 +48,9 @@ const bad = (msg) => problems.push(msg);
 
 function entries(level) {
   const out = [];
-  for (const [tier, t] of Object.entries(level.tiers)) out.push({ kind: 'tier', name: tier, entry: t });
-  for (const [g, t] of Object.entries(level.thumbs)) out.push({ kind: 'thumb', name: g, entry: t });
-  out.push({ kind: 'sticker', name: 'sticker', entry: level.sticker });
+  for (const [tier, t] of Object.entries(level.tiers)) out.push({ kind: 'tier', name: tier, entry: t, formats: TIER_FORMATS[tier] || FORMATS });
+  for (const [g, t] of Object.entries(level.thumbs)) out.push({ kind: 'thumb', name: g, entry: t, formats: FORMATS });
+  out.push({ kind: 'sticker', name: 'sticker', entry: level.sticker, formats: FORMATS });
   return out;
 }
 
@@ -73,8 +74,9 @@ async function checkLocal(manifest, manifestPath, levelsPath) {
   for (const [id, level] of Object.entries(manifest.levels)) {
     for (const tier of Object.keys(TIERS)) if (!level.tiers[tier]) bad(`${id}: tier ${tier} missing`);
     const { w: W, h: H } = level.aspect;
-    for (const { kind, name, entry } of entries(level)) {
-      for (const f of FORMATS) {
+    for (const { kind, name, entry, formats } of entries(level)) {
+      for (const f of formatsOf(entry)) if (!formats.includes(f)) bad(`${id}/${name}: carries ${f}, which this tier no longer ships`);
+      for (const f of formats) {
         if (!entry[f]) { bad(`${id}/${name}: no ${f}`); continue; }
         const abs = path.join(outDir, entry[f].path);
         let meta;
@@ -110,7 +112,7 @@ async function checkHtml(manifest, manifestPath) {
   const outDir = path.resolve(path.dirname(manifestPath), manifest.base);
   const relOut = path.relative(REPO, outDir).split(path.sep).join('/') + '/';
   const known = new Set();
-  for (const level of Object.values(manifest.levels)) for (const { entry } of entries(level)) for (const f of FORMATS) known.add(relOut + entry[f].path);
+  for (const level of Object.values(manifest.levels)) for (const { entry } of entries(level)) for (const f of formatsOf(entry)) known.add(relOut + entry[f].path);
   let refs = 0;
   for (const name of await fs.readdir(REPO)) {
     if (!name.endsWith('.html')) continue;
@@ -142,7 +144,7 @@ async function checkDeployed(manifest, manifestPath, base) {
   }
   const urls = [];
   for (const level of Object.values(manifest.levels)) {
-    for (const { entry } of entries(level)) for (const f of FORMATS) urls.push(new URL(manifest.base + entry[f].path, manifestUrl).href);
+    for (const { entry } of entries(level)) for (const f of formatsOf(entry)) urls.push(new URL(manifest.base + entry[f].path, manifestUrl).href);
   }
   const unique = [...new Set(urls)];
   let done = 0;

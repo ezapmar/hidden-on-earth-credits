@@ -7,6 +7,22 @@
   "play": 2048,
   "zoom": 3200
  },
+ "tierFormats": {
+  "card": [
+   "avif",
+   "webp"
+  ],
+  "fit": [
+   "avif",
+   "webp"
+  ],
+  "play": [
+   "avif"
+  ],
+  "zoom": [
+   "avif"
+  ]
+ },
  "thumb": 128,
  "sticker": 384,
  "formats": [
@@ -56,11 +72,7 @@
       "bytes": 241821
      },
      "w": 2048,
-     "h": 1372,
-     "webp": {
-      "path": "seurat_grande_jatte/play.15f81324b9.webp",
-      "bytes": 450632
-     }
+     "h": 1372
     },
     "zoom": {
      "avif": {
@@ -68,11 +80,7 @@
       "bytes": 627641
      },
      "w": 3200,
-     "h": 2143,
-     "webp": {
-      "path": "seurat_grande_jatte/zoom.c96560ec64.webp",
-      "bytes": 1137272
-     }
+     "h": 2143
     }
    },
    "thumbs": {
@@ -180,11 +188,7 @@
       "bytes": 194001
      },
      "w": 2048,
-     "h": 1636,
-     "webp": {
-      "path": "rousseau_tropical_forest/play.571b158d4e.webp",
-      "bytes": 317818
-     }
+     "h": 1636
     },
     "zoom": {
      "avif": {
@@ -192,11 +196,7 @@
       "bytes": 392835
      },
      "w": 3200,
-     "h": 2557,
-     "webp": {
-      "path": "rousseau_tropical_forest/zoom.d8083a6df0.webp",
-      "bytes": 703526
-     }
+     "h": 2557
     }
    },
    "thumbs": {
@@ -292,11 +292,7 @@
       "bytes": 322230
      },
      "w": 2048,
-     "h": 1708,
-     "webp": {
-      "path": "hicks_peaceable_kingdom/play.ac9c5c5131.webp",
-      "bytes": 512772
-     }
+     "h": 1708
     },
     "zoom": {
      "avif": {
@@ -304,11 +300,7 @@
       "bytes": 706032
      },
      "w": 3000,
-     "h": 2502,
-     "webp": {
-      "path": "hicks_peaceable_kingdom/zoom.6b4832197d.webp",
-      "bytes": 1100516
-     }
+     "h": 2502
     }
    },
    "thumbs": {
@@ -440,11 +432,7 @@
       "bytes": 166230
      },
      "w": 2048,
-     "h": 1638,
-     "webp": {
-      "path": "rousseau_surprised/play.d47082e4ae.webp",
-      "bytes": 308086
-     }
+     "h": 1638
     },
     "zoom": {
      "avif": {
@@ -452,11 +440,7 @@
       "bytes": 470420
      },
      "w": 3200,
-     "h": 2559,
-     "webp": {
-      "path": "rousseau_surprised/zoom.a74246db6c.webp",
-      "bytes": 894662
-     }
+     "h": 2559
     }
    },
    "thumbs": {
@@ -588,11 +572,7 @@
       "bytes": 211754
      },
      "w": 2048,
-     "h": 1297,
-     "webp": {
-      "path": "brueghel_noahs_ark/play.d7fa0620bf.webp",
-      "bytes": 347630
-     }
+     "h": 1297
     },
     "zoom": {
      "avif": {
@@ -600,11 +580,7 @@
       "bytes": 420423
      },
      "w": 3200,
-     "h": 2026,
-     "webp": {
-      "path": "brueghel_noahs_ark/zoom.0f79018ef2.webp",
-      "bytes": 703350
-     }
+     "h": 2026
     }
    },
    "thumbs": {
@@ -784,11 +760,7 @@
       "bytes": 172243
      },
      "w": 1679,
-     "h": 2048,
-     "webp": {
-      "path": "hondecoeter_menagerie/play.ada527e110.webp",
-      "bytes": 315208
-     }
+     "h": 2048
     },
     "zoom": {
      "avif": {
@@ -796,11 +768,7 @@
       "bytes": 415208
      },
      "w": 2623,
-     "h": 3200,
-     "webp": {
-      "path": "hondecoeter_menagerie/zoom.a646a559b3.webp",
-      "bytes": 782408
-     }
+     "h": 3200
     }
    },
    "thumbs": {
@@ -944,11 +912,7 @@
       "bytes": 231223
      },
      "w": 1513,
-     "h": 1067,
-     "webp": {
-      "path": "savery_landscape_with_birds/play.d014c1b276.webp",
-      "bytes": 310824
-     }
+     "h": 1067
     },
     "zoom": {
      "avif": {
@@ -956,11 +920,7 @@
       "bytes": 231223
      },
      "w": 1513,
-     "h": 1067,
-     "webp": {
-      "path": "savery_landscape_with_birds/play.d014c1b276.webp",
-      "bytes": 310824
-     }
+     "h": 1067
     }
    },
    "thumbs": {
@@ -1104,11 +1064,7 @@
       "bytes": 582651
      },
      "w": 2048,
-     "h": 1323,
-     "webp": {
-      "path": "brueghel_rubens_garden_of_eden/play.336ba1ce2a.webp",
-      "bytes": 786092
-     }
+     "h": 1323
     },
     "zoom": {
      "avif": {
@@ -1116,11 +1072,7 @@
       "bytes": 1518017
      },
      "w": 3200,
-     "h": 2067,
-     "webp": {
-      "path": "brueghel_rubens_garden_of_eden/zoom.83e4a3fe00.webp",
-      "bytes": 2060552
-     }
+     "h": 2067
     }
    },
    "thumbs": {
@@ -1300,11 +1252,7 @@
       "bytes": 160788
      },
      "w": 839,
-     "h": 2048,
-     "webp": {
-      "path": "bosch_garden_of_eden/play.0795128b67.webp",
-      "bytes": 257652
-     }
+     "h": 2048
     },
     "zoom": {
      "avif": {
@@ -1312,11 +1260,7 @@
       "bytes": 429968
      },
      "w": 1311,
-     "h": 3200,
-     "webp": {
-      "path": "bosch_garden_of_eden/zoom.0f4e2a42be.webp",
-      "bytes": 674242
-     }
+     "h": 3200
     }
    },
    "thumbs": {
@@ -1448,11 +1392,7 @@
       "bytes": 334272
      },
      "w": 2048,
-     "h": 1458,
-     "webp": {
-      "path": "bruegel_hunters_in_the_snow/play.dc1b21c677.webp",
-      "bytes": 479844
-     }
+     "h": 1458
     },
     "zoom": {
      "avif": {
@@ -1460,11 +1400,7 @@
       "bytes": 668421
      },
      "w": 3200,
-     "h": 2278,
-     "webp": {
-      "path": "bruegel_hunters_in_the_snow/zoom.c351b8ebef.webp",
-      "bytes": 997080
-     }
+     "h": 2278
     }
    },
    "thumbs": {
@@ -1632,11 +1568,7 @@
       "bytes": 272335
      },
      "w": 2048,
-     "h": 1183,
-     "webp": {
-      "path": "avercamp_winter_landscape/play.7195944e21.webp",
-      "bytes": 405092
-     }
+     "h": 1183
     },
     "zoom": {
      "avif": {
@@ -1644,11 +1576,7 @@
       "bytes": 807366
      },
      "w": 3200,
-     "h": 1848,
-     "webp": {
-      "path": "avercamp_winter_landscape/zoom.974ff6efdc.webp",
-      "bytes": 1214096
-     }
+     "h": 1848
     }
    },
    "thumbs": {
@@ -1756,11 +1684,7 @@
       "bytes": 106674
      },
      "w": 2048,
-     "h": 1394,
-     "webp": {
-      "path": "rousseau_the_dream/play.3baa1c0057.webp",
-      "bytes": 201564
-     }
+     "h": 1394
     },
     "zoom": {
      "avif": {
@@ -1768,11 +1692,7 @@
       "bytes": 184151
      },
      "w": 3200,
-     "h": 2178,
-     "webp": {
-      "path": "rousseau_the_dream/zoom.ec6ce36a1c.webp",
-      "bytes": 411646
-     }
+     "h": 2178
     }
    },
    "thumbs": {
@@ -1892,11 +1812,7 @@
       "bytes": 721187
      },
      "w": 2048,
-     "h": 1622,
-     "webp": {
-      "path": "vangogh_starry_night/play.7fc15924d3.webp",
-      "bytes": 988098
-     }
+     "h": 1622
     },
     "zoom": {
      "avif": {
@@ -1904,11 +1820,7 @@
       "bytes": 1916741
      },
      "w": 3200,
-     "h": 2534,
-     "webp": {
-      "path": "vangogh_starry_night/zoom.04a53296d6.webp",
-      "bytes": 2645014
-     }
+     "h": 2534
     }
    },
    "thumbs": {
@@ -2052,11 +1964,7 @@
       "bytes": 480691
      },
      "w": 2048,
-     "h": 1487,
-     "webp": {
-      "path": "bruegel_childrens_games/play.7ab07351fd.webp",
-      "bytes": 726108
-     }
+     "h": 1487
     },
     "zoom": {
      "avif": {
@@ -2064,11 +1972,7 @@
       "bytes": 1458659
      },
      "w": 3200,
-     "h": 2324,
-     "webp": {
-      "path": "bruegel_childrens_games/zoom.0e90697f30.webp",
-      "bytes": 2096616
-     }
+     "h": 2324
     }
    },
    "thumbs": {
@@ -2176,11 +2080,7 @@
       "bytes": 252185
      },
      "w": 2048,
-     "h": 1377,
-     "webp": {
-      "path": "hokusai_great_wave/play.3971ba1a8a.webp",
-      "bytes": 435426
-     }
+     "h": 1377
     },
     "zoom": {
      "avif": {
@@ -2188,11 +2088,7 @@
       "bytes": 573339
      },
      "w": 3200,
-     "h": 2151,
-     "webp": {
-      "path": "hokusai_great_wave/zoom.a114161308.webp",
-      "bytes": 1018730
-     }
+     "h": 2151
     }
    },
    "thumbs": {
@@ -2300,11 +2196,7 @@
       "bytes": 563028
      },
      "w": 2048,
-     "h": 1393,
-     "webp": {
-      "path": "millais_ophelia/play.fc129c7fd9.webp",
-      "bytes": 765692
-     }
+     "h": 1393
     },
     "zoom": {
      "avif": {
@@ -2312,11 +2204,7 @@
       "bytes": 1084566
      },
      "w": 3200,
-     "h": 2177,
-     "webp": {
-      "path": "millais_ophelia/zoom.c12ffea3a0.webp",
-      "bytes": 1614188
-     }
+     "h": 2177
     }
    },
    "thumbs": {
@@ -2448,11 +2336,7 @@
       "bytes": 135880
      },
      "w": 2048,
-     "h": 1571,
-     "webp": {
-      "path": "cezanne_apples_and_oranges/play.d52bdfb499.webp",
-      "bytes": 306122
-     }
+     "h": 1571
     },
     "zoom": {
      "avif": {
@@ -2460,11 +2344,7 @@
       "bytes": 317859
      },
      "w": 3141,
-     "h": 2410,
-     "webp": {
-      "path": "cezanne_apples_and_oranges/zoom.1fbf86d49c.webp",
-      "bytes": 722954
-     }
+     "h": 2410
     }
    },
    "thumbs": {

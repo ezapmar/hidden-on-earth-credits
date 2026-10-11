@@ -19,11 +19,16 @@ def tier(level, t, f):
 
 
 def picture(level, alt, width, height, sizes, small, large, lazy=True, cls=None):
+    """AVIF source with both tiers; the WebP fallback lists only the tiers that ship WebP
+    (play and zoom are AVIF only, so a browser without AVIF gets fit)."""
     attrs = f' width="{width}" height="{height}"' + (' loading="lazy"' if lazy else '')
+    T = L[level]['tiers']
+    webp = [t for t in (small, large) if 'webp' in T[t]]
+    webp_set = ', '.join(f'{tier(level, t, "webp")} {T[t]["w"]}w' for t in webp)
     return (
         f'<picture{" class=" + chr(34) + cls + chr(34) if cls else ""}>\n'
-        f'            <source type="image/avif" srcset="{tier(level, small, "avif")} {L[level]["tiers"][small]["w"]}w, {tier(level, large, "avif")} {L[level]["tiers"][large]["w"]}w" sizes="{sizes}">\n'
-        f'            <img src="{tier(level, large, "webp")}" srcset="{tier(level, small, "webp")} {L[level]["tiers"][small]["w"]}w, {tier(level, large, "webp")} {L[level]["tiers"][large]["w"]}w" sizes="{sizes}" alt="{alt}"{attrs}>\n'
+        f'            <source type="image/avif" srcset="{tier(level, small, "avif")} {T[small]["w"]}w, {tier(level, large, "avif")} {T[large]["w"]}w" sizes="{sizes}">\n'
+        f'            <img src="{tier(level, webp[-1], "webp")}" srcset="{webp_set}" sizes="{sizes}" alt="{alt}"{attrs}>\n'
         f'          </picture>'
     )
 

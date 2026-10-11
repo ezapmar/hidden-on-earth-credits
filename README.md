@@ -30,7 +30,7 @@ Every painting on the site, and every painting the web game will play, comes out
 | `thumb-<group>` | 128px square | the HUD card picture, cropped as the game's `ItemGroup.thumbRect` does |
 | `sticker` | 384px square | the detail earned for finishing, as `Level.stickerRect` |
 
-Each as AVIF (primary) and WebP (fallback). Nothing is upscaled: a source shorter than a tier gets that tier at its own size, and a tier that would repeat the previous one reuses its file. File names carry a hash of their own bytes, so they can be cached forever and a changed source never collides with a stale copy.
+`card`, `fit`, thumbs and stickers come as AVIF (primary) and WebP (fallback). `play` and `zoom` are AVIF only: every current browser decodes it, one that cannot still plays at `fit`, and the WebP copies were more than half the catalog's bytes. Nothing is upscaled: a source shorter than a tier gets that tier at its own size, and a tier that would repeat the previous one reuses its file. File names carry a hash of their own bytes, so they can be cached forever and a changed source never collides with a stale copy.
 
 ```bash
 npm install                      # once; sharp does the encoding

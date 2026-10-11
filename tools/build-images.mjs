@@ -11,9 +11,10 @@
      thumb  128px square      one per item group, the HUD card picture (ItemGroup.thumbRect)
      sticker 384px square     the detail earned for finishing (Level.stickerRect)
 
-   Each as AVIF (primary) and WebP (fallback). File names carry a hash of their own bytes, so
-   they can be served immutable forever and a changed source never collides with a cached
-   copy. Nothing is ever upscaled: a source shorter than a tier gets that tier at its own
+   card, fit, thumb and sticker come as AVIF (primary) and WebP (fallback); play and zoom are
+   AVIF only, since every current browser decodes it and a browser that cannot still plays at
+   fit. File names carry a hash of their own bytes, so they can be served immutable forever
+   and a changed source never collides with a cached copy. Nothing is ever upscaled: a source shorter than a tier gets that tier at its own
    size, and a tier that would repeat the previous one reuses its file.
 
    The manifest (assets/paintings.json by default) lists every output with its pixel size and
@@ -40,6 +41,10 @@ export const TIERS = { card: 320, fit: 1280, play: 2048, zoom: 3200 };
 export const THUMB_PX = 128;
 export const STICKER_PX = 384;
 export const FORMATS = ['avif', 'webp'];
+/* Which formats each tier carries. The big tiers are AVIF only: the WebP copies were 60% of
+   the catalog's bytes for browsers that no longer exist in number. */
+export const TIER_FORMATS = { card: FORMATS, fit: FORMATS, play: ['avif'], zoom: ['avif'] };
+export const formatsOf = (entry) => FORMATS.filter((f) => entry[f]);
 
 /* Encoder settings. Bump SETTINGS_VERSION when these change so every level is re-encoded. */
 const SETTINGS_VERSION = 1;
@@ -135,9 +140,9 @@ async function encode(pipeline, format, small) {
   return { data, w: info.width, h: info.height };
 }
 
-async function writeVariants(outDir, relDir, stem, pipeline, small) {
+async function writeVariants(outDir, relDir, stem, pipeline, small, formats = FORMATS) {
   const entry = {};
-  for (const format of FORMATS) {
+  for (const format of formats) {
     const { data, w, h } = await encode(pipeline, format, small);
     const name = `${stem}.${sha(data).slice(0, 10)}.${format}`;
     await fs.writeFile(path.join(outDir, relDir, name), data);
@@ -147,23 +152,33 @@ async function writeVariants(outDir, relDir, stem, pipeline, small) {
   return entry;
 }
 
+function levelPaths(entry) {
+  const paths = [];
+  for (const t of Object.values(entry.tiers)) for (const f of formatsOf(t)) paths.push(t[f].path);
+  for (const t of Object.values(entry.thumbs)) for (const f of formatsOf(t)) paths.push(t[f].path);
+  for (const f of formatsOf(entry.sticker)) paths.push(entry.sticker[f].path);
+  return paths;
+}
+
 function referencedPaths(manifest) {
   const set = new Set();
-  for (const lvl of Object.values(manifest.levels)) {
-    for (const t of Object.values(lvl.tiers)) for (const f of FORMATS) set.add(t[f].path);
-    for (const t of Object.values(lvl.thumbs)) for (const f of FORMATS) set.add(t[f].path);
-    for (const f of FORMATS) set.add(lvl.sticker[f].path);
-  }
+  for (const lvl of Object.values(manifest.levels)) for (const p of levelPaths(lvl)) set.add(p);
   return set;
 }
 
 async function allFilesExist(outDir, entry) {
-  const paths = [];
-  for (const t of Object.values(entry.tiers)) for (const f of FORMATS) paths.push(t[f].path);
-  for (const t of Object.values(entry.thumbs)) for (const f of FORMATS) paths.push(t[f].path);
-  for (const f of FORMATS) paths.push(entry.sticker[f].path);
-  const checks = await Promise.all(paths.map((p) => exists(path.join(outDir, p))));
+  const checks = await Promise.all(levelPaths(entry).map((p) => exists(path.join(outDir, p))));
   return checks.every(Boolean);
+}
+
+/* A previous entry may carry a format a tier no longer ships (the WebP play and zoom of the
+   first build). Drop it from the entry; prune removes the file. The AVIF it keeps is unchanged,
+   so nothing re-encodes. */
+function dropRetiredFormats(entry) {
+  for (const [tier, t] of Object.entries(entry.tiers)) {
+    for (const f of FORMATS) if (t[f] && !TIER_FORMATS[tier].includes(f)) delete t[f];
+  }
+  return entry;
 }
 
 async function buildLevel(level, args, previous) {
@@ -177,7 +192,7 @@ async function buildLevel(level, args, previous) {
 
   if (!args.force && previous && previous.source.sha256 === srcHash && previous.settings === SETTINGS_KEY
       && previous.schemaVersion === SETTINGS_VERSION && await allFilesExist(args.out, previous)) {
-    return { entry: previous, skipped: true };
+    return { entry: dropRetiredFormats(previous), skipped: true };
   }
 
   const meta = await sharp(src).metadata();
@@ -209,7 +224,7 @@ async function buildLevel(level, args, previous) {
       [W >= H ? 'width' : 'height']: Math.max(size.w, size.h),
       fit: 'inside', withoutEnlargement: true, kernel: 'lanczos3',
     });
-    tiers[tier] = await writeVariants(args.out, id, tier, pipeline, false);
+    tiers[tier] = await writeVariants(args.out, id, tier, pipeline, false, TIER_FORMATS[tier]);
     const got = tiers[tier];
     if (Math.max(got.w, got.h) !== Math.max(size.w, size.h) || Math.abs(got.w - size.w) > 1 || Math.abs(got.h - size.h) > 1) {
       throw new Error(`${id}/${tier}: expected ${key}, encoder produced ${got.w}x${got.h}`);
@@ -277,6 +292,7 @@ async function main() {
     schema: 1,
     base: path.relative(path.dirname(args.manifest), args.out).split(path.sep).join('/') + '/',
     tiers: TIERS,
+    tierFormats: TIER_FORMATS,
     thumb: THUMB_PX,
     sticker: STICKER_PX,
     formats: FORMATS,
@@ -307,11 +323,11 @@ async function main() {
   let total = { avif: 0, webp: 0 }, session = 0;
   for (const lvl of Object.values(manifest.levels)) {
     const seen = new Set();
-    for (const t of Object.values(lvl.tiers)) for (const f of FORMATS) {
+    for (const t of Object.values(lvl.tiers)) for (const f of formatsOf(t)) {
       if (seen.has(t[f].path)) continue; seen.add(t[f].path); total[f] += t[f].bytes;
     }
-    for (const t of Object.values(lvl.thumbs)) for (const f of FORMATS) total[f] += t[f].bytes;
-    for (const f of FORMATS) total[f] += lvl.sticker[f].bytes;
+    for (const t of Object.values(lvl.thumbs)) for (const f of formatsOf(t)) total[f] += t[f].bytes;
+    for (const f of formatsOf(lvl.sticker)) total[f] += lvl.sticker[f].bytes;
     session += lvl.tiers.card.avif.bytes + lvl.tiers.fit.avif.bytes;
   }
   console.log(`\n${built} built, ${reused} unchanged, ${skippedPrivate} private skipped, ${removed} stale files removed, ` +
