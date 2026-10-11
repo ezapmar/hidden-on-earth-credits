@@ -56,10 +56,16 @@
     </div>
     <div class="play">
       <div class="stage" id="stage">
-        <img src="assets/art/demo_tropical_forest.webp" alt="Tropical Forest with Monkeys, Henri Rousseau, 1910: a dense green jungle with red flowers and monkeys among the leaves" width="1600" height="1278">
+        <picture>
+            <source type="image/avif" srcset="assets/img/rousseau_tropical_forest/fit.a795c0ac3d.avif 1280w, assets/img/rousseau_tropical_forest/play.9877e1542d.avif 2048w" sizes="(min-width: 900px) 770px, calc(100vw - 40px)">
+            <img src="assets/img/rousseau_tropical_forest/fit.ff40d01671.webp" srcset="assets/img/rousseau_tropical_forest/fit.ff40d01671.webp 1280w" sizes="(min-width: 900px) 770px, calc(100vw - 40px)" alt="Tropical Forest with Monkeys, Henri Rousseau, 1910: a dense green jungle with red flowers and monkeys among the leaves" width="2048" height="1636">
+          </picture>
         <span class="miss" id="miss"></span>
         <div class="win" id="win" hidden>
-          <div class="sticker" style="background-image:url(assets/art/demo_tropical_forest.webp);background-size:555.6% 444.4%;background-position:70.7% 85.2%"></div>
+          <picture class="sticker">
+            <source type="image/avif" srcset="assets/img/rousseau_tropical_forest/sticker.ea15bf71dc.avif">
+            <img src="assets/img/rousseau_tropical_forest/sticker.a051027533.webp" alt="" width="384" height="384" loading="lazy">
+          </picture>
           <span class="new">New sticker!</span>
           <h3>You found them all!</h3>
           <button class="btn btn-primary" id="again" type="button">Play again</button>
@@ -67,15 +73,24 @@
       </div>
       <div class="hud">
         <button class="card" type="button" data-item="monkeys" aria-label="Monkeys, say the word">
-          <span class="thumb" style="background-image:url(assets/art/demo_tropical_forest.webp);background-size:833% 667%;background-position:22.4% 33.9%"></span>
+          <picture class="thumb">
+            <source type="image/avif" srcset="assets/img/rousseau_tropical_forest/thumb-monkeys.aca8a7072a.avif">
+            <img src="assets/img/rousseau_tropical_forest/thumb-monkeys.5a2e389c96.webp" alt="" width="128" height="128" loading="lazy">
+          </picture>
           <span><span class="name">Monkeys</span><span class="count">0 / 5</span></span>
         </button>
         <button class="card" type="button" data-item="snake" aria-label="Snake, say the word">
-          <span class="thumb" style="background-image:url(assets/art/demo_tropical_forest.webp);background-size:1000% 800%;background-position:25.9% 76%"></span>
+          <picture class="thumb">
+            <source type="image/avif" srcset="assets/img/rousseau_tropical_forest/thumb-snake.152c78a328.avif">
+            <img src="assets/img/rousseau_tropical_forest/thumb-snake.4a48907a93.webp" alt="" width="128" height="128" loading="lazy">
+          </picture>
           <span><span class="name">Snake</span><span class="count">0 / 1</span></span>
         </button>
         <button class="card" type="button" data-item="flowers" aria-label="White flowers, say the word">
-          <span class="thumb" style="background-image:url(assets/art/demo_tropical_forest.webp);background-size:870% 694%;background-position:27.7% 64.8%"></span>
+          <picture class="thumb">
+            <source type="image/avif" srcset="assets/img/rousseau_tropical_forest/thumb-white_flowers.c057e0d5c0.avif">
+            <img src="assets/img/rousseau_tropical_forest/thumb-white_flowers.3b75e0430a.webp" alt="" width="128" height="128" loading="lazy">
+          </picture>
           <span><span class="name">White flowers</span><span class="count">0 / 4</span></span>
         </button>
         <button class="btn btn-quiet" id="hint" type="button">Hint</button>
@@ -205,55 +220,82 @@
         <div class="row-head"><span class="dot"></span><h3>Animals</h3></div>
         <div class="gallery">
         <article class="painting">
-          <img src="assets/art/seurat_grande_jatte.webp" alt="A Sunday on La Grande Jatte, Georges Seurat, 1884" width="720" height="483" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/seurat_grande_jatte/card.bd8a6560b9.avif 320w, assets/img/seurat_grande_jatte/fit.a07cd29ff0.avif 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)">
+            <img src="assets/img/seurat_grande_jatte/fit.205b96217f.webp" srcset="assets/img/seurat_grande_jatte/card.fa99afa183.webp 320w, assets/img/seurat_grande_jatte/fit.205b96217f.webp 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)" alt="A Sunday on La Grande Jatte, Georges Seurat, 1884" width="1280" height="858" loading="lazy">
+          </picture>
           <h3>A Sunday on La Grande Jatte</h3>
           <div class="by">Georges Seurat, 1884 · 6 things to find</div>
           <p class="find">Dogs <b>3</b>, Monkey, Butterfly, Girl in white</p>
         </article>
         <article class="painting">
-          <img src="assets/art/rousseau_tropical_forest.webp" alt="Tropical Forest with Monkeys, Henri Rousseau, 1910" width="720" height="576" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/rousseau_tropical_forest/card.071d06d1ed.avif 320w, assets/img/rousseau_tropical_forest/fit.a795c0ac3d.avif 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)">
+            <img src="assets/img/rousseau_tropical_forest/fit.ff40d01671.webp" srcset="assets/img/rousseau_tropical_forest/card.5d8a8cfe74.webp 320w, assets/img/rousseau_tropical_forest/fit.ff40d01671.webp 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)" alt="Tropical Forest with Monkeys, Henri Rousseau, 1910" width="1280" height="1023" loading="lazy">
+          </picture>
           <h3>Tropical Forest with Monkeys</h3>
           <div class="by">Henri Rousseau, 1910 · 10 things to find</div>
           <p class="find">Monkeys <b>5</b>, Snake, White flowers <b>4</b></p>
         </article>
         <article class="painting">
-          <img src="assets/art/hicks_peaceable_kingdom.webp" alt="Peaceable Kingdom, Edward Hicks, 1834" width="720" height="601" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/hicks_peaceable_kingdom/card.c65a966580.avif 320w, assets/img/hicks_peaceable_kingdom/fit.160dccb3b0.avif 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)">
+            <img src="assets/img/hicks_peaceable_kingdom/fit.881c541de2.webp" srcset="assets/img/hicks_peaceable_kingdom/card.8522eecdee.webp 320w, assets/img/hicks_peaceable_kingdom/fit.881c541de2.webp 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)" alt="Peaceable Kingdom, Edward Hicks, 1834" width="1280" height="1068" loading="lazy">
+          </picture>
           <h3>Peaceable Kingdom</h3>
           <div class="by">Edward Hicks, 1834 · 10 things to find</div>
           <p class="find">Lion, Leopards <b>2</b>, Bears <b>2</b>, Wolf, Lamb, Children <b>3</b></p>
         </article>
         <article class="painting">
-          <img src="assets/art/rousseau_surprised.webp" alt="Surprised!, Henri Rousseau, 1891" width="720" height="576" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/rousseau_surprised/card.85d67f6567.avif 320w, assets/img/rousseau_surprised/fit.46e26a896d.avif 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)">
+            <img src="assets/img/rousseau_surprised/fit.b742a00c39.webp" srcset="assets/img/rousseau_surprised/card.7b0410c75c.webp 320w, assets/img/rousseau_surprised/fit.b742a00c39.webp 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)" alt="Surprised!, Henri Rousseau, 1891" width="1280" height="1023" loading="lazy">
+          </picture>
           <h3>Surprised!</h3>
           <div class="by">Henri Rousseau, 1891 · 8 things to find</div>
           <p class="find">Tiger, Tiger&#x27;s tail, Tiger&#x27;s paws <b>2</b>, Red flowers, Feathery plants <b>2</b>, Painter&#x27;s signature</p>
         </article>
         <article class="painting">
-          <img src="assets/art/brueghel_noahs_ark.webp" alt="The Animals Enter the Ark, Jan Brueghel the Elder, 1613" width="720" height="456" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/brueghel_noahs_ark/card.9a38fa8bb5.avif 320w, assets/img/brueghel_noahs_ark/fit.2705b3b4c0.avif 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)">
+            <img src="assets/img/brueghel_noahs_ark/fit.99ce617f82.webp" srcset="assets/img/brueghel_noahs_ark/card.5e8e04d7b2.webp 320w, assets/img/brueghel_noahs_ark/fit.99ce617f82.webp 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)" alt="The Animals Enter the Ark, Jan Brueghel the Elder, 1613" width="1280" height="810" loading="lazy">
+          </picture>
           <h3>The Animals Enter the Ark</h3>
           <div class="by">Jan Brueghel the Elder, 1613 · 15 things to find</div>
           <p class="find">White horse, Lions <b>2</b>, Leopards <b>2</b>, Ostriches <b>2</b>, Elephant, Swans <b>2</b>, Turkey, Red macaws <b>2</b>, Owl, Cat in the tree</p>
         </article>
         <article class="painting">
-          <img src="assets/art/hondecoeter_menagerie.webp" alt="The Menagerie, Melchior d&#x27;Hondecoeter, c. 1690" width="590" height="720" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/hondecoeter_menagerie/card.5ffce774ba.avif 262w, assets/img/hondecoeter_menagerie/fit.5c856b6872.avif 1049w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)">
+            <img src="assets/img/hondecoeter_menagerie/fit.bdb43d8ec9.webp" srcset="assets/img/hondecoeter_menagerie/card.b6db93191b.webp 262w, assets/img/hondecoeter_menagerie/fit.bdb43d8ec9.webp 1049w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)" alt="The Menagerie, Melchior d&#x27;Hondecoeter, c. 1690" width="1049" height="1280" loading="lazy">
+          </picture>
           <h3>The Menagerie</h3>
           <div class="by">Melchior d&#x27;Hondecoeter, c. 1690 · 10 things to find</div>
           <p class="find">White cockatoos <b>2</b>, Grey parrot, Monkeys <b>2</b>, Red crested birds <b>2</b>, Long-tailed parrot, Red parrot, Pink-breasted bird</p>
         </article>
         <article class="painting">
-          <img src="assets/art/savery_landscape_with_birds.webp" alt="Landscape with Birds, Roelant Savery, 1628" width="720" height="508" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/savery_landscape_with_birds/card.162e78f482.avif 320w, assets/img/savery_landscape_with_birds/fit.95f6288dc8.avif 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)">
+            <img src="assets/img/savery_landscape_with_birds/fit.18833a5ae7.webp" srcset="assets/img/savery_landscape_with_birds/card.b6b39424b1.webp 320w, assets/img/savery_landscape_with_birds/fit.18833a5ae7.webp 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)" alt="Landscape with Birds, Roelant Savery, 1628" width="1280" height="903" loading="lazy">
+          </picture>
           <h3>Landscape with Birds</h3>
           <div class="by">Roelant Savery, 1628 · 10 things to find</div>
           <p class="find">Ostriches <b>2</b>, Rooster, Eagle, Crowned cranes <b>2</b>, Red macaws <b>2</b>, Peacock, Turkey</p>
         </article>
         <article class="painting">
-          <img src="assets/art/brueghel_rubens_garden_of_eden.webp" alt="The Garden of Eden, Jan Brueghel the Elder &amp; Peter Paul Rubens, c. 1615" width="720" height="465" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/brueghel_rubens_garden_of_eden/card.56f0490859.avif 320w, assets/img/brueghel_rubens_garden_of_eden/fit.ac3be27240.avif 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)">
+            <img src="assets/img/brueghel_rubens_garden_of_eden/fit.db8a8c2952.webp" srcset="assets/img/brueghel_rubens_garden_of_eden/card.90c795ddb2.webp 320w, assets/img/brueghel_rubens_garden_of_eden/fit.db8a8c2952.webp 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)" alt="The Garden of Eden, Jan Brueghel the Elder &amp; Peter Paul Rubens, c. 1615" width="1280" height="827" loading="lazy">
+          </picture>
           <h3>The Garden of Eden</h3>
           <div class="by">Jan Brueghel the Elder &amp; Peter Paul Rubens, c. 1615 · 10 things to find</div>
           <p class="find">Lion, Tiger, Leopard, Ostrich, Horse, Peacock, White rabbit, White dog, Elephant, Snake in the tree</p>
         </article>
         <article class="painting">
-          <img src="assets/art/bosch_garden_of_eden.webp" alt="The Earthly Paradise, Hieronymus Bosch, c. 1490–1510" width="295" height="720" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/bosch_garden_of_eden/card.63a5a0dd33.avif 131w, assets/img/bosch_garden_of_eden/fit.cac8e7e865.avif 524w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)">
+            <img src="assets/img/bosch_garden_of_eden/fit.60332e6be4.webp" srcset="assets/img/bosch_garden_of_eden/card.c957688acd.webp 131w, assets/img/bosch_garden_of_eden/fit.60332e6be4.webp 524w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)" alt="The Earthly Paradise, Hieronymus Bosch, c. 1490–1510" width="524" height="1280" loading="lazy">
+          </picture>
           <h3>The Earthly Paradise</h3>
           <div class="by">Hieronymus Bosch, c. 1490–1510 · 6 things to find</div>
           <p class="find">Elephant, Giraffe, Porcupine, Owl, Swan, Cat</p>
@@ -264,13 +306,19 @@
         <div class="row-head"><span class="dot"></span><h3>Winter</h3></div>
         <div class="gallery">
         <article class="painting">
-          <img src="assets/art/bruegel_hunters_in_the_snow.webp" alt="The Hunters in the Snow, Pieter Bruegel, 1565" width="720" height="513" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/bruegel_hunters_in_the_snow/card.b6829b6f62.avif 320w, assets/img/bruegel_hunters_in_the_snow/fit.400f1d1797.avif 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)">
+            <img src="assets/img/bruegel_hunters_in_the_snow/fit.fa8bb38130.webp" srcset="assets/img/bruegel_hunters_in_the_snow/card.62911f0056.webp 320w, assets/img/bruegel_hunters_in_the_snow/fit.fa8bb38130.webp 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)" alt="The Hunters in the Snow, Pieter Bruegel, 1565" width="1280" height="911" loading="lazy">
+          </picture>
           <h3>The Hunters in the Snow</h3>
           <div class="by">Pieter Bruegel, 1565 · 13 things to find</div>
           <p class="find">Hunters <b>3</b>, Fire, Church tower, Big bird, Bridge, Inn sign, Mountains, Birds on the branches <b>3</b>, Red roof</p>
         </article>
         <article class="painting">
-          <img src="assets/art/avercamp_winter_landscape.webp" alt="Winter Landscape with Ice Skaters, Hendrick Avercamp, 1608" width="720" height="416" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/avercamp_winter_landscape/card.8f5953e0e4.avif 320w, assets/img/avercamp_winter_landscape/fit.6444bf4377.avif 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)">
+            <img src="assets/img/avercamp_winter_landscape/fit.51bbcc0f1f.webp" srcset="assets/img/avercamp_winter_landscape/card.a2e05ef488.webp 320w, assets/img/avercamp_winter_landscape/fit.51bbcc0f1f.webp 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)" alt="Winter Landscape with Ice Skaters, Hendrick Avercamp, 1608" width="1280" height="739" loading="lazy">
+          </picture>
           <h3>Winter Landscape with Ice Skaters</h3>
           <div class="by">Hendrick Avercamp, 1608 · 4 things to find</div>
           <p class="find">Church tower, Fishing net, Red sleigh, Fallen skater</p>
@@ -281,13 +329,19 @@
         <div class="row-head"><span class="dot"></span><h3>Night</h3></div>
         <div class="gallery">
         <article class="painting">
-          <img src="assets/art/rousseau_the_dream.webp" alt="The Dream, Henri Rousseau, 1910" width="720" height="491" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/rousseau_the_dream/card.fd25a79e2c.avif 320w, assets/img/rousseau_the_dream/fit.828a2309e4.avif 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)">
+            <img src="assets/img/rousseau_the_dream/fit.1069aa7ae6.webp" srcset="assets/img/rousseau_the_dream/card.def39a1e90.webp 320w, assets/img/rousseau_the_dream/fit.1069aa7ae6.webp 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)" alt="The Dream, Henri Rousseau, 1910" width="1280" height="871" loading="lazy">
+          </picture>
           <h3>The Dream</h3>
           <div class="by">Henri Rousseau, 1910 · 6 things to find</div>
           <p class="find">Moon, Lions <b>2</b>, Elephant, Snake, Flute player</p>
         </article>
         <article class="painting">
-          <img src="assets/art/vangogh_starry_night.webp" alt="The Starry Night, Vincent van Gogh, 1889" width="720" height="571" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/vangogh_starry_night/card.3980efc097.avif 320w, assets/img/vangogh_starry_night/fit.b5afad9d64.avif 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)">
+            <img src="assets/img/vangogh_starry_night/fit.c09e1f163d.webp" srcset="assets/img/vangogh_starry_night/card.e18ae4c33d.webp 320w, assets/img/vangogh_starry_night/fit.c09e1f163d.webp 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)" alt="The Starry Night, Vincent van Gogh, 1889" width="1280" height="1013" loading="lazy">
+          </picture>
           <h3>The Starry Night</h3>
           <div class="by">Vincent van Gogh, 1889 · 17 things to find</div>
           <p class="find">Moon, Cypress tree, Church tower, Stars <b>11</b>, Swirl in the sky, Mountains, The village</p>
@@ -298,7 +352,10 @@
         <div class="row-head"><span class="dot"></span><h3>Children</h3></div>
         <div class="gallery">
         <article class="painting">
-          <img src="assets/art/bruegel_childrens_games.webp" alt="Children&#x27;s Games, Pieter Bruegel, 1560" width="720" height="523" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/bruegel_childrens_games/card.92f7c4294d.avif 320w, assets/img/bruegel_childrens_games/fit.d458affc86.avif 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)">
+            <img src="assets/img/bruegel_childrens_games/fit.f7a876394e.webp" srcset="assets/img/bruegel_childrens_games/card.2a13f476fe.webp 320w, assets/img/bruegel_childrens_games/fit.f7a876394e.webp 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)" alt="Children&#x27;s Games, Pieter Bruegel, 1560" width="1280" height="929" loading="lazy">
+          </picture>
           <h3>Children&#x27;s Games</h3>
           <div class="by">Pieter Bruegel, 1560 · 6 things to find</div>
           <p class="find">Barrels <b>2</b>, Hoops <b>2</b>, Hobby horse, Boy on stilts</p>
@@ -309,7 +366,10 @@
         <div class="row-head"><span class="dot"></span><h3>The sea</h3></div>
         <div class="gallery">
         <article class="painting">
-          <img src="assets/art/hokusai_great_wave.webp" alt="The Great Wave off Kanagawa, Katsushika Hokusai, 1831" width="720" height="484" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/hokusai_great_wave/card.1cf6e08ac6.avif 320w, assets/img/hokusai_great_wave/fit.340ec03f33.avif 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)">
+            <img src="assets/img/hokusai_great_wave/fit.90a86e40b6.webp" srcset="assets/img/hokusai_great_wave/card.0f68edc233.webp 320w, assets/img/hokusai_great_wave/fit.90a86e40b6.webp 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)" alt="The Great Wave off Kanagawa, Katsushika Hokusai, 1831" width="1280" height="861" loading="lazy">
+          </picture>
           <h3>The Great Wave off Kanagawa</h3>
           <div class="by">Katsushika Hokusai, 1831 · 7 things to find</div>
           <p class="find">The big wave, Boats <b>3</b>, Mount Fuji, Japanese writing <b>2</b></p>
@@ -320,7 +380,10 @@
         <div class="row-head"><span class="dot"></span><h3>Flowers</h3></div>
         <div class="gallery">
         <article class="painting">
-          <img src="assets/art/millais_ophelia.webp" alt="Ophelia, John Everett Millais, 1852" width="720" height="490" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/millais_ophelia/card.2c1e9f23f0.avif 320w, assets/img/millais_ophelia/fit.a309851579.avif 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)">
+            <img src="assets/img/millais_ophelia/fit.a1fa68130e.webp" srcset="assets/img/millais_ophelia/card.f527b4dde1.webp 320w, assets/img/millais_ophelia/fit.a1fa68130e.webp 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)" alt="Ophelia, John Everett Millais, 1852" width="1280" height="871" loading="lazy">
+          </picture>
           <h3>Ophelia</h3>
           <div class="by">John Everett Millais, 1852 · 8 things to find</div>
           <p class="find">The lady in the water, Her hands <b>2</b>, Tree trunk, Pink flowers <b>2</b>, Red poppy, Little bird</p>
@@ -331,7 +394,10 @@
         <div class="row-head"><span class="dot"></span><h3>Fruit</h3></div>
         <div class="gallery">
         <article class="painting">
-          <img src="assets/art/cezanne_apples_and_oranges.webp" alt="Apples and Oranges, Paul Cézanne, 1899" width="720" height="553" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/cezanne_apples_and_oranges/card.c63dd19816.avif 320w, assets/img/cezanne_apples_and_oranges/fit.ca849c5ae5.avif 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)">
+            <img src="assets/img/cezanne_apples_and_oranges/fit.899e630444.webp" srcset="assets/img/cezanne_apples_and_oranges/card.7a3172363f.webp 320w, assets/img/cezanne_apples_and_oranges/fit.899e630444.webp 1280w" sizes="(min-width: 1080px) 240px, (min-width: 640px) 45vw, calc(100vw - 40px)" alt="Apples and Oranges, Paul Cézanne, 1899" width="1280" height="982" loading="lazy">
+          </picture>
           <h3>Apples and Oranges</h3>
           <div class="by">Paul Cézanne, 1899 · 15 things to find</div>
           <p class="find">Jug, Oranges in the bowl <b>5</b>, Fruits next to the jug <b>5</b>, Plate of apples, Apples on the cloth <b>2</b>, White cloth</p>

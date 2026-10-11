@@ -1,0 +1,14 @@
+{
+  "name": "hidden-on-earth-site",
+  "private": true,
+  "description": "Public site for Hidden on Earth: Seek & Find, and the image pipeline that feeds it.",
+  "type": "module",
+  "scripts": {
+    "images": "node tools/build-images.mjs",
+    "images:verify": "node tools/verify-images.mjs",
+    "serve": "python3 -m http.server 8080"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.3"
+  }
+}

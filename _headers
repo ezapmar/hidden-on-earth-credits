@@ -1,0 +1,13 @@
+# Cloudflare Pages headers (GitHub Pages ignores this file).
+# Image files carry a hash of their bytes in the name, so they never change: cache them forever.
+# The manifest and the service worker are the two things that point at new files, so they must
+# be re-checked on every load.
+
+/assets/img/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/paintings.json
+  Cache-Control: public, max-age=0, must-revalidate
+
+/sw.js
+  Cache-Control: no-cache

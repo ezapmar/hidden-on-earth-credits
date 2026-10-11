@@ -234,3 +234,11 @@
     window.speechSynthesis.cancel(); window.speechSynthesis.speak(u);
   });
 })();
+
+/* Offline: the service worker keeps every painting's card and fit tiers, and the play and
+   zoom tiers of the ones opened. It only touches assets/img/ and the manifest; see sw.js. */
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  });
+}
