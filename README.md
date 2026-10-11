@@ -13,6 +13,6 @@ Plain static HTML, served by GitHub Pages from `main`. No build step, no externa
 
 Design follows the brainless family: night, bone and vermilion, flat fills, stepped corners, a woven band between sections and kilim motifs drawn as 15 by 15 knot grids (`site.js`).
 
-The painting list on the home page and the hiding places in the playable painting are copied from the game's `levels.json`. When a painting or a count changes in the game, change it here too.
+The painting list on the home page and the hiding places in the playable painting are copied from the game's `levels.json` (in the `seek-and-find` repo). When a painting or a count changes in the game, change it here too.
 
 The four pictures in *Your collection* are original works by Dünya Üçer, used with the family's permission. They are not published on this site.
