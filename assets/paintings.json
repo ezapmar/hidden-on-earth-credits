@@ -2433,6 +2433,262 @@
      "bytes": 23124
     }
    }
+  },
+  "sanchez_cotan_still_life": {
+   "aspect": {
+    "w": 1920,
+    "h": 1499
+   },
+   "source": {
+    "sha256": "e55052a69d9cb0f955075d2d41cf12d6328121ad0b30ee6522ebc27011d07eeb",
+    "bytes": 2350492
+   },
+   "settings": "v1/avif50-60/webp76-82",
+   "schemaVersion": 1,
+   "tiers": {
+    "card": {
+     "avif": {
+      "path": "sanchez_cotan_still_life/card.4d3c2ae762.avif",
+      "bytes": 8028
+     },
+     "w": 320,
+     "h": 249,
+     "webp": {
+      "path": "sanchez_cotan_still_life/card.63cb4b8691.webp",
+      "bytes": 10876
+     }
+    },
+    "fit": {
+     "avif": {
+      "path": "sanchez_cotan_still_life/fit.73c1d218e3.avif",
+      "bytes": 71536
+     },
+     "w": 1280,
+     "h": 999,
+     "webp": {
+      "path": "sanchez_cotan_still_life/fit.d4c5cf3dfc.webp",
+      "bytes": 117724
+     }
+    },
+    "play": {
+     "avif": {
+      "path": "sanchez_cotan_still_life/play.9f7bc8d4e0.avif",
+      "bytes": 181550
+     },
+     "w": 1920,
+     "h": 1499
+    },
+    "zoom": {
+     "avif": {
+      "path": "sanchez_cotan_still_life/play.9f7bc8d4e0.avif",
+      "bytes": 181550
+     },
+     "w": 1920,
+     "h": 1499
+    }
+   },
+   "thumbs": {
+    "lemons": {
+     "avif": {
+      "path": "sanchez_cotan_still_life/thumb-lemons.182b038631.avif",
+      "bytes": 2749
+     },
+     "w": 128,
+     "h": 128,
+     "webp": {
+      "path": "sanchez_cotan_still_life/thumb-lemons.b50a4bc81c.webp",
+      "bytes": 2976
+     }
+    },
+    "small_birds": {
+     "avif": {
+      "path": "sanchez_cotan_still_life/thumb-small_birds.e412e0386a.avif",
+      "bytes": 2131
+     },
+     "w": 128,
+     "h": 128,
+     "webp": {
+      "path": "sanchez_cotan_still_life/thumb-small_birds.696f8f79c0.webp",
+      "bytes": 2160
+     }
+    },
+    "partridges": {
+     "avif": {
+      "path": "sanchez_cotan_still_life/thumb-partridges.6d79a9b699.avif",
+      "bytes": 2714
+     },
+     "w": 128,
+     "h": 128,
+     "webp": {
+      "path": "sanchez_cotan_still_life/thumb-partridges.9f241df9f6.webp",
+      "bytes": 2700
+     }
+    },
+    "apples": {
+     "avif": {
+      "path": "sanchez_cotan_still_life/thumb-apples.6af30198fc.avif",
+      "bytes": 3512
+     },
+     "w": 128,
+     "h": 128,
+     "webp": {
+      "path": "sanchez_cotan_still_life/thumb-apples.5fe1e9e0bf.webp",
+      "bytes": 3586
+     }
+    },
+    "skewered_birds": {
+     "avif": {
+      "path": "sanchez_cotan_still_life/thumb-skewered_birds.8406c0c016.avif",
+      "bytes": 4627
+     },
+     "w": 128,
+     "h": 128,
+     "webp": {
+      "path": "sanchez_cotan_still_life/thumb-skewered_birds.50c6f94c2a.webp",
+      "bytes": 4738
+     }
+    },
+    "carrots": {
+     "avif": {
+      "path": "sanchez_cotan_still_life/thumb-carrots.cd570a23b8.avif",
+      "bytes": 3145
+     },
+     "w": 128,
+     "h": 128,
+     "webp": {
+      "path": "sanchez_cotan_still_life/thumb-carrots.953fc5ba1c.webp",
+      "bytes": 3252
+     }
+    },
+    "leek": {
+     "avif": {
+      "path": "sanchez_cotan_still_life/thumb-leek.c0c539fbe2.avif",
+      "bytes": 3776
+     },
+     "w": 128,
+     "h": 128,
+     "webp": {
+      "path": "sanchez_cotan_still_life/thumb-leek.85dfb6498f.webp",
+      "bytes": 4034
+     }
+    }
+   },
+   "sticker": {
+    "avif": {
+     "path": "sanchez_cotan_still_life/sticker.9af71b53dd.avif",
+     "bytes": 14575
+    },
+    "w": 384,
+    "h": 384,
+    "webp": {
+     "path": "sanchez_cotan_still_life/sticker.969efdc494.webp",
+     "bytes": 17248
+    }
+   }
+  },
+  "peale_blackberries": {
+   "aspect": {
+    "w": 1220,
+    "h": 856
+   },
+   "source": {
+    "sha256": "6cac4dc12b8980e15c0f0acda1c243617b0fbfd2f223093fed8864ee3a88875d",
+    "bytes": 163875
+   },
+   "settings": "v1/avif50-60/webp76-82",
+   "schemaVersion": 1,
+   "tiers": {
+    "card": {
+     "avif": {
+      "path": "peale_blackberries/card.841e68edba.avif",
+      "bytes": 4809
+     },
+     "w": 320,
+     "h": 225,
+     "webp": {
+      "path": "peale_blackberries/card.258ab6215f.webp",
+      "bytes": 6828
+     }
+    },
+    "fit": {
+     "avif": {
+      "path": "peale_blackberries/fit.41371dfe06.avif",
+      "bytes": 55431
+     },
+     "w": 1220,
+     "h": 856,
+     "webp": {
+      "path": "peale_blackberries/fit.73cc5c9aef.webp",
+      "bytes": 86112
+     }
+    },
+    "play": {
+     "avif": {
+      "path": "peale_blackberries/fit.41371dfe06.avif",
+      "bytes": 55431
+     },
+     "w": 1220,
+     "h": 856
+    },
+    "zoom": {
+     "avif": {
+      "path": "peale_blackberries/fit.41371dfe06.avif",
+      "bytes": 55431
+     },
+     "w": 1220,
+     "h": 856
+    }
+   },
+   "thumbs": {
+    "blackberries": {
+     "avif": {
+      "path": "peale_blackberries/thumb-blackberries.ed68e7aea0.avif",
+      "bytes": 2373
+     },
+     "w": 128,
+     "h": 128,
+     "webp": {
+      "path": "peale_blackberries/thumb-blackberries.a254b3d390.webp",
+      "bytes": 2378
+     }
+    },
+    "raspberries": {
+     "avif": {
+      "path": "peale_blackberries/thumb-raspberries.0d2509bca1.avif",
+      "bytes": 2325
+     },
+     "w": 128,
+     "h": 128,
+     "webp": {
+      "path": "peale_blackberries/thumb-raspberries.23715f3eac.webp",
+      "bytes": 2402
+     }
+    },
+    "bowl": {
+     "avif": {
+      "path": "peale_blackberries/thumb-bowl.3ce6d87825.avif",
+      "bytes": 2070
+     },
+     "w": 128,
+     "h": 128,
+     "webp": {
+      "path": "peale_blackberries/thumb-bowl.e601724598.webp",
+      "bytes": 2164
+     }
+    }
+   },
+   "sticker": {
+    "avif": {
+     "path": "peale_blackberries/sticker.7a795a0782.avif",
+     "bytes": 18942
+    },
+    "w": 384,
+    "h": 384,
+    "webp": {
+     "path": "peale_blackberries/sticker.06faec82e4.webp",
+     "bytes": 19828
+    }
+   }
   }
  }
 }

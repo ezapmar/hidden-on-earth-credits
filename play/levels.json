@@ -58,6 +58,14 @@
    "symbol": "fork.knife"
   },
   {
+   "id": "still_life",
+   "titles": {
+    "en": "Still life",
+    "tr": "Natürmort"
+   },
+   "symbol": "basket.fill"
+  },
+  {
    "id": "yours",
    "titles": {
     "en": "Your collection",
@@ -2316,6 +2324,255 @@
       "w": 0.18,
       "h": 0.235
      }
+    }
+   ]
+  },
+  {
+   "id": "sanchez_cotan_still_life",
+   "titles": {
+    "en": "Still Life with Game, Vegetables and Fruit",
+    "tr": "Av, Sebze ve Meyveli Natürmort"
+   },
+   "artist": "Juan Sánchez Cotán, 1602",
+   "imageName": "sanchez_cotan_still_life",
+   "aspect": {
+    "w": 1920,
+    "h": 1499
+   },
+   "collection": "still_life",
+   "sticker": {
+    "x": 0.22,
+    "y": 0.02,
+    "w": 0.3125,
+    "h": 0.4003
+   },
+   "items": [
+    {
+     "id": "lemons",
+     "names": {
+      "en": "Lemons",
+      "tr": "Limonlar"
+     },
+     "targets": [
+      {
+       "x": 0.1276,
+       "y": 0.1201,
+       "r": 0.03
+      },
+      {
+       "x": 0.2005,
+       "y": 0.1187,
+       "r": 0.03
+      },
+      {
+       "x": 0.151,
+       "y": 0.2148,
+       "r": 0.03
+      }
+     ]
+    },
+    {
+     "id": "small_birds",
+     "names": {
+      "en": "Small birds",
+      "tr": "Küçük kuşlar"
+     },
+     "targets": [
+      {
+       "x": 0.3594,
+       "y": 0.1601,
+       "r": 0.025
+      },
+      {
+       "x": 0.4141,
+       "y": 0.1748,
+       "r": 0.025
+      }
+     ]
+    },
+    {
+     "id": "partridges",
+     "names": {
+      "en": "Hanging partridges",
+      "tr": "Asılı keklikler"
+     },
+     "targets": [
+      {
+       "x": 0.4844,
+       "y": 0.2802,
+       "r": 0.05
+      },
+      {
+       "x": 0.5521,
+       "y": 0.3469,
+       "r": 0.05
+      }
+     ]
+    },
+    {
+     "id": "apples",
+     "names": {
+      "en": "Hanging apples",
+      "tr": "Asılı elmalar"
+     },
+     "targets": [
+      {
+       "x": 0.2917,
+       "y": 0.4803,
+       "r": 0.04
+      },
+      {
+       "x": 0.3594,
+       "y": 0.4803,
+       "r": 0.04
+      }
+     ]
+    },
+    {
+     "id": "skewered_birds",
+     "names": {
+      "en": "Birds on the stick",
+      "tr": "Çubuktaki kuşlar"
+     },
+     "targets": [
+      {
+       "x": 0.1302,
+       "y": 0.5937,
+       "r": 0.05
+      },
+      {
+       "x": 0.1719,
+       "y": 0.467,
+       "r": 0.04
+      }
+     ]
+    },
+    {
+     "id": "carrots",
+     "names": {
+      "en": "Carrots",
+      "tr": "Havuçlar"
+     },
+     "targets": [
+      {
+       "x": 0.25,
+       "y": 0.7939,
+       "r": 0.05
+      },
+      {
+       "x": 0.1198,
+       "y": 0.8205,
+       "r": 0.04
+      }
+     ]
+    },
+    {
+     "id": "leek",
+     "names": {
+      "en": "Leek",
+      "tr": "Pırasa"
+     },
+     "targets": [
+      {
+       "x": 0.5625,
+       "y": 0.8005,
+       "r": 0.06
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "peale_blackberries",
+   "titles": {
+    "en": "Blackberries",
+    "tr": "Böğürtlenler"
+   },
+   "artist": "Raphaelle Peale, c. 1813",
+   "imageName": "peale_blackberries",
+   "aspect": {
+    "w": 1220,
+    "h": 856
+   },
+   "collection": "still_life",
+   "sticker": {
+    "x": 0.45,
+    "y": 0.27,
+    "w": 0.41,
+    "h": 0.5841
+   },
+   "items": [
+    {
+     "id": "blackberries",
+     "names": {
+      "en": "Blackberries",
+      "tr": "Böğürtlenler"
+     },
+     "targets": [
+      {
+       "x": 0.1475,
+       "y": 0.625,
+       "r": 0.035
+      },
+      {
+       "x": 0.1598,
+       "y": 0.8119,
+       "r": 0.035
+      },
+      {
+       "x": 0.3607,
+       "y": 0.6834,
+       "r": 0.03
+      },
+      {
+       "x": 0.6107,
+       "y": 0.7185,
+       "r": 0.03
+      }
+     ]
+    },
+    {
+     "id": "raspberries",
+     "names": {
+      "en": "Raspberries",
+      "tr": "Ahududular"
+     },
+     "targets": [
+      {
+       "x": 0.082,
+       "y": 0.7769,
+       "r": 0.03
+      },
+      {
+       "x": 0.623,
+       "y": 0.3797,
+       "r": 0.035
+      },
+      {
+       "x": 0.791,
+       "y": 0.5549,
+       "r": 0.03
+      },
+      {
+       "x": 0.832,
+       "y": 0.59,
+       "r": 0.03
+      }
+     ]
+    },
+    {
+     "id": "bowl",
+     "names": {
+      "en": "The bowl",
+      "tr": "Kase"
+     },
+     "targets": [
+      {
+       "x": 0.5082,
+       "y": 0.8061,
+       "r": 0.065
+      }
+     ]
     }
    ]
   }
