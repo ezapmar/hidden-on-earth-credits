@@ -188,6 +188,27 @@
   .card picture, .card img { width: 34px; height: 34px; border-radius: 8px; object-fit: cover; display: block }
   .card .name { font-size: .85rem }
   .card .count { font-size: .78rem; opacity: .65; font-variant-numeric: tabular-nums }
+  /* ------------------------------------------------------------ rotate hint
+     A wide painting fitted into a tall phone screen is tiny: on a 375x812 phone the picture
+     occupies about a third of the height and the rest is dead space. The Swift app sidesteps
+     this by locking iPhone to landscape (UISupportedInterfaceOrientations); the Android shell
+     does the same on phones. The web cannot lock, so it asks. Phones only: 600px is below
+     every tablet in portrait (iPad mini is 744) and above every phone. */
+  #rotate { display: none }
+  @media (orientation: portrait) and (max-width: 600px) {
+    body[data-screen="game"] #rotate {
+      position: fixed; inset: 0; z-index: 20; display: grid; place-content: center;
+      justify-items: center; gap: 1.2rem; padding: 2rem; text-align: center;
+      background: var(--night);
+    }
+    body[data-screen="game"] #rotate svg { width: 5rem; height: 5rem; color: var(--gold) }
+    body[data-screen="game"] #rotate p { margin: 0; font-size: 1.15rem; font-weight: 700; max-width: 18ch }
+    @media (prefers-reduced-motion: no-preference) {
+      body[data-screen="game"] #rotate svg { animation: tilt 2.4s ease-in-out infinite }
+    }
+  }
+  @keyframes tilt { 0%, 40%, 100% { transform: rotate(0) } 60%, 90% { transform: rotate(-90deg) } }
+
   #win {
     position: absolute; inset: 0; display: grid; place-content: center; gap: .8rem; justify-items: center;
     background: rgba(28,26,36,.85); text-align: center; padding: 1rem;
@@ -232,6 +253,15 @@
   </div>
 
   <div id="hud"></div>
+
+  <div id="rotate">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"
+            d="M7 2.5h10a1.5 1.5 0 0 1 1.5 1.5v16a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 20V4A1.5 1.5 0 0 1 7 2.5Z"/>
+      <circle cx="12" cy="18.3" r=".9" fill="currentColor"/>
+    </svg>
+    <p id="rotate-text"></p>
+  </div>
 </main>
 
 <script type="module" src="./app.js"></script>

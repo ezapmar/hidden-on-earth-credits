@@ -161,6 +161,9 @@ export function openLevel(id, { onBack }) {
 
   $("title").textContent = L10n.pick(level.titles);
   $("artist").textContent = level.artist;
+  // Shown by CSS only on a phone held upright, where a wide painting would be a third of
+  // the screen. The media query does the deciding; this just supplies the words.
+  $("rotate-text").textContent = L10n.t("rotateToPlay");
   painting.alt = `${L10n.pick(level.titles)} by ${level.artist}`;
 
   // Start on `fit` (1280px, and the largest tier with a WebP fallback). Sharper tiers are

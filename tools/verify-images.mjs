@@ -125,9 +125,18 @@ async function checkHtml(manifest, manifestPath) {
   return refs;
 }
 
-async function head(url) {
-  const r = await fetch(url, { method: 'HEAD', redirect: 'manual' });
-  return { status: r.status, type: r.headers.get('content-type') || '', cache: r.headers.get('cache-control') || '' };
+/* Retries only network-level failures (fetch throws: timeouts, resets). An HTTP status is an
+   answer, so it is returned as is and reported by the caller. */
+async function head(url, attempts = 3) {
+  for (let i = 1; ; i++) {
+    try {
+      const r = await fetch(url, { method: 'HEAD', redirect: 'manual' });
+      return { status: r.status, type: r.headers.get('content-type') || '', cache: r.headers.get('cache-control') || '' };
+    } catch (e) {
+      if (i >= attempts) throw e;
+      await new Promise((resolve) => setTimeout(resolve, 500 * 2 ** (i - 1)));
+    }
+  }
 }
 
 async function checkDeployed(manifest, manifestPath, base) {
