@@ -215,7 +215,8 @@ async function buildLevel(level, args, previous) {
     const size = tierSize(tier, W, H);
     const key = `${size.w}x${size.h}`;
     if (prevKey && prevKey.key === key) {           // source too small for this tier: same pixels, same file
-      tiers[tier] = tiers[prevKey.tier];
+      tiers[tier] = { ...tiers[prevKey.tier] };
+      for (const f of FORMATS) if (!TIER_FORMATS[tier].includes(f)) delete tiers[tier][f];
       continue;
     }
     // Constrain the long edge only; libvips derives the short one, and its rounding may differ
