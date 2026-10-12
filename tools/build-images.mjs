@@ -30,6 +30,11 @@
                                  [--art <dir, default: beside levels.json>]
                                  [--out assets/img] [--manifest assets/paintings.json]
                                  [--only <level id>]... [--include-private] [--force]
+                                 [--formats avif,webp] [--skip-tier fit]...
+
+   --formats and --skip-tier narrow what a run emits. The iPad app reads AVIF only and goes
+   card -> play -> zoom, never fit, so it builds with `--formats avif --skip-tier fit` and
+   saves about 7 MB of files it would never open. The site needs both formats and all four.
 */
 import sharp from 'sharp';
 import { createHash } from 'node:crypto';
@@ -65,6 +70,8 @@ function parseArgs(argv) {
     art: null,
     out: path.resolve(REPO, 'assets/img'),
     manifest: path.resolve(REPO, 'assets/paintings.json'),
+    formats: [...FORMATS],
+    skipTiers: [],
     only: [],
     includePrivate: false,
     force: false,
@@ -75,6 +82,8 @@ function parseArgs(argv) {
     else if (k === '--art') { a.art = path.resolve(v); i++; }
     else if (k === '--out') { a.out = path.resolve(v); i++; }
     else if (k === '--manifest') { a.manifest = path.resolve(v); i++; }
+    else if (k === '--formats') { a.formats = v.split(',').map((x) => x.trim()); i++; }
+    else if (k === '--skip-tier') { a.skipTiers.push(v); i++; }
     else if (k === '--only') { a.only.push(v); i++; }
     else if (k === '--include-private') a.includePrivate = true;
     else if (k === '--force') a.force = true;
@@ -171,12 +180,29 @@ async function allFilesExist(outDir, entry) {
   return checks.every(Boolean);
 }
 
-/* A previous entry may carry a format a tier no longer ships (the WebP play and zoom of the
-   first build). Drop it from the entry; prune removes the file. The AVIF it keeps is unchanged,
-   so nothing re-encodes. */
-function dropRetiredFormats(entry) {
+/* What this run ships, which is TIER_FORMATS narrowed by --formats and --skip-tier.
+   The iPad app reads AVIF only and goes card -> play -> zoom, never fit, so generating the
+   WebP copies and the fit tier into its bundle is 7 MB it will never open. The site needs
+   both, so this is per-run rather than a change to the defaults. */
+function runFormats(args, tier) {
+  if (args.skipTiers.includes(tier)) return [];
+  return TIER_FORMATS[tier].filter((f) => args.formats.includes(f));
+}
+
+/* A previous entry may carry a format or a tier this run no longer ships (the WebP play and
+   zoom of the first build, or everything --skip-tier drops). Remove it from the entry; prune
+   removes the file. What it keeps is unchanged, so nothing re-encodes. */
+function dropRetiredFormats(entry, args) {
   for (const [tier, t] of Object.entries(entry.tiers)) {
-    for (const f of FORMATS) if (t[f] && !TIER_FORMATS[tier].includes(f)) delete t[f];
+    const keep = runFormats(args, tier);
+    for (const f of FORMATS) if (t[f] && !keep.includes(f)) delete t[f];
+    if (keep.length === 0) delete entry.tiers[tier];
+  }
+  for (const t of Object.values(entry.thumbs ?? {})) {
+    for (const f of FORMATS) if (t[f] && !args.formats.includes(f)) delete t[f];
+  }
+  if (entry.sticker) {
+    for (const f of FORMATS) if (entry.sticker[f] && !args.formats.includes(f)) delete entry.sticker[f];
   }
   return entry;
 }
@@ -192,7 +218,7 @@ async function buildLevel(level, args, previous) {
 
   if (!args.force && previous && previous.source.sha256 === srcHash && previous.settings === SETTINGS_KEY
       && previous.schemaVersion === SETTINGS_VERSION && await allFilesExist(args.out, previous)) {
-    return { entry: dropRetiredFormats(previous), skipped: true };
+    return { entry: dropRetiredFormats(previous, args), skipped: true };
   }
 
   const meta = await sharp(src).metadata();
@@ -214,9 +240,11 @@ async function buildLevel(level, args, previous) {
   for (const tier of Object.keys(TIERS)) {
     const size = tierSize(tier, W, H);
     const key = `${size.w}x${size.h}`;
+    const formats = runFormats(args, tier);
+    if (formats.length === 0) continue;             // --skip-tier, or --formats excluded them all
     if (prevKey && prevKey.key === key) {           // source too small for this tier: same pixels, same file
       tiers[tier] = { ...tiers[prevKey.tier] };
-      for (const f of FORMATS) if (!TIER_FORMATS[tier].includes(f)) delete tiers[tier][f];
+      for (const f of FORMATS) if (!formats.includes(f)) delete tiers[tier][f];
       continue;
     }
     // Constrain the long edge only; libvips derives the short one, and its rounding may differ
@@ -225,7 +253,7 @@ async function buildLevel(level, args, previous) {
       [W >= H ? 'width' : 'height']: Math.max(size.w, size.h),
       fit: 'inside', withoutEnlargement: true, kernel: 'lanczos3',
     });
-    tiers[tier] = await writeVariants(args.out, id, tier, pipeline, false, TIER_FORMATS[tier]);
+    tiers[tier] = await writeVariants(args.out, id, tier, pipeline, false, formats);
     const got = tiers[tier];
     if (Math.max(got.w, got.h) !== Math.max(size.w, size.h) || Math.abs(got.w - size.w) > 1 || Math.abs(got.h - size.h) > 1) {
       throw new Error(`${id}/${tier}: expected ${key}, encoder produced ${got.w}x${got.h}`);
@@ -238,14 +266,14 @@ async function buildLevel(level, args, previous) {
     const box = pixelBox(thumbRect(group, aspectRatio), W, H);
     const pipeline = base.clone().extract(box)
       .resize({ width: THUMB_PX, height: THUMB_PX, fit: 'cover', withoutEnlargement: false, kernel: 'lanczos3' });
-    thumbs[group.id] = await writeVariants(args.out, id, `thumb-${group.id}`, pipeline, true);
+    thumbs[group.id] = await writeVariants(args.out, id, `thumb-${group.id}`, pipeline, true, args.formats);
   }
 
   const stickerBox = pixelBox(stickerRect(level, aspectRatio), W, H);
   const sticker = await writeVariants(args.out, id, 'sticker',
     base.clone().extract(stickerBox)
       .resize({ width: STICKER_PX, height: STICKER_PX, fit: 'cover', withoutEnlargement: false, kernel: 'lanczos3' }),
-    true);
+    true, args.formats);
 
   return {
     entry: {
@@ -318,7 +346,9 @@ async function main() {
     manifest.levels[level.id] = entry;
     if (skipped) { reused++; continue; }
     built++;
-    const sizes = Object.keys(TIERS).map((t) => `${t} ${fmtBytes(entry.tiers[t].avif.bytes)}`).join(', ');
+    const sizes = Object.keys(TIERS)
+      .filter((t) => entry.tiers[t]?.avif)          // --skip-tier removes some
+      .map((t) => `${t} ${fmtBytes(entry.tiers[t].avif.bytes)}`).join(', ');
     console.log(`${level.id.padEnd(32)} ${sizes}  (${((Date.now() - started) / 1000).toFixed(1)}s)`);
   }
 
@@ -334,6 +364,7 @@ async function main() {
   const removed = await prune(args.out, keep);
 
   let total = { avif: 0, webp: 0 }, session = 0;
+  const sessionTiers = new Set();
   for (const lvl of Object.values(manifest.levels)) {
     const seen = new Set();
     for (const t of Object.values(lvl.tiers)) for (const f of formatsOf(t)) {
@@ -341,11 +372,17 @@ async function main() {
     }
     for (const t of Object.values(lvl.thumbs)) for (const f of formatsOf(t)) total[f] += t[f].bytes;
     for (const f of formatsOf(lvl.sticker)) total[f] += lvl.sticker[f].bytes;
-    session += lvl.tiers.card.avif.bytes + lvl.tiers.fit.avif.bytes;
+    // What a first visit costs: every picker card, plus one painting at the smallest tier
+    // this run produced. --skip-tier can remove fit, so take the first that exists.
+    const firstPaint = ['fit', 'play', 'zoom'].map((t) => lvl.tiers[t]).find(Boolean);
+    session += (lvl.tiers.card?.avif?.bytes ?? 0) + (firstPaint?.avif?.bytes ?? 0);
+    sessionTiers.add(['fit', 'play', 'zoom'].find((t) => lvl.tiers[t]) ?? '-');
   }
   console.log(`\n${built} built, ${reused} unchanged, ${skippedPrivate} private skipped, ${removed} stale files removed, ` +
     `${((Date.now() - t0) / 1000).toFixed(0)}s`);
-  console.log(`catalog: ${fmtBytes(total.avif)} AVIF + ${fmtBytes(total.webp)} WebP; card+fit for every painting: ${fmtBytes(session)} AVIF`);
+  const webp = total.webp ? ` + ${fmtBytes(total.webp)} WebP` : '';
+  console.log(`catalog: ${fmtBytes(total.avif)} AVIF${webp}; ` +
+    `card+${[...sessionTiers].join('/')} for every painting: ${fmtBytes(session)} AVIF`);
   console.log(`manifest: ${path.relative(REPO, args.manifest)}`);
 }
 
