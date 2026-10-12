@@ -60,7 +60,9 @@ The app shells (Capacitor, Part Two of the plan) do not rely on this worker: `ca
 
 `play/` is the TypeScript rewrite's first playable page, at
 <https://hiddenonearth.ucer.us/play/>. Pick a painting, tap the things, hint, progress saved.
-No zoom yet: the viewport is ported and tested but not yet wired to pointer events.
+Pinch, drag and the +/- buttons zoom to 4x, and sharper image tiers swap in as the zoom
+asks for them. `?level=<id>` opens a painting directly; `?tier=fit|play|zoom` pins the
+image tier, which is how to judge sharpness on a real device.
 
 Everything that decides an outcome comes from `play/core/`, compiled from the `seek-and-find-web`
 repository and verified against 1,425 cases dumped from the Swift game. `play/app.js` is only

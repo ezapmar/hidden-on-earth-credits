@@ -38,28 +38,33 @@
     grid-template-rows: minmax(0, 1fr); grid-template-columns: minmax(0, 1fr);
     min-height: 0; padding: 0 .5rem;
   }
+  /* The viewport is the container the Swift Viewport maths is written against: a fixed box
+     that clips. #stage is the aspect-fit painting at scale 1, moved by a transform. */
+  #viewport {
+    position: relative; width: 100%; height: 100%; overflow: hidden;
+    touch-action: none; -webkit-user-select: none; user-select: none;
+  }
   /* #stage IS the fitted painting box, because every ring is positioned as a percentage of
-     it. Giving it the painting's aspect-ratio plus max-width/max-height of the grid area
-     reproduces aspect-fit exactly, and the image then fills it. */
+     it. JavaScript sets its pixel size from Viewport.fitRect and positions it with a single
+     transform, so the browser composites zoom and pan on the GPU. */
   #stage {
-    position: relative; line-height: 0; touch-action: manipulation;
-    user-select: none; -webkit-user-select: none;
-    aspect-ratio: var(--ar, 4 / 3);
-    max-width: 100%; max-height: 100%;
-    width: auto; height: auto;
+    position: absolute; left: 50%; top: 50%; line-height: 0;
+    transform: translate(-50%, -50%);
+    transform-origin: 50% 50%;
+    will-change: transform;
   }
   /* `display: contents` keeps <picture> out of layout, so the image still sizes against
      #stage. Without it the percentage max-height resolves against the picture box, which
      has no height, and the painting overflows its area and hides the HUD. */
   #stage picture { display: contents }
-  #stage img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 6px; }
+  #stage img { display: block; width: 100%; height: 100%; border-radius: 6px; pointer-events: none; }
   .ring, .hintring, #miss {
     position: absolute; transform: translate(-50%, -50%); border-radius: 50%;
     pointer-events: none; aspect-ratio: 1;
   }
-  .ring { border: 4px solid var(--vermilion); box-shadow: 0 0 0 3px rgba(16,19,26,.45); animation: pop .35s ease-out; }
-  .hintring { border: 4px dashed #ffd24a; animation: breathe 1s ease-in-out infinite; }
-  #miss { width: 44px; border: 3px solid rgba(242,236,225,.85); opacity: 0; }
+  .ring { border: calc(4px / var(--s, 1)) solid var(--vermilion); animation: pop .35s ease-out; }
+  .hintring { border: calc(4px / var(--s, 1)) dashed #ffd24a; animation: breathe 1s ease-in-out infinite; }
+  #miss { width: calc(44px / var(--s, 1)); border: calc(3px / var(--s, 1)) solid rgba(242,236,225,.85); opacity: 0; }
   #miss.go { animation: ripple .5s ease-out; }
   @keyframes pop { from { transform: translate(-50%,-50%) scale(.4); opacity: 0 } }
   @keyframes breathe { 50% { transform: translate(-50%,-50%) scale(1.12) } }
@@ -74,6 +79,11 @@
   .card img { width: 34px; height: 34px; border-radius: 8px; object-fit: cover; display: block; }
   .card .name { font-size: .85rem }
   .card .count { font-size: .78rem; opacity: .65; font-variant-numeric: tabular-nums }
+  #zoom {
+    position: absolute; right: .6rem; bottom: .6rem; display: flex; flex-direction: column; gap: .35rem;
+  }
+  #zoom button { width: 2.4rem; height: 2.4rem; font-size: 1.1rem; line-height: 1; padding: 0; background: rgba(27,32,41,.86); }
+  #zoom button[disabled] { opacity: .35; cursor: default }
   #win {
     position: absolute; inset: 0; display: grid; place-content: center; gap: .8rem; justify-items: center;
     background: rgba(16,19,26,.82); border-radius: 6px; text-align: center; padding: 1rem;
@@ -96,12 +106,19 @@
 
 <div id="stage-wrap">
   <div id="status">Loading the catalogue…</div>
-  <div id="stage" hidden>
-    <picture>
-      <source id="painting-avif" type="image/avif">
-      <img id="painting" alt="">
-    </picture>
-    <span id="miss"></span>
+  <div id="viewport" hidden>
+    <div id="stage">
+      <picture>
+        <source id="painting-avif" type="image/avif">
+        <img id="painting" alt="" draggable="false">
+      </picture>
+      <span id="miss"></span>
+    </div>
+    <div id="zoom">
+      <button id="zoom-in" title="Zoom in" aria-label="Zoom in">+</button>
+      <button id="zoom-out" title="Zoom out" aria-label="Zoom out">&minus;</button>
+      <button id="zoom-fit" title="Show the whole painting" aria-label="Show the whole painting">&#9633;</button>
+    </div>
     <div id="win" hidden><p id="win-text">You found them all!</p><button id="again">Play again</button></div>
   </div>
 </div>
