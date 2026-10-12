@@ -86,16 +86,7 @@
   );
   color-scheme: light;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: var(--soot); --fg: var(--bone); --muted: #C9BBA6;
-    --surface: var(--umber); --line: #604839;
-    --link: #2FB5B1; --label: var(--saffron);
-    --motif-ground: var(--cream);
-    --band-bg: #30231C; --band-fg: var(--bone);
-    color-scheme: dark;
-  }
-}
+/* One ground, on purpose: the cream page is the design, in a dark room too. */
 
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
