@@ -6,7 +6,7 @@ The public site for **Hidden on Earth: Seek & Find**, a seek-and-find game for c
 
 - [Home](https://ezapmar.github.io/hidden-on-earth-credits/): what the game is, a playable painting, the method, the paintings.
 - [Support](https://ezapmar.github.io/hidden-on-earth-credits/support.html): help and contact. This is the App Store Support URL.
-- [Privacy Policy](https://ezapmar.github.io/hidden-on-earth-credits/privacy.html): the app collects no data: no accounts, ads, analytics, tracking, or network connections.
+- [Privacy Policy](https://ezapmar.github.io/hidden-on-earth-credits/privacy.html): the app collects no data: no accounts, ads, analytics or tracking. It also covers this website and the image downloads a coming version of the app will make.
 - [Art credits and sources](https://ezapmar.github.io/hidden-on-earth-credits/credits.html): every painting is a public-domain artwork (CC0 museum open-access or Wikimedia Commons).
 
 Plain static HTML, served by Cloudflare from `main`. No build step at serve time, no external requests: fonts (Outfit, Hanken Grotesk, both OFL) are in `assets/fonts/`.
