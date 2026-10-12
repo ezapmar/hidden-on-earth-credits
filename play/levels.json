@@ -56,6 +56,15 @@
     "tr": "Meyveler"
    },
    "symbol": "fork.knife"
+  },
+  {
+   "id": "yours",
+   "titles": {
+    "en": "Your collection",
+    "tr": "Senin koleksiyonun"
+   },
+   "symbol": "photo.on.rectangle.angled",
+   "personal": true
   }
  ],
  "levels": [

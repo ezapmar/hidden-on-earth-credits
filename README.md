@@ -58,11 +58,13 @@ The app shells (Capacitor, Part Two of the plan) do not rely on this worker: `ca
 
 ## The web game, first slice
 
-`play/` is the TypeScript rewrite's first playable page, at
-<https://hiddenonearth.ucer.us/play/>. Pick a painting, tap the things, hint, progress saved.
+`play/` is the TypeScript rewrite, at <https://hiddenonearth.ucer.us/play/>: a picker with a
+row per collection, the sticker book, and the game itself. Progress and stars are kept in
+localStorage under the same two keys the Swift app uses in UserDefaults.
 Pinch, drag and the +/- buttons zoom to 4x, and sharper image tiers swap in as the zoom
-asks for them. `?level=<id>` opens a painting directly; `?tier=fit|play|zoom` pins the
-image tier, which is how to judge sharpness on a real device.
+asks for them. The URL carries the screen, so the browser's Back button works and Android's
+hardware back will too: `/play/` is the picker, `?view=book` the sticker book, `?level=<id>` a
+painting. `?tier=fit|play|zoom` pins the image tier, which is how to judge sharpness on a device.
 
 Everything that decides an outcome comes from `play/core/`, compiled from the `seek-and-find-web`
 repository and verified against 1,425 cases dumped from the Swift game. `play/app.js` is only

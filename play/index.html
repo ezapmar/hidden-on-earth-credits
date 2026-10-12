@@ -8,28 +8,132 @@
 <link rel="icon" href="data:,">
 <style>
   :root {
-    --night: #10131a; --bone: #f2ece1; --vermilion: #e2512f; --leaf: #3f7d57;
-    --ink: #10131a; --paper: #f2ece1;
+    --night: #1c1a24; --bone: #f2ece1; --vermilion: #e2512f; --leaf: #3f7d57;
+    --gold: #f2b134; --pink: #e86a9a; --paper: #f5e9cc; --sepia: #40301f;
+    --panel: rgba(255,255,255,.06); --edge: rgba(255,255,255,.14);
   }
-  @media (prefers-color-scheme: dark) { :root { --ink: #f2ece1; --paper: #10131a; } }
   * { box-sizing: border-box; }
   html, body { height: 100%; margin: 0; }
   body {
     background: var(--night); color: var(--bone);
     font: 500 16px/1.4 "Hanken Grotesk", system-ui, -apple-system, sans-serif;
-    display: flex; flex-direction: column;
-    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     overscroll-behavior: none;
   }
-  header { display: flex; gap: .75rem; align-items: baseline; padding: .6rem .9rem; flex: 0 0 auto; }
-  h1 { font-size: 1rem; margin: 0; font-weight: 700; letter-spacing: .01em; }
-  .artist { font-size: .8rem; opacity: .6; }
-  header .spacer { flex: 1; }
-  select, button {
-    font: inherit; font-size: .85rem; color: var(--bone); background: #1b2029;
-    border: 1px solid #2c3340; border-radius: 10px; padding: .35rem .6rem; cursor: pointer;
+  body[data-screen="book"] { background: var(--paper); color: var(--sepia); }
+  h1, h2, h3 { font-family: Outfit, system-ui, sans-serif; margin: 0; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  .symbol { width: 1.5em; height: 1.5em; display: block; }
+  .symbol.star { color: var(--gold); }
+  .symbol.big { width: 3.5rem; height: 3.5rem; }
+
+  /* ---------------------------------------------------------------- screens */
+  #status { padding: 2rem; opacity: .7 }
+  #home, #book { height: 100%; overflow-y: auto; padding: 0 0 3rem;
+                 padding-bottom: calc(3rem + env(safe-area-inset-bottom)); }
+  #game { height: 100%; display: flex; flex-direction: column;
+          padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+  [hidden] { display: none !important }
+
+  /* ------------------------------------------------------------- the picker */
+  .home-head { display: grid; justify-items: center; gap: .3rem; padding: 2.2rem 1rem 1.6rem; text-align: center; }
+  .home-head h1 { font-size: clamp(2rem, 6vw, 2.8rem); font-weight: 800; }
+  .home-head .sub { margin: 0; letter-spacing: .25em; font-size: .85rem; font-weight: 700; opacity: .55; }
+  .home-head .lead { margin: .6rem 0 0; font-size: 1.15rem; opacity: .8; }
+  .book-button {
+    margin-top: .9rem; display: flex; align-items: center; gap: .55rem; font-weight: 700;
+    padding: .55rem 1.1rem; border-radius: 999px; background: var(--panel);
+    border: 2px solid rgba(242,177,52,.45);
   }
-  button:active { transform: translateY(1px); }
+  .book-button .dot { opacity: .4 }
+  .book-button:active { transform: translateY(1px) }
+
+  .row { margin: 0 0 2.1rem; }
+  .row-head { display: flex; align-items: center; gap: .7rem; padding: 0 clamp(1rem, 4vw, 2rem) .8rem; }
+  .row-head h2 { font-size: clamp(1.25rem, 3.6vw, 1.7rem); font-weight: 800; }
+  .row-symbol {
+    width: 2.5rem; height: 2.5rem; display: grid; place-items: center; flex: 0 0 auto;
+    border-radius: 50%; background: var(--panel); color: var(--vermilion);
+  }
+  .row-symbol.personal { color: var(--pink) }
+  .row-count {
+    display: inline-flex; align-items: center; gap: .35rem; font-size: .85rem; font-weight: 700;
+    padding: .25rem .6rem; border-radius: 999px; background: var(--panel); opacity: .75;
+  }
+  .row-count.all { opacity: 1; color: var(--gold) }
+  .row-count .symbol { width: 1em; height: 1em }
+
+  .strip {
+    display: flex; gap: 1rem; overflow-x: auto; padding: .4rem clamp(1rem, 4vw, 2rem) .8rem;
+    scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
+  }
+  .card-painting {
+    flex: 0 0 min(72vw, 270px); scroll-snap-align: start; text-align: left;
+    display: flex; flex-direction: column; gap: .6rem; padding: .7rem;
+    background: var(--panel); border-radius: 20px; border: 1px solid transparent;
+  }
+  .card-painting.done { background: rgba(242,177,52,.10); border-color: rgba(242,177,52,.35) }
+  .card-painting:not(.add):active { transform: translateY(2px) }
+  .card-art { position: relative; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; background: #0e0d12; }
+  .card-art picture, .card-art img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .card-art.dashed {
+    display: grid; place-items: center; color: var(--pink);
+    background: rgba(232,106,154,.08); border: 3px dashed rgba(232,106,154,.5);
+  }
+  .card-star {
+    position: absolute; top: .5rem; right: .5rem; width: 2.2rem; height: 2.2rem;
+    display: grid; place-items: center; border-radius: 50%; background: rgba(0,0,0,.55);
+  }
+  .card-meta h3 { font-size: 1.05rem; font-weight: 700; }
+  .card-meta .artist { margin: .15rem 0 0; font-size: .85rem; opacity: .6 }
+  .card-meta .count { margin: .35rem 0 0; font-size: .85rem; font-weight: 700; color: var(--vermilion) }
+  .card-meta .count.done { color: var(--gold) }
+  .bar { margin-top: .4rem; height: 7px; border-radius: 999px; background: rgba(255,255,255,.15); overflow: hidden }
+  .bar i { display: block; height: 100%; background: var(--vermilion); border-radius: 999px }
+
+  /* -------------------------------------------------------- the sticker book */
+  .book-head { display: grid; justify-items: center; gap: .2rem; padding: 2.2rem 1rem 1.4rem; text-align: center }
+  .book-head h1 { font-size: clamp(1.8rem, 5vw, 2.4rem); font-weight: 800 }
+  .book-head .lead { margin: 0; opacity: .7; font-weight: 600 }
+  .back {
+    position: fixed; top: calc(.8rem + env(safe-area-inset-top)); left: .8rem; z-index: 2;
+    width: 3rem; height: 3rem; display: grid; place-items: center; border-radius: 50%;
+    background: rgba(64,48,31,.12); border: 2px solid rgba(64,48,31,.25); color: var(--sepia);
+  }
+  .book-row { margin: 0 0 2rem; padding: 0 clamp(1rem, 4vw, 2rem) }
+  .book-row .row-head { padding: 0 0 .8rem }
+  .book-row .row-symbol { background: rgba(64,48,31,.10) }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 1.1rem }
+  .slot { display: grid; justify-items: center; gap: .5rem }
+  .disc {
+    width: 100%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; display: grid; place-items: center;
+    background: rgba(64,48,31,.08); border: 3px dashed rgba(64,48,31,.22);
+  }
+  .slot.unlocked .disc { border: 4px solid var(--gold); background: #fff; box-shadow: 0 4px 14px rgba(64,48,31,.22) }
+  .disc picture, .disc img { display: block; width: 100%; height: 100%; object-fit: cover }
+  .disc .locked { font-size: 1.8rem; font-weight: 800; opacity: .3 }
+  /* A fixed two-line box, as the Swift book uses, so a long title does not shunt its row
+     down relative to its neighbours. */
+  .slot-name {
+    font-size: .82rem; font-weight: 700; text-align: center; line-height: 1.2;
+    min-height: 2.4em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .slot:not(.unlocked) .slot-name { opacity: .45 }
+  .slot:active { transform: translateY(2px) }
+
+  /* ---------------------------------------------------------------- the game */
+  #game header { display: flex; gap: .75rem; align-items: center; padding: .6rem .9rem; flex: 0 0 auto; }
+  #game h1 { font-size: 1rem; font-weight: 700 }
+  .artist { font-size: .8rem; opacity: .6 }
+  #game header .spacer { flex: 1 }
+  #game header button {
+    font-size: .85rem; background: #272430; border: 1px solid var(--edge);
+    border-radius: 10px; padding: .4rem .7rem;
+  }
+  #game header button:active { transform: translateY(1px) }
+  .pill { background: var(--vermilion); border-color: transparent; font-weight: 700 }
+  #back-home { display: grid; place-items: center; padding: .35rem }
+
   /* minmax(0, 1fr) matters: an implicit grid row is `auto`, so it sizes to the painting
      and a percentage max-height on the item resolves against that, not against the
      flex-constrained wrapper. The painting then overflows and covers the HUD. */
@@ -38,7 +142,7 @@
     grid-template-rows: minmax(0, 1fr); grid-template-columns: minmax(0, 1fr);
     min-height: 0; padding: 0 .5rem;
   }
-  /* The viewport is the container the Swift Viewport maths is written against: a fixed box
+  /* The viewport is the container the ported Viewport maths is written against: a fixed box
      that clips. #stage is the aspect-fit painting at scale 1, moved by a transform. */
   #viewport {
     position: relative; width: 100%; height: 100%; overflow: hidden;
@@ -49,81 +153,87 @@
      transform, so the browser composites zoom and pan on the GPU. */
   #stage {
     position: absolute; left: 50%; top: 50%; line-height: 0;
-    transform: translate(-50%, -50%);
-    transform-origin: 50% 50%;
-    will-change: transform;
+    transform: translate(-50%, -50%); transform-origin: 50% 50%; will-change: transform;
   }
-  /* `display: contents` keeps <picture> out of layout, so the image still sizes against
-     #stage. Without it the percentage max-height resolves against the picture box, which
-     has no height, and the painting overflows its area and hides the HUD. */
   #stage picture { display: contents }
-  #stage img { display: block; width: 100%; height: 100%; border-radius: 6px; pointer-events: none; }
+  #stage img { display: block; width: 100%; height: 100%; border-radius: 6px; pointer-events: none }
   .ring, .hintring, #miss {
     position: absolute; transform: translate(-50%, -50%); border-radius: 50%;
     pointer-events: none; aspect-ratio: 1;
   }
-  .ring { border: calc(4px / var(--s, 1)) solid var(--vermilion); animation: pop .35s ease-out; }
-  .hintring { border: calc(4px / var(--s, 1)) dashed #ffd24a; animation: breathe 1s ease-in-out infinite; }
-  #miss { width: calc(44px / var(--s, 1)); border: calc(3px / var(--s, 1)) solid rgba(242,236,225,.85); opacity: 0; }
-  #miss.go { animation: ripple .5s ease-out; }
+  .ring { border: calc(4px / var(--s, 1)) solid var(--vermilion); animation: pop .35s ease-out }
+  .hintring { border: calc(4px / var(--s, 1)) dashed var(--gold); animation: breathe 1s ease-in-out infinite }
+  #miss { width: calc(44px / var(--s, 1)); border: calc(3px / var(--s, 1)) solid rgba(242,236,225,.85); opacity: 0 }
+  #miss.go { animation: ripple .5s ease-out }
   @keyframes pop { from { transform: translate(-50%,-50%) scale(.4); opacity: 0 } }
   @keyframes breathe { 50% { transform: translate(-50%,-50%) scale(1.12) } }
   @keyframes ripple { from { opacity: .9; transform: translate(-50%,-50%) scale(.3) } to { opacity: 0; transform: translate(-50%,-50%) scale(1.8) } }
-  @media (prefers-reduced-motion: reduce) { .ring, .hintring, #miss.go { animation: none } #miss.go { opacity: 0 } }
-  #hud { flex: 0 0 auto; display: flex; gap: .5rem; overflow-x: auto; padding: .6rem .9rem calc(.6rem + env(safe-area-inset-bottom)); }
+  @media (prefers-reduced-motion: reduce) {
+    .ring, .hintring, #miss.go { animation: none } #miss.go { opacity: 0 }
+    .card-painting:active, .slot:active, .book-button:active { transform: none }
+  }
+  #zoom { position: absolute; right: .6rem; bottom: .6rem; display: flex; flex-direction: column; gap: .35rem }
+  #zoom button {
+    width: 2.4rem; height: 2.4rem; font-size: 1.1rem; line-height: 1; border-radius: 10px;
+    background: rgba(27,32,41,.86); border: 1px solid var(--edge);
+  }
+  #zoom button[disabled] { opacity: .35; cursor: default }
+  #hud { flex: 0 0 auto; display: flex; gap: .5rem; overflow-x: auto; padding: .6rem .9rem calc(.6rem + env(safe-area-inset-bottom)) }
   .card {
     display: flex; align-items: center; gap: .5rem; flex: 0 0 auto;
-    background: #1b2029; border: 1px solid #2c3340; border-radius: 12px; padding: .4rem .7rem .4rem .45rem; cursor: pointer;
+    background: var(--panel); border: 1px solid var(--edge); border-radius: 12px;
+    padding: .4rem .7rem .4rem .45rem;
   }
-  .card[data-done] { border-color: var(--leaf); background: #16241c; }
-  .card img { width: 34px; height: 34px; border-radius: 8px; object-fit: cover; display: block; }
+  .card[data-done] { border-color: var(--leaf); background: rgba(63,125,87,.18) }
+  .card picture, .card img { width: 34px; height: 34px; border-radius: 8px; object-fit: cover; display: block }
   .card .name { font-size: .85rem }
   .card .count { font-size: .78rem; opacity: .65; font-variant-numeric: tabular-nums }
-  #zoom {
-    position: absolute; right: .6rem; bottom: .6rem; display: flex; flex-direction: column; gap: .35rem;
-  }
-  #zoom button { width: 2.4rem; height: 2.4rem; font-size: 1.1rem; line-height: 1; padding: 0; background: rgba(27,32,41,.86); }
-  #zoom button[disabled] { opacity: .35; cursor: default }
   #win {
     position: absolute; inset: 0; display: grid; place-content: center; gap: .8rem; justify-items: center;
-    background: rgba(16,19,26,.82); border-radius: 6px; text-align: center; padding: 1rem;
+    background: rgba(28,26,36,.85); text-align: center; padding: 1rem;
   }
-  #win[hidden] { display: none }
-  #win p { font-size: 1.35rem; margin: 0; font-weight: 700 }
-  #status { padding: 2rem; opacity: .7 }
-  .pill { background: var(--vermilion); border-color: transparent; font-weight: 700 }
+  #win p { font-size: 1.4rem; margin: 0; font-weight: 800 }
+  #win button { background: var(--vermilion); border-radius: 12px; padding: .55rem 1.1rem; font-weight: 700 }
 </style>
 </head>
 <body>
-<header>
-  <h1 id="title">Loading…</h1>
-  <span class="artist" id="artist"></span>
-  <span class="spacer"></span>
-  <select id="picker" aria-label="Painting"></select>
-  <button id="hint" class="pill">Hint</button>
-  <button id="reset" title="Clear progress for this painting">Reset</button>
-</header>
+<div id="status">Loading the catalogue…</div>
 
-<div id="stage-wrap">
-  <div id="status">Loading the catalogue…</div>
-  <div id="viewport" hidden>
-    <div id="stage">
-      <picture>
-        <source id="painting-avif" type="image/avif">
-        <img id="painting" alt="" draggable="false">
-      </picture>
-      <span id="miss"></span>
+<main id="home" hidden></main>
+<main id="book" hidden></main>
+
+<main id="game" hidden>
+  <header>
+    <button id="back-home" title="Paintings" aria-label="Paintings">
+      <svg viewBox="0 0 24 24" class="symbol" aria-hidden="true"><path fill="currentColor" d="M3 3h8v8H3Zm10 0h8v8h-8ZM3 13h8v8H3Zm10 0h8v8h-8Z"/></svg>
+    </button>
+    <h1 id="title">…</h1>
+    <span class="artist" id="artist"></span>
+    <span class="spacer"></span>
+    <button id="hint" class="pill">Hint</button>
+  </header>
+
+  <div id="stage-wrap">
+    <div id="viewport">
+      <div id="stage">
+        <picture>
+          <source id="painting-avif" type="image/avif">
+          <img id="painting" alt="" draggable="false">
+        </picture>
+        <span id="miss"></span>
+      </div>
+      <div id="zoom">
+        <button id="zoom-in" title="Zoom in" aria-label="Zoom in">+</button>
+        <button id="zoom-out" title="Zoom out" aria-label="Zoom out">&minus;</button>
+        <button id="zoom-fit" title="Show the whole painting" aria-label="Show the whole painting">&#9633;</button>
+      </div>
+      <div id="win" hidden><p id="win-text">You found them all!</p><button id="again">Play again</button></div>
     </div>
-    <div id="zoom">
-      <button id="zoom-in" title="Zoom in" aria-label="Zoom in">+</button>
-      <button id="zoom-out" title="Zoom out" aria-label="Zoom out">&minus;</button>
-      <button id="zoom-fit" title="Show the whole painting" aria-label="Show the whole painting">&#9633;</button>
-    </div>
-    <div id="win" hidden><p id="win-text">You found them all!</p><button id="again">Play again</button></div>
   </div>
-</div>
 
-<div id="hud"></div>
+  <div id="hud"></div>
+</main>
+
 <script type="module" src="./app.js"></script>
 </body>
 </html>
