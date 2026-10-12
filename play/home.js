@@ -85,15 +85,19 @@ export function renderPicker(root, { onPick, onStickers }) {
   const { library, progress } = state;
   const done = library.levels.filter((l) => progress.isCompleted(l)).length;
 
-  const header = el("header", "home-head");
-  header.append(el("h1", null, "Hidden on Earth"), el("p", "sub", "SEEK & FIND"),
-                el("p", "lead", L10n.t("pickPainting")));
+  // The same slim bar as the iPad app: logo and name, then the way to the sticker book.
+  const header = el("header", "home-bar");
+  const logo = el("img", "logo");
+  logo.src = "/assets/icon-512.webp";
+  logo.alt = "";
+  logo.width = logo.height = 42;
   const book = el("button", "book-button");
   book.type = "button";
+  book.setAttribute("aria-label", `${L10n.t("stickerBook")}, ${L10n.stickersCollected(done, library.levels.length)}`);
   book.append(symbolSVG("star.fill", "symbol star"), el("span", null, `${done} / ${library.levels.length}`),
-              el("span", "dot", "·"), symbolSVG("book.closed.fill"), el("span", null, L10n.t("stickerBook")));
+              symbolSVG("book.closed.fill"), el("span", "words", L10n.t("stickerBook")));
   book.addEventListener("click", onStickers);
-  header.append(book);
+  header.append(logo, el("h1", null, "Hidden on Earth"), el("span", "spacer"), book);
   root.append(header);
 
   for (const row of collectionRows()) {

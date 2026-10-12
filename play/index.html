@@ -38,16 +38,26 @@
   [hidden] { display: none !important }
 
   /* ------------------------------------------------------------- the picker */
-  .home-head { display: grid; justify-items: center; gap: .3rem; padding: 2.2rem 1rem 1.6rem; text-align: center; }
-  .home-head h1 { font-size: clamp(2rem, 6vw, 2.8rem); font-weight: 800; }
-  .home-head .sub { margin: 0; letter-spacing: .25em; font-size: .85rem; font-weight: 700; opacity: .55; }
-  .home-head .lead { margin: .6rem 0 0; font-size: 1.15rem; opacity: .8; }
+  /* One slim bar, pinned: who we are on the left, the sticker book on the right. The picker
+     used to open on a tall centred title that took half the screen; the screen belongs to
+     the paintings. Same bar as the iPad app. */
+  .home-bar {
+    position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: .7rem;
+    padding: .6rem clamp(1rem, 4vw, 2rem); padding-top: calc(.6rem + env(safe-area-inset-top));
+    background: rgba(58,42,34,.94); border-bottom: 1px solid var(--edge);
+  }
+  .home-bar .logo { width: 2.6rem; height: 2.6rem; border-radius: 22%; flex: 0 0 auto; display: block; }
+  .home-bar h1 { font-size: clamp(1.25rem, 3.4vw, 1.6rem); font-weight: 800; white-space: nowrap; }
+  .home-bar .spacer { flex: 1 1 auto; }
+  #home .row:first-of-type { margin-top: 1.4rem; }
   .book-button {
-    margin-top: .9rem; display: flex; align-items: center; gap: .55rem; font-weight: 700;
-    padding: .55rem 1.1rem; border-radius: 999px; background: var(--panel);
+    display: flex; align-items: center; gap: .5rem; font-weight: 700; white-space: nowrap;
+    padding: .55rem 1rem; border-radius: 999px; background: var(--panel);
     border: 2px solid rgba(242,177,52,.45);
   }
-  .book-button .dot { opacity: .4 }
+  /* On a narrow screen the bar gives up the name before the button gives up its words. */
+  @media (max-width: 480px) { .home-bar h1 { display: none } }
+  @media (max-width: 300px) { .book-button .words { display: none } }
   .book-button:active { transform: translateY(1px) }
 
   .row { margin: 0 0 2.1rem; }
