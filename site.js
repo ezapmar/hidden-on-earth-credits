@@ -1,7 +1,7 @@
 /* Hidden on Earth site: the brainless family's kilim motifs drawn as knot grids, the woven
    band, and the playable painting. Motif code follows brainless/docs/site.js. */
 (function () {
-  var P = { night:'#0A1825', ink:'#042538', cream:'#FBDEA5', bone:'#F9EBDB',
+  var P = { soot:'#231A16', umber:'#30231C', cream:'#FBDEA5', bone:'#F9EBDB',
             madder:'#CB221F', vermilion:'#F24B1E', orange:'#F97327',
             saffron:'#FBA335', marigold:'#FBB94B', teal:'#0C9794', sage:'#9BB38D' };
   var NS = 'http://www.w3.org/2000/svg';
@@ -96,7 +96,7 @@
 
   function drawMotif(svg) {
     var kind = svg.getAttribute('data-motif');
-    var onNight = svg.getAttribute('data-ground') === 'night';
+    var onNight = svg.getAttribute('data-ground') === 'soot';
     var colourName = svg.getAttribute('data-colour');
     var c = colourName ? P[colourName] : (onNight ? P.cream : motifGround());
     while (svg.firstChild) svg.removeChild(svg.firstChild);

@@ -50,15 +50,15 @@
    motifs are the brainless family's (brainless/docs/design.md): flat fills, no gradients,
    no shadows, one strong centre per screen. */
 :root {
-  --night: #0A1825; --ink: #042538; --cream: #FBDEA5; --bone: #F9EBDB;
+  --soot: #231A16; --umber: #30231C; --cream: #FBDEA5; --bone: #F9EBDB;
   --madder: #CB221F; --vermilion: #F24B1E; --orange: #F97327;
   --saffron: #FBA335; --marigold: #FBB94B; --teal: #0C9794; --sage: #9BB38D;
 
-  --bg: var(--night);
+  --bg: var(--soot);
   --fg: var(--bone);
   --muted: #C9BBA6;
-  --surface: var(--ink);
-  --line: #1E3346;
+  --surface: var(--umber);
+  --line: #45342B;
   --accent: var(--vermilion);
   --link: #2FB5B1;
   --label: var(--saffron);
@@ -85,10 +85,10 @@
 }
 @media (prefers-color-scheme: light) {
   :root {
-    --bg: var(--bone); --fg: var(--ink); --muted: #4B5560;
+    --bg: var(--bone); --fg: var(--umber); --muted: #5A4A3F;
     --surface: var(--cream); --line: #E2CBA3;
     --link: #0A7F7C; --label: #B4380F;
-    --motif-ground: var(--ink);
+    --motif-ground: var(--umber);
     color-scheme: light;
   }
 }
@@ -118,9 +118,9 @@ section { padding-block: 72px; scroll-margin-top: 12px; }
 .section-head p { color: var(--muted); font-size: 1.05rem; }
 .head-motif { width: 46px; height: 46px; }
 
-/* nav: links are knots on a thread; the header stays on night and ends in a woven selvedge */
+/* nav: links are knots on a thread; the header stays on soot and ends in a woven selvedge */
 .site-nav {
-  background: var(--night); color: var(--bone);
+  background: var(--soot); color: var(--bone);
   border-bottom: 6px solid var(--madder);
   border-image: repeating-linear-gradient(90deg,
     var(--madder) 0 14px, var(--cream) 14px 18px, var(--teal) 18px 32px, var(--cream) 32px 36px,
@@ -134,7 +134,7 @@ section { padding-block: 72px; scroll-margin-top: 12px; }
 .nav-links a {
   position: relative; display: inline-flex; align-items: center; gap: 9px; padding: 6px 13px;
   font-family: var(--display); font-weight: 500; font-size: 0.76rem; letter-spacing: 0.13em;
-  text-transform: uppercase; color: var(--bone); background: var(--night);
+  text-transform: uppercase; color: var(--bone); background: var(--soot);
 }
 .nav-links a::before {
   content: ""; width: 7px; height: 7px; flex: none;
@@ -144,7 +144,7 @@ section { padding-block: 72px; scroll-margin-top: 12px; }
 .nav-links a:hover::before, .nav-links a[aria-current="page"]::before { background: var(--vermilion); border-color: var(--vermilion); }
 .nav-links a[aria-current="page"] { color: var(--saffron); }
 @media (min-width: 900px) {
-  .nav-links::before { content: ""; position: absolute; left: 8px; right: 8px; top: 50%; height: 1px; background: #2E4256; }
+  .nav-links::before { content: ""; position: absolute; left: 8px; right: 8px; top: 50%; height: 1px; background: #4D3A30; }
   .nav-links a:first-child { padding-left: 0; }
   .nav-links a:last-child { padding-right: 0; }
 }
@@ -152,8 +152,8 @@ section { padding-block: 72px; scroll-margin-top: 12px; }
   .nav-links a { padding: 6px 12px 6px 0; }
 }
 
-/* hero: always on night, one centre */
-.hero { background: var(--night); color: var(--bone); padding-block: 56px 72px; }
+/* hero: always on soot, one centre */
+.hero { background: var(--soot); color: var(--bone); padding-block: 56px 72px; }
 .hero .wrap { display: grid; gap: 24px; justify-items: center; text-align: center; }
 .hero .icon { width: 148px; height: 148px; clip-path: var(--stepped); --step: 9px; }
 .hero h1 {
@@ -169,11 +169,11 @@ section { padding-block: 72px; scroll-margin-top: 12px; }
   clip-path: var(--stepped); border: 0; cursor: pointer; text-decoration: none;
 }
 .btn:hover, .btn:focus-visible { text-decoration: none; }
-.btn-primary { background: var(--vermilion); color: var(--night); }
+.btn-primary { background: var(--vermilion); color: var(--soot); }
 .btn-primary:hover { background: var(--orange); }
-.btn-quiet { background: var(--cream); color: var(--night); }
+.btn-quiet { background: var(--cream); color: var(--soot); }
 .btn-quiet:hover { background: var(--marigold); }
-.hero .status { font-size: 0.92rem; color: #9FA9B4; }
+.hero .status { font-size: 0.92rem; color: #A89587; }
 
 /* woven band between sections */
 .band { height: 30px; width: 100%; display: block; }
@@ -181,7 +181,7 @@ section { padding-block: 72px; scroll-margin-top: 12px; }
 /* the playable painting */
 .play { display: grid; gap: 16px; }
 .stage {
-  position: relative; clip-path: var(--stepped); --step: 6px; background: var(--ink);
+  position: relative; clip-path: var(--stepped); --step: 6px; background: var(--umber);
   cursor: pointer; touch-action: manipulation; user-select: none; -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
@@ -305,14 +305,14 @@ thead th { font-family: var(--display); font-weight: 500; font-size: 0.74rem; le
 .pill.cc0 { color: var(--link); }
 
 /* footer */
-footer { background: var(--night); color: var(--bone); padding-block: 56px 40px; }
+footer { background: var(--soot); color: var(--bone); padding-block: 56px 40px; }
 footer .wrap { display: grid; gap: 28px; }
 .foot-top { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px; align-items: start; }
 .foot-top p { color: #D9CDB8; font-size: 0.98rem; }
 .foot-links { display: grid; gap: 8px; font-size: 0.98rem; }
 .foot-links a { color: var(--bone); }
 .foot-links a:hover { color: var(--saffron); text-decoration: none; }
-.foot-bottom { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 0.85rem; color: #9FA9B4; border-top: 1px solid #1E3346; padding-top: 20px; }
+.foot-bottom { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 0.85rem; color: #A89587; border-top: 1px solid #45342B; padding-top: 20px; }
 .foot-motifs { display: flex; gap: 14px; flex-wrap: wrap; }
 .foot-motifs svg { width: 34px; height: 34px; }
 
