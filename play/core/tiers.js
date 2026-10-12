@@ -13,6 +13,7 @@
  * <picture> cannot fall back from a format it lacks when no other source exists, so a browser
  * without AVIF stays on `fit`, which carries WebP. Blurrier past 1.6x, never broken.
  */
+/** The three tiers the game shows, blurriest first. `card` is not here: pickers, not play. */
 export const TIER_ORDER = ["fit", "play", "zoom"];
 /** Where `fit` starts to show its 1280px. From the plan's arithmetic, not taste. */
 export const ZOOM_TIER_SCALE = 1.6;

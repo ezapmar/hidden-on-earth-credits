@@ -76,10 +76,16 @@ a game on another host could not `fetch` the manifest; same origin means no CORS
 Two generated files, neither edited by hand:
 
 ```bash
-node tools/make-play-data.mjs          # play/levels.json, from the game's levels.json
-                                       # (levels in a "personal" collection are never published)
-cd ../seek-and-find-web && npm run build && npm run vendor -- ../hidden-on-earth-credits/play/core
+npm run play:data   # play/levels.json, from the game's levels.json
+                    # (levels in a "personal" collection are never published)
+npm run play:core   # play/core/*.js, compiled and vendored from ../seek-and-find-web
+npm run check       # verifies both are current, plus the image manifest. What CI runs.
 ```
+
+`npm run check` fails rather than regenerating: a published site should never quietly pick up
+whatever happens to be on the machine that deployed it. It caught the two ways this had already
+drifted — `play/core/tiers.js` had been edited here rather than in its TypeScript source, and the
+commands above were documented before the scripts they call existed.
 
 ## Hosting
 

@@ -9,7 +9,10 @@
  * published, matching tools/build-images.mjs, which refuses them by default. This repository is
  * public.
  *
- *   node tools/make-play-data.mjs [--levels <path>] [--out play/levels.json]
+ *   node tools/make-play-data.mjs [--levels <path>] [--out play/levels.json] [--check]
+ *
+ * --check writes nothing and exits non-zero if the committed copy is out of date, so CI can
+ * catch a painting that was edited in the game and never republished here.
  */
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -21,9 +24,11 @@ const DEFAULT_LEVELS = path.resolve(REPO, "../seek-and-find/SeekAndFind/Resource
 const args = process.argv.slice(2);
 let levelsPath = DEFAULT_LEVELS;
 let outPath = path.resolve(REPO, "play/levels.json");
+let check = false;
 for (let i = 0; i < args.length; i++) {
   if (args[i] === "--levels") levelsPath = path.resolve(args[++i]);
   else if (args[i] === "--out") outPath = path.resolve(args[++i]);
+  else if (args[i] === "--check") check = true;
   else {
     console.error(`unknown argument ${args[i]}`);
     process.exit(2);
@@ -68,8 +73,21 @@ const out = {
   collections,
   levels: kept,
 };
+const text = JSON.stringify(out, null, 1) + "\n";
+const current = await fs.readFile(outPath, "utf8").catch(() => null);
+
+if (check) {
+  if (current === text) {
+    console.log(`${path.relative(REPO, outPath)} is up to date`);
+    process.exit(0);
+  }
+  console.error(`${path.relative(REPO, outPath)} is out of date — run: npm run play:data`);
+  console.error(current === null ? "  it does not exist" : "  the game's levels.json has changed since it was generated");
+  process.exit(1);
+}
+
 await fs.mkdir(path.dirname(outPath), { recursive: true });
-await fs.writeFile(outPath, JSON.stringify(out, null, 1) + "\n");
+await fs.writeFile(outPath, text);
 
 const targets = kept.reduce((n, l) => n + l.items.reduce((m, g) => m + g.targets.length, 0), 0);
 console.log(`wrote ${path.relative(REPO, outPath)}`);
