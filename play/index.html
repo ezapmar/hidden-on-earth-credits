@@ -3,9 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
-<meta name="robots" content="noindex">
-<title>Hidden on Earth — play</title>
-<link rel="icon" href="data:,">
+<meta name="description" content="Play Hidden on Earth in the browser: 19 famous paintings with things hiding in them. No account, no ads, no clock.">
+<title>Play Hidden on Earth: Seek &amp; Find</title>
+<link rel="icon" href="/assets/favicon-64.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#3A2A22">
 <style>
   :root {
     --night: #3a2a22; --bone: #f2ece1; --vermilion: #e2512f; --leaf: #3f7d57;
@@ -265,5 +268,10 @@
 </main>
 
 <script type="module" src="./app.js"></script>
+<script>
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+    window.addEventListener('load', function () { navigator.serviceWorker.register('/sw.js').catch(function () {}); });
+  }
+</script>
 </body>
 </html>

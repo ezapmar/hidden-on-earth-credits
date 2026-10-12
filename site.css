@@ -223,6 +223,8 @@ section.tight { padding-top: 0; }
 .knot { display: grid; gap: 14px; align-content: start; }
 .knot svg { width: 84px; height: 84px; }
 .knot p { color: var(--muted); font-size: 0.98rem; }
+.stickers { display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 12px; margin-top: 20px; }
+.stickers img { width: 100%; aspect-ratio: 1; object-fit: cover; clip-path: var(--stepped); --step: 4px; }
 
 /* the method: rules as cards */
 .rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; }

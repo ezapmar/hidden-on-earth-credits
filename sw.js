@@ -5,6 +5,8 @@
      assets/paintings.json   network first, cached copy when offline
      assets/img/...          cache first; the files are content-hashed and served immutable,
                              so a cached copy is never stale
+     play/...                the game shell, network first: a new build wins, the cached one
+                             keeps the game playable on a plane
 
    On install it stores the card and fit tiers of every painting (about 2 MB), so the picker
    and a first play work with no network. The play and zoom tiers are stored as they are
@@ -13,12 +15,29 @@
 
    Bump VERSION to drop every cache on the next visit (a changed manifest alone needs no bump:
    new files have new names and are fetched on use). */
-var VERSION = 'v1';
+var VERSION = 'v2';
 var STATIC_CACHE = 'hoe-static-' + VERSION;   // manifest + card + fit
 var PLAY_CACHE = 'hoe-play-' + VERSION;       // play + zoom, on use
 var PLAY_LIMIT = 16;                           // files: about 8 paintings with both tiers
 var BASE = new URL(self.registration.scope).pathname;
 var MANIFEST = 'assets/paintings.json';
+var SHELL = [
+  'play/',
+  'play/levels.json',
+  'play/app.js',
+  'play/core/gameSession.js',
+  'play/core/index.js',
+  'play/core/l10n.js',
+  'play/core/level.js',
+  'play/core/progress.js',
+  'play/core/targetKey.js',
+  'play/core/tiers.js',
+  'play/core/viewport.js',
+  'play/data.js',
+  'play/game.js',
+  'play/home.js',
+  'play/symbols.js'
+];
 var IMG_DIR = 'assets/img/';
 
 /* 1x1 AVIF, made by sharp; decoding it tells us whether this engine can show AVIF at all. */
@@ -106,7 +125,13 @@ function networkFirst(request) {
 }
 
 self.addEventListener('install', function (e) {
-  e.waitUntil(precache().then(function () { return self.skipWaiting(); }));
+  e.waitUntil(Promise.all([
+    precache(),
+    caches.open(STATIC_CACHE).then(function (cache) {
+      /* one missing file must not fail the install and take the paintings down with it */
+      return Promise.all(SHELL.map(function (f) { return cache.add(BASE + f).catch(function () {}); }));
+    })
+  ]).then(function () { return self.skipWaiting(); }));
 });
 
 self.addEventListener('activate', function (e) {
@@ -123,4 +148,5 @@ self.addEventListener('fetch', function (e) {
   if (path === null) return;
   if (path === MANIFEST) e.respondWith(networkFirst(e.request));
   else if (path.indexOf(IMG_DIR) === 0) e.respondWith(cacheFirst(e.request, path));
+  else if (path === 'play/' || path.indexOf('play/') === 0) e.respondWith(networkFirst(e.request));
 });

@@ -50,6 +50,13 @@ Both scripts take `--levels <path>` when the game checkout is somewhere else. Th
 node tools/build-images.mjs --include-private --out ../seek-and-find-web/public/img --manifest ../seek-and-find-web/public/paintings.json
 ```
 
+## Installing it
+
+`manifest.webmanifest` makes the browser game installable: Add to Home Screen on a phone or
+tablet opens `/play/` full screen, landscape, with the app's own icon. `sw.js` precaches the
+game shell beside the paintings, so an installed copy starts without a network. `robots.txt`
+and `sitemap.xml` list the four public pages and the game.
+
 ## Offline
 
 `sw.js` is a service worker that touches only `assets/img/` and the manifest. On install it stores every painting's `card` and `fit` tiers (about 2 MB), so the picker and a first play work with no network; the `play` and `zoom` tiers are kept as they are used, newest sixteen files. Everything else on the site is left to the browser. Bump `VERSION` in `sw.js` to drop the caches on the next visit.

@@ -84,5 +84,16 @@ for site_id, group in thumbs.items():
         html, k = re.subn(pat_new, lambda mm: mm.group(1) + pic, html, flags=re.S)
     assert k == 1, f'thumb {site_id} not found'
 
+# 5. the sticker strip: every level's sticker, in manifest order
+strip = '\n'.join(
+    f'      <picture>\n'
+    f'        <source type="image/avif" srcset="{IMG + L[k]["sticker"]["avif"]["path"]}">\n'
+    f'        <img src="{IMG + L[k]["sticker"]["webp"]["path"]}" alt="" width="{m["sticker"]}" height="{m["sticker"]}" loading="lazy">\n'
+    f'      </picture>'
+    for k in L)
+html, k = re.subn(r'(<div class="stickers" data-wire="stickers" aria-hidden="true">)[\s\S]*?(</div>)',
+                  lambda mm: mm.group(1) + '\n' + strip + '\n    ' + mm.group(2), html)
+assert k == 1, 'sticker strip not found'
+
 (ROOT / 'index.html').write_text(html)
-print(f'gallery cards rewritten: {n}; stage, sticker and {len(thumbs)} thumbs updated')
+print(f'gallery cards rewritten: {n}; stage, sticker, {len(thumbs)} thumbs and {len(L)} strip stickers updated')
