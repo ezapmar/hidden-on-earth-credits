@@ -11,7 +11,7 @@ The public site for **Hidden on Earth: Seek & Find**, a seek-and-find game for c
 
 Plain static HTML, served by Cloudflare from `main`. No build step at serve time, no external requests: fonts (Outfit, Hanken Grotesk, both OFL) are in `assets/fonts/`.
 
-Design follows the brainless family, on a warm kilim ground rather than a navy one: soot, bone and vermilion, flat fills, stepped corners, a woven band between sections and kilim motifs drawn as 15 by 15 knot grids (`site.js`).
+Design follows the brainless family, on a cream kilim ground rather than a dark one: paper and parchment under soot ink, with vermilion, flat fills, stepped corners, a woven band between sections and kilim motifs drawn as 15 by 15 knot grids (`site.js`).
 
 The painting list on the home page and the hiding places in the playable painting are copied from the game's `levels.json` (in the `seek-and-find` repo). When a painting or a count changes in the game, change it here too.
 

@@ -96,7 +96,7 @@
 
   function drawMotif(svg) {
     var kind = svg.getAttribute('data-motif');
-    var onNight = svg.getAttribute('data-ground') === 'soot';
+    var onNight = svg.getAttribute('data-ground') === 'dark';
     var colourName = svg.getAttribute('data-colour');
     var c = colourName ? P[colourName] : (onNight ? P.cream : motifGround());
     while (svg.firstChild) svg.removeChild(svg.firstChild);
