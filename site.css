@@ -116,6 +116,7 @@ p { margin: 0; max-width: 62ch; }
 section { padding-block: 72px; scroll-margin-top: 12px; }
 .section-head { display: grid; gap: 12px; margin-bottom: 40px; }
 .section-head p { color: var(--muted); font-size: 1.05rem; }
+.head-motif { width: 46px; height: 46px; }
 
 /* nav: links are knots on a thread; the header stays on night and ends in a woven selvedge */
 .site-nav {
