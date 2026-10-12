@@ -131,7 +131,11 @@ async function head(url) {
 }
 
 async function checkDeployed(manifest, manifestPath, base) {
-  const manifestUrl = new URL(path.basename(manifestPath), base).href;
+  /* --base is the site root. The manifest hangs off it at the same repo-relative path the
+     HTML uses, so the two checks agree on where a file lives. Passing the directory that
+     holds the manifest instead would silently drop that prefix and 404 on every image. */
+  const rel = path.relative(REPO, manifestPath).split(path.sep).join('/');
+  const manifestUrl = new URL(rel.startsWith('..') ? path.basename(manifestPath) : rel, base).href;
   const local = await fs.readFile(manifestPath, 'utf8');
   const r = await fetch(manifestUrl);
   if (r.status !== 200) bad(`${manifestUrl}: HTTP ${r.status}`);

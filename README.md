@@ -9,7 +9,7 @@ The public site for **Hidden on Earth: Seek & Find**, a seek-and-find game for c
 - [Privacy Policy](https://ezapmar.github.io/hidden-on-earth-credits/privacy.html): the app collects no data: no accounts, ads, analytics, tracking, or network connections.
 - [Art credits and sources](https://ezapmar.github.io/hidden-on-earth-credits/credits.html): every painting is a public-domain artwork (CC0 museum open-access or Wikimedia Commons).
 
-Plain static HTML, served by GitHub Pages from `main`. No build step at serve time, no external requests: fonts (Outfit, Hanken Grotesk, both OFL) are in `assets/fonts/`.
+Plain static HTML, served by Cloudflare from `main`. No build step at serve time, no external requests: fonts (Outfit, Hanken Grotesk, both OFL) are in `assets/fonts/`.
 
 Design follows the brainless family: night, bone and vermilion, flat fills, stepped corners, a woven band between sections and kilim motifs drawn as 15 by 15 knot grids (`site.js`).
 
@@ -58,17 +58,39 @@ The app shells (Capacitor, Part Two of the plan) do not rely on this worker: `ca
 
 ## Hosting
 
-GitHub Pages serves `main` today. The plan moves the site to **Cloudflare Pages** at `hiddenonearth.ucer.us`, because Pages serves static files free with no bandwidth bill and honours the cache headers in `_headers` (GitHub Pages ignores that file and sends ten-minute caching for everything).
+**Cloudflare serves `main` at https://hiddenonearth.ucer.us/.** Not Cloudflare Pages: the
+dashboard's "import a repository" flow creates a **Worker with static assets**, which serves the
+same files free with no bandwidth bill and honours the cache headers in `_headers` (GitHub Pages
+ignores that file and sends ten-minute caching for everything).
 
-1. Cloudflare dashboard, Workers & Pages, Create, Pages, connect this repository. Production branch `main`, no build command, output directory `/`.
-2. Custom domains, add `hiddenonearth.ucer.us`. Cloudflare adds the CNAME itself when the zone is on Cloudflare.
-3. Check the deploy from a checkout:
+How it is wired:
 
-   ```bash
-   npm run images:verify -- --base https://hiddenonearth.ucer.us/
-   ```
+- **Build.** Workers Builds watches `main`. Build command empty; deploy command
+  `npx wrangler deploy`, which takes the Worker name, compatibility date and asset directory
+  from `wrangler.jsonc`. Passing those as flags instead works the same.
+- **Assets.** The repository root is the asset directory, so the committed files are the served
+  files. `.assetsignore` keeps `node_modules` out of the upload: Workers Builds installs
+  dependencies before deploying, and wrangler's own `workerd` binary is ~129 MiB, well over the
+  25 MiB per-asset limit. Deleting `wrangler.jsonc` does not fail the build, it publishes to a
+  Worker named after `package.json` instead, so leave it in place.
+- **Domain.** `hiddenonearth.ucer.us` is a Worker custom domain. Cloudflare writes and owns the
+  DNS record: a proxied `AAAA` at `100::`, not a CNAME.
+- **Rules run first.** A Redirect Rule or Page Rule matching `ucer.us` subdomains is evaluated
+  before the Worker and will swallow the whole site. If every path returns the same redirect,
+  look there before suspecting the deploy.
 
-   This fetches every image with HEAD and fails unless each answers 200 with `Cache-Control: immutable`, and the manifest answers with `must-revalidate` and matches the committed one.
-4. Update the Support URL and Privacy Policy URL in App Store Connect to the new domain (a metadata edit, no review). Do it once; the domain does not move again.
+Check the deploy from a checkout:
+
+```bash
+npm run images:verify -- --base https://hiddenonearth.ucer.us/
+```
+
+`--base` is the site root. This fetches every image with HEAD and fails unless each answers 200
+with `Cache-Control: immutable`, and the manifest answers with `must-revalidate` and matches the
+committed one.
+
+Still open: update the Support URL and Privacy Policy URL in App Store Connect to the new domain
+(a metadata edit, no review). Do it once; the domain does not move again. The links at the top of
+this file still point at GitHub Pages until that happens.
 
 Do not use R2 or Image Transformations for the catalog: the whole thing is a few megabytes of static files that never change.
