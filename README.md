@@ -56,6 +56,27 @@ node tools/build-images.mjs --include-private --out ../seek-and-find-web/public/
 
 The app shells (Capacitor, Part Two of the plan) do not rely on this worker: `card` and `play` are bundled files there, and `zoom` goes through the Filesystem plugin.
 
+## The web game, first slice
+
+`play/` is the TypeScript rewrite's first playable page, at
+<https://hiddenonearth.ucer.us/play/>. Pick a painting, tap the things, hint, progress saved.
+No zoom yet: the viewport is ported and tested but not yet wired to pointer events.
+
+Everything that decides an outcome comes from `play/core/`, compiled from the `seek-and-find-web`
+repository and verified against 1,425 cases dumped from the Swift game. `play/app.js` is only
+glue: load, draw, turn a click into a normalized point, render what the core says happened.
+
+It is served from this origin on purpose. The catalog sends no `Access-Control-Allow-Origin`, so
+a game on another host could not `fetch` the manifest; same origin means no CORS surface at all.
+
+Two generated files, neither edited by hand:
+
+```bash
+node tools/make-play-data.mjs          # play/levels.json, from the game's levels.json
+                                       # (levels in a "personal" collection are never published)
+cd ../seek-and-find-web && npm run build && npm run vendor -- ../hidden-on-earth-credits/play/core
+```
+
 ## Hosting
 
 **Cloudflare serves `main` at https://hiddenonearth.ucer.us/.** Not Cloudflare Pages: the

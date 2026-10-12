@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="robots" content="noindex">
+<title>Hidden on Earth — play</title>
+<link rel="icon" href="data:,">
+<style>
+  :root {
+    --night: #10131a; --bone: #f2ece1; --vermilion: #e2512f; --leaf: #3f7d57;
+    --ink: #10131a; --paper: #f2ece1;
+  }
+  @media (prefers-color-scheme: dark) { :root { --ink: #f2ece1; --paper: #10131a; } }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--night); color: var(--bone);
+    font: 500 16px/1.4 "Hanken Grotesk", system-ui, -apple-system, sans-serif;
+    display: flex; flex-direction: column;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    overscroll-behavior: none;
+  }
+  header { display: flex; gap: .75rem; align-items: baseline; padding: .6rem .9rem; flex: 0 0 auto; }
+  h1 { font-size: 1rem; margin: 0; font-weight: 700; letter-spacing: .01em; }
+  .artist { font-size: .8rem; opacity: .6; }
+  header .spacer { flex: 1; }
+  select, button {
+    font: inherit; font-size: .85rem; color: var(--bone); background: #1b2029;
+    border: 1px solid #2c3340; border-radius: 10px; padding: .35rem .6rem; cursor: pointer;
+  }
+  button:active { transform: translateY(1px); }
+  /* minmax(0, 1fr) matters: an implicit grid row is `auto`, so it sizes to the painting
+     and a percentage max-height on the item resolves against that, not against the
+     flex-constrained wrapper. The painting then overflows and covers the HUD. */
+  #stage-wrap {
+    flex: 1 1 auto; position: relative; display: grid; place-items: center;
+    grid-template-rows: minmax(0, 1fr); grid-template-columns: minmax(0, 1fr);
+    min-height: 0; padding: 0 .5rem;
+  }
+  /* #stage IS the fitted painting box, because every ring is positioned as a percentage of
+     it. Giving it the painting's aspect-ratio plus max-width/max-height of the grid area
+     reproduces aspect-fit exactly, and the image then fills it. */
+  #stage {
+    position: relative; line-height: 0; touch-action: manipulation;
+    user-select: none; -webkit-user-select: none;
+    aspect-ratio: var(--ar, 4 / 3);
+    max-width: 100%; max-height: 100%;
+    width: auto; height: auto;
+  }
+  /* `display: contents` keeps <picture> out of layout, so the image still sizes against
+     #stage. Without it the percentage max-height resolves against the picture box, which
+     has no height, and the painting overflows its area and hides the HUD. */
+  #stage picture { display: contents }
+  #stage img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 6px; }
+  .ring, .hintring, #miss {
+    position: absolute; transform: translate(-50%, -50%); border-radius: 50%;
+    pointer-events: none; aspect-ratio: 1;
+  }
+  .ring { border: 4px solid var(--vermilion); box-shadow: 0 0 0 3px rgba(16,19,26,.45); animation: pop .35s ease-out; }
+  .hintring { border: 4px dashed #ffd24a; animation: breathe 1s ease-in-out infinite; }
+  #miss { width: 44px; border: 3px solid rgba(242,236,225,.85); opacity: 0; }
+  #miss.go { animation: ripple .5s ease-out; }
+  @keyframes pop { from { transform: translate(-50%,-50%) scale(.4); opacity: 0 } }
+  @keyframes breathe { 50% { transform: translate(-50%,-50%) scale(1.12) } }
+  @keyframes ripple { from { opacity: .9; transform: translate(-50%,-50%) scale(.3) } to { opacity: 0; transform: translate(-50%,-50%) scale(1.8) } }
+  @media (prefers-reduced-motion: reduce) { .ring, .hintring, #miss.go { animation: none } #miss.go { opacity: 0 } }
+  #hud { flex: 0 0 auto; display: flex; gap: .5rem; overflow-x: auto; padding: .6rem .9rem calc(.6rem + env(safe-area-inset-bottom)); }
+  .card {
+    display: flex; align-items: center; gap: .5rem; flex: 0 0 auto;
+    background: #1b2029; border: 1px solid #2c3340; border-radius: 12px; padding: .4rem .7rem .4rem .45rem; cursor: pointer;
+  }
+  .card[data-done] { border-color: var(--leaf); background: #16241c; }
+  .card img { width: 34px; height: 34px; border-radius: 8px; object-fit: cover; display: block; }
+  .card .name { font-size: .85rem }
+  .card .count { font-size: .78rem; opacity: .65; font-variant-numeric: tabular-nums }
+  #win {
+    position: absolute; inset: 0; display: grid; place-content: center; gap: .8rem; justify-items: center;
+    background: rgba(16,19,26,.82); border-radius: 6px; text-align: center; padding: 1rem;
+  }
+  #win[hidden] { display: none }
+  #win p { font-size: 1.35rem; margin: 0; font-weight: 700 }
+  #status { padding: 2rem; opacity: .7 }
+  .pill { background: var(--vermilion); border-color: transparent; font-weight: 700 }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title">Loading…</h1>
+  <span class="artist" id="artist"></span>
+  <span class="spacer"></span>
+  <select id="picker" aria-label="Painting"></select>
+  <button id="hint" class="pill">Hint</button>
+  <button id="reset" title="Clear progress for this painting">Reset</button>
+</header>
+
+<div id="stage-wrap">
+  <div id="status">Loading the catalogue…</div>
+  <div id="stage" hidden>
+    <picture>
+      <source id="painting-avif" type="image/avif">
+      <img id="painting" alt="">
+    </picture>
+    <span id="miss"></span>
+    <div id="win" hidden><p id="win-text">You found them all!</p><button id="again">Play again</button></div>
+  </div>
+</div>
+
+<div id="hud"></div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
