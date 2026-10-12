@@ -316,6 +316,13 @@ async function main() {
     console.log(`${level.id.padEnd(32)} ${sizes}  (${((Date.now() - started) / 1000).toFixed(1)}s)`);
   }
 
+  // prune() removes everything under --out that the manifest does not reference, so a manifest
+  // written inside --out deletes itself and the run reports success with no manifest at all.
+  if (!path.relative(args.out, args.manifest).startsWith('..')) {
+    console.error(`--manifest must not be inside --out (${path.relative(REPO, args.out)}):`);
+    console.error('  unreferenced files there are pruned, which would delete the manifest.');
+    process.exit(2);
+  }
   await fs.mkdir(path.dirname(args.manifest), { recursive: true });
   await fs.writeFile(args.manifest, JSON.stringify(manifest, null, 1) + '\n');
   const removed = await prune(args.out, referencedPaths(manifest));
