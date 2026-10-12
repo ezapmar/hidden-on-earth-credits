@@ -48,6 +48,7 @@ const EN = {
     zoomIn: "Zoom in",
     zoomOut: "Zoom out",
     zoomReset: "Show the whole painting",
+    rotateToPlay: "Turn your phone sideways to play",
 };
 const TR = {
     hint: "İpucu",
@@ -68,6 +69,7 @@ const TR = {
     zoomIn: "Yakınlaştır",
     zoomOut: "Uzaklaştır",
     zoomReset: "Tümünü göster",
+    rotateToPlay: "Oynamak için telefonu yan çevir",
 };
 export function t(key) {
     return isTurkish() ? TR[key] : EN[key];
