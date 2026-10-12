@@ -50,7 +50,7 @@
    motifs are the brainless family's (brainless/docs/design.md): flat fills, no gradients,
    no shadows, one strong centre per screen. */
 :root {
-  --soot: #231A16; --umber: #30231C; --cream: #FBDEA5; --bone: #F9EBDB;
+  --soot: #3A2A22; --umber: #4A362C; --cream: #FBDEA5; --bone: #F9EBDB;
   --madder: #CB221F; --vermilion: #F24B1E; --orange: #F97327;
   --saffron: #FBA335; --marigold: #FBB94B; --teal: #0C9794; --sage: #9BB38D;
 
@@ -58,7 +58,7 @@
   --fg: var(--bone);
   --muted: #C9BBA6;
   --surface: var(--umber);
-  --line: #45342B;
+  --line: #604839;
   --accent: var(--vermilion);
   --link: #2FB5B1;
   --label: var(--saffron);
@@ -144,7 +144,7 @@ section { padding-block: 72px; scroll-margin-top: 12px; }
 .nav-links a:hover::before, .nav-links a[aria-current="page"]::before { background: var(--vermilion); border-color: var(--vermilion); }
 .nav-links a[aria-current="page"] { color: var(--saffron); }
 @media (min-width: 900px) {
-  .nav-links::before { content: ""; position: absolute; left: 8px; right: 8px; top: 50%; height: 1px; background: #4D3A30; }
+  .nav-links::before { content: ""; position: absolute; left: 8px; right: 8px; top: 50%; height: 1px; background: #6A5041; }
   .nav-links a:first-child { padding-left: 0; }
   .nav-links a:last-child { padding-right: 0; }
 }
@@ -173,7 +173,7 @@ section { padding-block: 72px; scroll-margin-top: 12px; }
 .btn-primary:hover { background: var(--orange); }
 .btn-quiet { background: var(--cream); color: var(--soot); }
 .btn-quiet:hover { background: var(--marigold); }
-.hero .status { font-size: 0.92rem; color: #A89587; }
+.hero .status { font-size: 0.92rem; color: #BCA796; }
 
 /* woven band between sections */
 .band { height: 30px; width: 100%; display: block; }
@@ -312,7 +312,7 @@ footer .wrap { display: grid; gap: 28px; }
 .foot-links { display: grid; gap: 8px; font-size: 0.98rem; }
 .foot-links a { color: var(--bone); }
 .foot-links a:hover { color: var(--saffron); text-decoration: none; }
-.foot-bottom { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 0.85rem; color: #A89587; border-top: 1px solid #45342B; padding-top: 20px; }
+.foot-bottom { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 0.85rem; color: #BCA796; border-top: 1px solid #604839; padding-top: 20px; }
 .foot-motifs { display: flex; gap: 14px; flex-wrap: wrap; }
 .foot-motifs svg { width: 34px; height: 34px; }
 
