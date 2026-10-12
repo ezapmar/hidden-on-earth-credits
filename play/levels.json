@@ -4,72 +4,63 @@
   {
    "id": "animals",
    "titles": {
-    "en": "Animals",
-    "tr": "Hayvanlar"
+    "en": "Animals"
    },
    "symbol": "pawprint.fill"
   },
   {
    "id": "winter",
    "titles": {
-    "en": "Winter",
-    "tr": "Kış"
+    "en": "Winter"
    },
    "symbol": "snowflake"
   },
   {
    "id": "night",
    "titles": {
-    "en": "Night",
-    "tr": "Gece"
+    "en": "Night"
    },
    "symbol": "moon.stars.fill"
   },
   {
    "id": "children",
    "titles": {
-    "en": "Children",
-    "tr": "Çocuklar"
+    "en": "Children"
    },
    "symbol": "figure.2.and.child.holdinghands"
   },
   {
    "id": "sea",
    "titles": {
-    "en": "The sea",
-    "tr": "Deniz"
+    "en": "The sea"
    },
    "symbol": "water.waves"
   },
   {
    "id": "flowers",
    "titles": {
-    "en": "Flowers",
-    "tr": "Çiçekler"
+    "en": "Flowers"
    },
    "symbol": "leaf.fill"
   },
   {
    "id": "food",
    "titles": {
-    "en": "Fruit",
-    "tr": "Meyveler"
+    "en": "Fruit"
    },
    "symbol": "fork.knife"
   },
   {
    "id": "still_life",
    "titles": {
-    "en": "Still life",
-    "tr": "Natürmort"
+    "en": "Still life"
    },
    "symbol": "basket.fill"
   },
   {
    "id": "yours",
    "titles": {
-    "en": "Your collection",
-    "tr": "Senin koleksiyonun"
+    "en": "Your collection"
    },
    "symbol": "photo.on.rectangle.angled",
    "personal": true
@@ -79,8 +70,7 @@
   {
    "id": "seurat_grande_jatte",
    "titles": {
-    "en": "A Sunday on La Grande Jatte",
-    "tr": "Grande Jatte Adası'nda Bir Pazar"
+    "en": "A Sunday on La Grande Jatte"
    },
    "artist": "Georges Seurat, 1884",
    "imageName": "seurat_grande_jatte",
@@ -99,8 +89,7 @@
     {
      "id": "dogs",
      "names": {
-      "en": "Dogs",
-      "tr": "Köpekler"
+      "en": "Dogs"
      },
      "targets": [
       {
@@ -122,8 +111,7 @@
     {
      "id": "monkey",
      "names": {
-      "en": "Monkey",
-      "tr": "Maymun"
+      "en": "Monkey"
      },
      "targets": [
       {
@@ -135,8 +123,7 @@
     {
      "id": "butterfly",
      "names": {
-      "en": "Butterfly",
-      "tr": "Kelebek"
+      "en": "Butterfly"
      },
      "targets": [
       {
@@ -149,8 +136,7 @@
     {
      "id": "girl_white",
      "names": {
-      "en": "Girl in white",
-      "tr": "Beyaz elbiseli kız"
+      "en": "Girl in white"
      },
      "targets": [
       {
@@ -165,8 +151,7 @@
   {
    "id": "rousseau_tropical_forest",
    "titles": {
-    "en": "Tropical Forest with Monkeys",
-    "tr": "Maymunlu Tropik Orman"
+    "en": "Tropical Forest with Monkeys"
    },
    "artist": "Henri Rousseau, 1910",
    "imageName": "rousseau_tropical_forest",
@@ -185,8 +170,7 @@
     {
      "id": "monkeys",
      "names": {
-      "en": "Monkeys",
-      "tr": "Maymunlar"
+      "en": "Monkeys"
      },
      "targets": [
       {
@@ -219,8 +203,7 @@
     {
      "id": "snake",
      "names": {
-      "en": "Snake",
-      "tr": "Yılan"
+      "en": "Snake"
      },
      "targets": [
       {
@@ -239,8 +222,7 @@
     {
      "id": "white_flowers",
      "names": {
-      "en": "White flowers",
-      "tr": "Beyaz çiçekler"
+      "en": "White flowers"
      },
      "targets": [
       {
@@ -276,8 +258,7 @@
   {
    "id": "hicks_peaceable_kingdom",
    "titles": {
-    "en": "Peaceable Kingdom",
-    "tr": "Barışçıl Krallık"
+    "en": "Peaceable Kingdom"
    },
    "artist": "Edward Hicks, 1834",
    "imageName": "hicks_peaceable_kingdom",
@@ -296,8 +277,7 @@
     {
      "id": "lion",
      "names": {
-      "en": "Lion",
-      "tr": "Aslan"
+      "en": "Lion"
      },
      "targets": [
       {
@@ -310,8 +290,7 @@
     {
      "id": "leopards",
      "names": {
-      "en": "Leopards",
-      "tr": "Leoparlar"
+      "en": "Leopards"
      },
      "targets": [
       {
@@ -329,8 +308,7 @@
     {
      "id": "bears",
      "names": {
-      "en": "Bears",
-      "tr": "Ayılar"
+      "en": "Bears"
      },
      "targets": [
       {
@@ -348,8 +326,7 @@
     {
      "id": "wolf",
      "names": {
-      "en": "Wolf",
-      "tr": "Kurt"
+      "en": "Wolf"
      },
      "targets": [
       {
@@ -362,8 +339,7 @@
     {
      "id": "lamb",
      "names": {
-      "en": "Lamb",
-      "tr": "Kuzu"
+      "en": "Lamb"
      },
      "targets": [
       {
@@ -376,8 +352,7 @@
     {
      "id": "children",
      "names": {
-      "en": "Children",
-      "tr": "Çocuklar"
+      "en": "Children"
      },
      "targets": [
       {
@@ -402,8 +377,7 @@
   {
    "id": "rousseau_surprised",
    "titles": {
-    "en": "Surprised!",
-    "tr": "Sürpriz!"
+    "en": "Surprised!"
    },
    "artist": "Henri Rousseau, 1891",
    "imageName": "rousseau_surprised",
@@ -422,8 +396,7 @@
     {
      "id": "tiger",
      "names": {
-      "en": "Tiger",
-      "tr": "Kaplan"
+      "en": "Tiger"
      },
      "targets": [
       {
@@ -442,8 +415,7 @@
     {
      "id": "tiger_tail",
      "names": {
-      "en": "Tiger's tail",
-      "tr": "Kaplanın kuyruğu"
+      "en": "Tiger's tail"
      },
      "targets": [
       {
@@ -462,8 +434,7 @@
     {
      "id": "tiger_paws",
      "names": {
-      "en": "Tiger's paws",
-      "tr": "Kaplanın pençeleri"
+      "en": "Tiger's paws"
      },
      "targets": [
       {
@@ -481,8 +452,7 @@
     {
      "id": "red_flowers",
      "names": {
-      "en": "Red flowers",
-      "tr": "Kırmızı çiçekler"
+      "en": "Red flowers"
      },
      "targets": [
       {
@@ -501,8 +471,7 @@
     {
      "id": "feather_plants",
      "names": {
-      "en": "Feathery plants",
-      "tr": "Tüylü otlar"
+      "en": "Feathery plants"
      },
      "targets": [
       {
@@ -520,8 +489,7 @@
     {
      "id": "signature",
      "names": {
-      "en": "Painter's signature",
-      "tr": "Ressamın imzası"
+      "en": "Painter's signature"
      },
      "targets": [
       {
@@ -542,8 +510,7 @@
   {
    "id": "brueghel_noahs_ark",
    "titles": {
-    "en": "The Animals Enter the Ark",
-    "tr": "Hayvanlar Gemiye Giriyor"
+    "en": "The Animals Enter the Ark"
    },
    "artist": "Jan Brueghel the Elder, 1613",
    "imageName": "brueghel_noahs_ark",
@@ -562,8 +529,7 @@
     {
      "id": "white_horse",
      "names": {
-      "en": "White horse",
-      "tr": "Beyaz at"
+      "en": "White horse"
      },
      "targets": [
       {
@@ -576,8 +542,7 @@
     {
      "id": "lions",
      "names": {
-      "en": "Lions",
-      "tr": "Aslanlar"
+      "en": "Lions"
      },
      "targets": [
       {
@@ -595,8 +560,7 @@
     {
      "id": "leopards",
      "names": {
-      "en": "Leopards",
-      "tr": "Leoparlar"
+      "en": "Leopards"
      },
      "targets": [
       {
@@ -614,8 +578,7 @@
     {
      "id": "ostriches",
      "names": {
-      "en": "Ostriches",
-      "tr": "Devekuşları"
+      "en": "Ostriches"
      },
      "targets": [
       {
@@ -633,8 +596,7 @@
     {
      "id": "elephant",
      "names": {
-      "en": "Elephant",
-      "tr": "Fil"
+      "en": "Elephant"
      },
      "targets": [
       {
@@ -647,8 +609,7 @@
     {
      "id": "swans",
      "names": {
-      "en": "Swans",
-      "tr": "Kuğular"
+      "en": "Swans"
      },
      "targets": [
       {
@@ -666,8 +627,7 @@
     {
      "id": "turkey",
      "names": {
-      "en": "Turkey",
-      "tr": "Hindi"
+      "en": "Turkey"
      },
      "targets": [
       {
@@ -680,8 +640,7 @@
     {
      "id": "red_macaws",
      "names": {
-      "en": "Red macaws",
-      "tr": "Kırmızı papağanlar"
+      "en": "Red macaws"
      },
      "targets": [
       {
@@ -699,8 +658,7 @@
     {
      "id": "owl",
      "names": {
-      "en": "Owl",
-      "tr": "Baykuş"
+      "en": "Owl"
      },
      "targets": [
       {
@@ -713,8 +671,7 @@
     {
      "id": "cat",
      "names": {
-      "en": "Cat in the tree",
-      "tr": "Ağaçtaki kedi"
+      "en": "Cat in the tree"
      },
      "targets": [
       {
@@ -729,8 +686,7 @@
   {
    "id": "hondecoeter_menagerie",
    "titles": {
-    "en": "The Menagerie",
-    "tr": "Hayvan Koleksiyonu"
+    "en": "The Menagerie"
    },
    "artist": "Melchior d'Hondecoeter, c. 1690",
    "imageName": "hondecoeter_menagerie",
@@ -749,8 +705,7 @@
     {
      "id": "cockatoos",
      "names": {
-      "en": "White cockatoos",
-      "tr": "Beyaz kakadular"
+      "en": "White cockatoos"
      },
      "targets": [
       {
@@ -768,8 +723,7 @@
     {
      "id": "grey_parrot",
      "names": {
-      "en": "Grey parrot",
-      "tr": "Gri papağan"
+      "en": "Grey parrot"
      },
      "targets": [
       {
@@ -782,8 +736,7 @@
     {
      "id": "monkeys",
      "names": {
-      "en": "Monkeys",
-      "tr": "Maymunlar"
+      "en": "Monkeys"
      },
      "targets": [
       {
@@ -801,8 +754,7 @@
     {
      "id": "red_crested_birds",
      "names": {
-      "en": "Red crested birds",
-      "tr": "Kırmızı tepeli kuşlar"
+      "en": "Red crested birds"
      },
      "targets": [
       {
@@ -820,8 +772,7 @@
     {
      "id": "long_tailed_parrot",
      "names": {
-      "en": "Long-tailed parrot",
-      "tr": "Uzun kuyruklu papağan"
+      "en": "Long-tailed parrot"
      },
      "targets": [
       {
@@ -834,8 +785,7 @@
     {
      "id": "red_parrot",
      "names": {
-      "en": "Red parrot",
-      "tr": "Kırmızı papağan"
+      "en": "Red parrot"
      },
      "targets": [
       {
@@ -848,8 +798,7 @@
     {
      "id": "bullfinch",
      "names": {
-      "en": "Pink-breasted bird",
-      "tr": "Pembe göğüslü kuş"
+      "en": "Pink-breasted bird"
      },
      "targets": [
       {
@@ -864,8 +813,7 @@
   {
    "id": "savery_landscape_with_birds",
    "titles": {
-    "en": "Landscape with Birds",
-    "tr": "Kuşlu Manzara"
+    "en": "Landscape with Birds"
    },
    "artist": "Roelant Savery, 1628",
    "imageName": "savery_landscape_with_birds",
@@ -884,8 +832,7 @@
     {
      "id": "ostriches",
      "names": {
-      "en": "Ostriches",
-      "tr": "Devekuşları"
+      "en": "Ostriches"
      },
      "targets": [
       {
@@ -903,8 +850,7 @@
     {
      "id": "rooster",
      "names": {
-      "en": "Rooster",
-      "tr": "Horoz"
+      "en": "Rooster"
      },
      "targets": [
       {
@@ -917,8 +863,7 @@
     {
      "id": "eagle",
      "names": {
-      "en": "Eagle",
-      "tr": "Kartal"
+      "en": "Eagle"
      },
      "targets": [
       {
@@ -931,8 +876,7 @@
     {
      "id": "crowned_cranes",
      "names": {
-      "en": "Crowned cranes",
-      "tr": "Taçlı turnalar"
+      "en": "Crowned cranes"
      },
      "targets": [
       {
@@ -950,8 +894,7 @@
     {
      "id": "red_macaws",
      "names": {
-      "en": "Red macaws",
-      "tr": "Kırmızı papağanlar"
+      "en": "Red macaws"
      },
      "targets": [
       {
@@ -969,8 +912,7 @@
     {
      "id": "peacock",
      "names": {
-      "en": "Peacock",
-      "tr": "Tavus kuşu"
+      "en": "Peacock"
      },
      "targets": [
       {
@@ -983,8 +925,7 @@
     {
      "id": "turkey",
      "names": {
-      "en": "Turkey",
-      "tr": "Hindi"
+      "en": "Turkey"
      },
      "targets": [
       {
@@ -999,8 +940,7 @@
   {
    "id": "brueghel_rubens_garden_of_eden",
    "titles": {
-    "en": "The Garden of Eden",
-    "tr": "Cennet Bahçesi"
+    "en": "The Garden of Eden"
    },
    "artist": "Jan Brueghel the Elder & Peter Paul Rubens, c. 1615",
    "imageName": "brueghel_rubens_garden_of_eden",
@@ -1019,8 +959,7 @@
     {
      "id": "lion",
      "names": {
-      "en": "Lion",
-      "tr": "Aslan"
+      "en": "Lion"
      },
      "targets": [
       {
@@ -1033,8 +972,7 @@
     {
      "id": "tiger",
      "names": {
-      "en": "Tiger",
-      "tr": "Kaplan"
+      "en": "Tiger"
      },
      "targets": [
       {
@@ -1047,8 +985,7 @@
     {
      "id": "leopard",
      "names": {
-      "en": "Leopard",
-      "tr": "Leopar"
+      "en": "Leopard"
      },
      "targets": [
       {
@@ -1061,8 +998,7 @@
     {
      "id": "ostrich",
      "names": {
-      "en": "Ostrich",
-      "tr": "Devekuşu"
+      "en": "Ostrich"
      },
      "targets": [
       {
@@ -1075,8 +1011,7 @@
     {
      "id": "horse",
      "names": {
-      "en": "Horse",
-      "tr": "At"
+      "en": "Horse"
      },
      "targets": [
       {
@@ -1089,8 +1024,7 @@
     {
      "id": "peacock",
      "names": {
-      "en": "Peacock",
-      "tr": "Tavus kuşu"
+      "en": "Peacock"
      },
      "targets": [
       {
@@ -1103,8 +1037,7 @@
     {
      "id": "white_rabbit",
      "names": {
-      "en": "White rabbit",
-      "tr": "Beyaz tavşan"
+      "en": "White rabbit"
      },
      "targets": [
       {
@@ -1117,8 +1050,7 @@
     {
      "id": "white_dog",
      "names": {
-      "en": "White dog",
-      "tr": "Beyaz köpek"
+      "en": "White dog"
      },
      "targets": [
       {
@@ -1131,8 +1063,7 @@
     {
      "id": "elephant",
      "names": {
-      "en": "Elephant",
-      "tr": "Fil"
+      "en": "Elephant"
      },
      "targets": [
       {
@@ -1145,8 +1076,7 @@
     {
      "id": "snake",
      "names": {
-      "en": "Snake in the tree",
-      "tr": "Ağaçtaki yılan"
+      "en": "Snake in the tree"
      },
      "targets": [
       {
@@ -1161,8 +1091,7 @@
   {
    "id": "bosch_garden_of_eden",
    "titles": {
-    "en": "The Earthly Paradise",
-    "tr": "Cennet Bağı"
+    "en": "The Earthly Paradise"
    },
    "artist": "Hieronymus Bosch, c. 1490–1510",
    "imageName": "bosch_garden_of_eden",
@@ -1181,8 +1110,7 @@
     {
      "id": "elephant",
      "names": {
-      "en": "Elephant",
-      "tr": "Fil"
+      "en": "Elephant"
      },
      "targets": [
       {
@@ -1195,8 +1123,7 @@
     {
      "id": "giraffe",
      "names": {
-      "en": "Giraffe",
-      "tr": "Zürafa"
+      "en": "Giraffe"
      },
      "targets": [
       {
@@ -1209,8 +1136,7 @@
     {
      "id": "porcupine",
      "names": {
-      "en": "Porcupine",
-      "tr": "Oklu kirpi"
+      "en": "Porcupine"
      },
      "targets": [
       {
@@ -1223,8 +1149,7 @@
     {
      "id": "owl",
      "names": {
-      "en": "Owl",
-      "tr": "Baykuş"
+      "en": "Owl"
      },
      "targets": [
       {
@@ -1237,8 +1162,7 @@
     {
      "id": "swan",
      "names": {
-      "en": "Swan",
-      "tr": "Kuğu"
+      "en": "Swan"
      },
      "targets": [
       {
@@ -1251,8 +1175,7 @@
     {
      "id": "cat",
      "names": {
-      "en": "Cat",
-      "tr": "Kedi"
+      "en": "Cat"
      },
      "targets": [
       {
@@ -1267,8 +1190,7 @@
   {
    "id": "bruegel_hunters_in_the_snow",
    "titles": {
-    "en": "The Hunters in the Snow",
-    "tr": "Kardaki Avcılar"
+    "en": "The Hunters in the Snow"
    },
    "artist": "Pieter Bruegel, 1565",
    "imageName": "bruegel_hunters_in_the_snow",
@@ -1287,8 +1209,7 @@
     {
      "id": "hunters",
      "names": {
-      "en": "Hunters",
-      "tr": "Avcılar"
+      "en": "Hunters"
      },
      "targets": [
       {
@@ -1311,8 +1232,7 @@
     {
      "id": "fire",
      "names": {
-      "en": "Fire",
-      "tr": "Ateş"
+      "en": "Fire"
      },
      "targets": [
       {
@@ -1325,8 +1245,7 @@
     {
      "id": "church_tower",
      "names": {
-      "en": "Church tower",
-      "tr": "Kilise kulesi"
+      "en": "Church tower"
      },
      "targets": [
       {
@@ -1339,8 +1258,7 @@
     {
      "id": "big_bird",
      "names": {
-      "en": "Big bird",
-      "tr": "Büyük kuş"
+      "en": "Big bird"
      },
      "targets": [
       {
@@ -1353,8 +1271,7 @@
     {
      "id": "bridge",
      "names": {
-      "en": "Bridge",
-      "tr": "Köprü"
+      "en": "Bridge"
      },
      "targets": [
       {
@@ -1367,8 +1284,7 @@
     {
      "id": "inn_sign",
      "names": {
-      "en": "Inn sign",
-      "tr": "Han tabelası"
+      "en": "Inn sign"
      },
      "targets": [
       {
@@ -1381,8 +1297,7 @@
     {
      "id": "mountains",
      "names": {
-      "en": "Mountains",
-      "tr": "Dağlar"
+      "en": "Mountains"
      },
      "targets": [
       {
@@ -1401,8 +1316,7 @@
     {
      "id": "perched_birds",
      "names": {
-      "en": "Birds on the branches",
-      "tr": "Dala konmuş kuşlar"
+      "en": "Birds on the branches"
      },
      "targets": [
       {
@@ -1425,8 +1339,7 @@
     {
      "id": "red_roof",
      "names": {
-      "en": "Red roof",
-      "tr": "Kırmızı çatı"
+      "en": "Red roof"
      },
      "targets": [
       {
@@ -1447,8 +1360,7 @@
   {
    "id": "avercamp_winter_landscape",
    "titles": {
-    "en": "Winter Landscape with Ice Skaters",
-    "tr": "Buz Patencili Kış Manzarası"
+    "en": "Winter Landscape with Ice Skaters"
    },
    "artist": "Hendrick Avercamp, 1608",
    "imageName": "avercamp_winter_landscape",
@@ -1467,8 +1379,7 @@
     {
      "id": "church_tower",
      "names": {
-      "en": "Church tower",
-      "tr": "Kilise kulesi"
+      "en": "Church tower"
      },
      "targets": [
       {
@@ -1481,8 +1392,7 @@
     {
      "id": "fishing_net",
      "names": {
-      "en": "Fishing net",
-      "tr": "Balık ağı"
+      "en": "Fishing net"
      },
      "targets": [
       {
@@ -1495,8 +1405,7 @@
     {
      "id": "red_sleigh",
      "names": {
-      "en": "Red sleigh",
-      "tr": "Kırmızı kızak"
+      "en": "Red sleigh"
      },
      "targets": [
       {
@@ -1509,8 +1418,7 @@
     {
      "id": "fallen_skater",
      "names": {
-      "en": "Fallen skater",
-      "tr": "Düşen patenci"
+      "en": "Fallen skater"
      },
      "targets": [
       {
@@ -1525,8 +1433,7 @@
   {
    "id": "rousseau_the_dream",
    "titles": {
-    "en": "The Dream",
-    "tr": "Rüya"
+    "en": "The Dream"
    },
    "artist": "Henri Rousseau, 1910",
    "imageName": "rousseau_the_dream",
@@ -1545,8 +1452,7 @@
     {
      "id": "moon",
      "names": {
-      "en": "Moon",
-      "tr": "Ay"
+      "en": "Moon"
      },
      "targets": [
       {
@@ -1559,8 +1465,7 @@
     {
      "id": "lions",
      "names": {
-      "en": "Lions",
-      "tr": "Aslanlar"
+      "en": "Lions"
      },
      "targets": [
       {
@@ -1578,8 +1483,7 @@
     {
      "id": "elephant",
      "names": {
-      "en": "Elephant",
-      "tr": "Fil"
+      "en": "Elephant"
      },
      "targets": [
       {
@@ -1592,8 +1496,7 @@
     {
      "id": "snake",
      "names": {
-      "en": "Snake",
-      "tr": "Yılan"
+      "en": "Snake"
      },
      "targets": [
       {
@@ -1606,8 +1509,7 @@
     {
      "id": "flute_player",
      "names": {
-      "en": "Flute player",
-      "tr": "Flüt çalan adam"
+      "en": "Flute player"
      },
      "targets": [
       {
@@ -1622,8 +1524,7 @@
   {
    "id": "vangogh_starry_night",
    "titles": {
-    "en": "The Starry Night",
-    "tr": "Yıldızlı Gece"
+    "en": "The Starry Night"
    },
    "artist": "Vincent van Gogh, 1889",
    "imageName": "vangogh_starry_night",
@@ -1642,8 +1543,7 @@
     {
      "id": "moon",
      "names": {
-      "en": "Moon",
-      "tr": "Ay"
+      "en": "Moon"
      },
      "targets": [
       {
@@ -1656,8 +1556,7 @@
     {
      "id": "cypress",
      "names": {
-      "en": "Cypress tree",
-      "tr": "Selvi ağacı"
+      "en": "Cypress tree"
      },
      "targets": [
       {
@@ -1676,8 +1575,7 @@
     {
      "id": "church_tower",
      "names": {
-      "en": "Church tower",
-      "tr": "Kilise kulesi"
+      "en": "Church tower"
      },
      "targets": [
       {
@@ -1690,8 +1588,7 @@
     {
      "id": "stars",
      "names": {
-      "en": "Stars",
-      "tr": "Yıldızlar"
+      "en": "Stars"
      },
      "targets": [
       {
@@ -1754,8 +1651,7 @@
     {
      "id": "swirl",
      "names": {
-      "en": "Swirl in the sky",
-      "tr": "Gökyüzündeki girdap"
+      "en": "Swirl in the sky"
      },
      "targets": [
       {
@@ -1774,8 +1670,7 @@
     {
      "id": "mountains",
      "names": {
-      "en": "Mountains",
-      "tr": "Dağlar"
+      "en": "Mountains"
      },
      "targets": [
       {
@@ -1794,8 +1689,7 @@
     {
      "id": "village",
      "names": {
-      "en": "The village",
-      "tr": "Köy"
+      "en": "The village"
      },
      "targets": [
       {
@@ -1816,8 +1710,7 @@
   {
    "id": "bruegel_childrens_games",
    "titles": {
-    "en": "Children's Games",
-    "tr": "Çocuk Oyunları"
+    "en": "Children's Games"
    },
    "artist": "Pieter Bruegel, 1560",
    "imageName": "bruegel_childrens_games",
@@ -1836,8 +1729,7 @@
     {
      "id": "barrels",
      "names": {
-      "en": "Barrels",
-      "tr": "Fıçılar"
+      "en": "Barrels"
      },
      "targets": [
       {
@@ -1855,8 +1747,7 @@
     {
      "id": "hoops",
      "names": {
-      "en": "Hoops",
-      "tr": "Çemberler"
+      "en": "Hoops"
      },
      "targets": [
       {
@@ -1874,8 +1765,7 @@
     {
      "id": "hobby_horse",
      "names": {
-      "en": "Hobby horse",
-      "tr": "Tahta at"
+      "en": "Hobby horse"
      },
      "targets": [
       {
@@ -1888,8 +1778,7 @@
     {
      "id": "stilts",
      "names": {
-      "en": "Boy on stilts",
-      "tr": "Sırıklı çocuk"
+      "en": "Boy on stilts"
      },
      "targets": [
       {
@@ -1904,8 +1793,7 @@
   {
    "id": "hokusai_great_wave",
    "titles": {
-    "en": "The Great Wave off Kanagawa",
-    "tr": "Kanagawa'da Büyük Dalga"
+    "en": "The Great Wave off Kanagawa"
    },
    "artist": "Katsushika Hokusai, 1831",
    "imageName": "hokusai_great_wave",
@@ -1924,8 +1812,7 @@
     {
      "id": "big_wave",
      "names": {
-      "en": "The big wave",
-      "tr": "Büyük dalga"
+      "en": "The big wave"
      },
      "targets": [
       {
@@ -1944,8 +1831,7 @@
     {
      "id": "boats",
      "names": {
-      "en": "Boats",
-      "tr": "Sandallar"
+      "en": "Boats"
      },
      "targets": [
       {
@@ -1968,8 +1854,7 @@
     {
      "id": "mount_fuji",
      "names": {
-      "en": "Mount Fuji",
-      "tr": "Fuji Dağı"
+      "en": "Mount Fuji"
      },
      "targets": [
       {
@@ -1988,8 +1873,7 @@
     {
      "id": "japanese_writing",
      "names": {
-      "en": "Japanese writing",
-      "tr": "Japonca yazı"
+      "en": "Japanese writing"
      },
      "targets": [
       {
@@ -2009,8 +1893,7 @@
   {
    "id": "millais_ophelia",
    "titles": {
-    "en": "Ophelia",
-    "tr": "Ophelia"
+    "en": "Ophelia"
    },
    "artist": "John Everett Millais, 1852",
    "imageName": "millais_ophelia",
@@ -2029,8 +1912,7 @@
     {
      "id": "lady",
      "names": {
-      "en": "The lady in the water",
-      "tr": "Sudaki kadın"
+      "en": "The lady in the water"
      },
      "targets": [
       {
@@ -2049,8 +1931,7 @@
     {
      "id": "hands",
      "names": {
-      "en": "Her hands",
-      "tr": "Elleri"
+      "en": "Her hands"
      },
      "targets": [
       {
@@ -2068,8 +1949,7 @@
     {
      "id": "tree_trunk",
      "names": {
-      "en": "Tree trunk",
-      "tr": "Ağaç kütüğü"
+      "en": "Tree trunk"
      },
      "targets": [
       {
@@ -2088,8 +1968,7 @@
     {
      "id": "pink_flowers",
      "names": {
-      "en": "Pink flowers",
-      "tr": "Pembe çiçekler"
+      "en": "Pink flowers"
      },
      "targets": [
       {
@@ -2113,8 +1992,7 @@
     {
      "id": "red_poppy",
      "names": {
-      "en": "Red poppy",
-      "tr": "Kırmızı gelincik"
+      "en": "Red poppy"
      },
      "targets": [
       {
@@ -2127,8 +2005,7 @@
     {
      "id": "robin",
      "names": {
-      "en": "Little bird",
-      "tr": "Küçük kuş"
+      "en": "Little bird"
      },
      "targets": [
       {
@@ -2149,8 +2026,7 @@
   {
    "id": "cezanne_apples_and_oranges",
    "titles": {
-    "en": "Apples and Oranges",
-    "tr": "Elmalar ve Portakallar"
+    "en": "Apples and Oranges"
    },
    "artist": "Paul Cézanne, 1899",
    "imageName": "cezanne_apples_and_oranges",
@@ -2169,8 +2045,7 @@
     {
      "id": "jug",
      "names": {
-      "en": "Jug",
-      "tr": "Sürahi"
+      "en": "Jug"
      },
      "targets": [
       {
@@ -2189,8 +2064,7 @@
     {
      "id": "oranges_in_bowl",
      "names": {
-      "en": "Oranges in the bowl",
-      "tr": "Kasedeki portakallar"
+      "en": "Oranges in the bowl"
      },
      "targets": [
       {
@@ -2229,8 +2103,7 @@
     {
      "id": "fruits_by_the_jug",
      "names": {
-      "en": "Fruits next to the jug",
-      "tr": "Sürahinin yanındaki meyveler"
+      "en": "Fruits next to the jug"
      },
      "targets": [
       {
@@ -2263,8 +2136,7 @@
     {
      "id": "fruit_plate",
      "names": {
-      "en": "Plate of apples",
-      "tr": "Elma tabağı"
+      "en": "Plate of apples"
      },
      "targets": [
       {
@@ -2283,8 +2155,7 @@
     {
      "id": "loose_apples",
      "names": {
-      "en": "Apples on the cloth",
-      "tr": "Örtüdeki elmalar"
+      "en": "Apples on the cloth"
      },
      "targets": [
       {
@@ -2308,8 +2179,7 @@
     {
      "id": "white_cloth",
      "names": {
-      "en": "White cloth",
-      "tr": "Beyaz örtü"
+      "en": "White cloth"
      },
      "targets": [
       {
@@ -2330,8 +2200,7 @@
   {
    "id": "sanchez_cotan_still_life",
    "titles": {
-    "en": "Still Life with Game, Vegetables and Fruit",
-    "tr": "Av, Sebze ve Meyveli Natürmort"
+    "en": "Still Life with Game, Vegetables and Fruit"
    },
    "artist": "Juan Sánchez Cotán, 1602",
    "imageName": "sanchez_cotan_still_life",
@@ -2350,8 +2219,7 @@
     {
      "id": "lemons",
      "names": {
-      "en": "Lemons",
-      "tr": "Limonlar"
+      "en": "Lemons"
      },
      "targets": [
       {
@@ -2374,8 +2242,7 @@
     {
      "id": "small_birds",
      "names": {
-      "en": "Small birds",
-      "tr": "Küçük kuşlar"
+      "en": "Small birds"
      },
      "targets": [
       {
@@ -2393,8 +2260,7 @@
     {
      "id": "partridges",
      "names": {
-      "en": "Hanging partridges",
-      "tr": "Asılı keklikler"
+      "en": "Hanging partridges"
      },
      "targets": [
       {
@@ -2412,8 +2278,7 @@
     {
      "id": "apples",
      "names": {
-      "en": "Hanging apples",
-      "tr": "Asılı elmalar"
+      "en": "Hanging apples"
      },
      "targets": [
       {
@@ -2431,8 +2296,7 @@
     {
      "id": "skewered_birds",
      "names": {
-      "en": "Birds on the stick",
-      "tr": "Çubuktaki kuşlar"
+      "en": "Birds on the stick"
      },
      "targets": [
       {
@@ -2450,8 +2314,7 @@
     {
      "id": "carrots",
      "names": {
-      "en": "Carrots",
-      "tr": "Havuçlar"
+      "en": "Carrots"
      },
      "targets": [
       {
@@ -2469,8 +2332,7 @@
     {
      "id": "leek",
      "names": {
-      "en": "Leek",
-      "tr": "Pırasa"
+      "en": "Leek"
      },
      "targets": [
       {
@@ -2485,8 +2347,7 @@
   {
    "id": "peale_blackberries",
    "titles": {
-    "en": "Blackberries",
-    "tr": "Böğürtlenler"
+    "en": "Blackberries"
    },
    "artist": "Raphaelle Peale, c. 1813",
    "imageName": "peale_blackberries",
@@ -2505,8 +2366,7 @@
     {
      "id": "blackberries",
      "names": {
-      "en": "Blackberries",
-      "tr": "Böğürtlenler"
+      "en": "Blackberries"
      },
      "targets": [
       {
@@ -2534,8 +2394,7 @@
     {
      "id": "raspberries",
      "names": {
-      "en": "Raspberries",
-      "tr": "Ahududular"
+      "en": "Raspberries"
      },
      "targets": [
       {
@@ -2563,8 +2422,7 @@
     {
      "id": "bowl",
      "names": {
-      "en": "The bowl",
-      "tr": "Kase"
+      "en": "The bowl"
      },
      "targets": [
       {
