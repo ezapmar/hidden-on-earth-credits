@@ -290,7 +290,12 @@ async function main() {
 
   const manifest = {
     schema: 1,
-    base: path.relative(path.dirname(args.manifest), args.out).split(path.sep).join('/') + '/',
+    // Where the images sit relative to the manifest. Empty when the manifest is written inside
+    // --out, which is how the app bundles it; "/" there would mean the server root.
+    base: (() => {
+      const rel = path.relative(path.dirname(args.manifest), args.out).split(path.sep).join('/');
+      return rel ? rel + '/' : '';
+    })(),
     tiers: TIERS,
     tierFormats: TIER_FORMATS,
     thumb: THUMB_PX,
@@ -316,16 +321,16 @@ async function main() {
     console.log(`${level.id.padEnd(32)} ${sizes}  (${((Date.now() - started) / 1000).toFixed(1)}s)`);
   }
 
-  // prune() removes everything under --out that the manifest does not reference, so a manifest
-  // written inside --out deletes itself and the run reports success with no manifest at all.
-  if (!path.relative(args.out, args.manifest).startsWith('..')) {
-    console.error(`--manifest must not be inside --out (${path.relative(REPO, args.out)}):`);
-    console.error('  unreferenced files there are pruned, which would delete the manifest.');
-    process.exit(2);
-  }
   await fs.mkdir(path.dirname(args.manifest), { recursive: true });
   await fs.writeFile(args.manifest, JSON.stringify(manifest, null, 1) + '\n');
-  const removed = await prune(args.out, referencedPaths(manifest));
+
+  // prune() deletes everything under --out that the manifest does not reference, and the
+  // manifest references only images. Writing it inside --out is the natural thing to do — it is
+  // how the app bundles it — so keep it rather than deleting it and reporting success.
+  const keep = referencedPaths(manifest);
+  const manifestRel = path.relative(args.out, args.manifest);
+  if (!manifestRel.startsWith('..')) keep.add(manifestRel.split(path.sep).join('/'));
+  const removed = await prune(args.out, keep);
 
   let total = { avif: 0, webp: 0 }, session = 0;
   for (const lvl of Object.values(manifest.levels)) {
