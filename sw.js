@@ -15,7 +15,7 @@
 
    Bump VERSION to drop every cache on the next visit (a changed manifest alone needs no bump:
    new files have new names and are fetched on use). */
-var VERSION = 'v2';
+var VERSION = 'v3';
 var STATIC_CACHE = 'hoe-static-' + VERSION;   // manifest + card + fit
 var PLAY_CACHE = 'hoe-play-' + VERSION;       // play + zoom, on use
 var PLAY_LIMIT = 16;                           // files: about 8 paintings with both tiers
