@@ -39,13 +39,40 @@ const file = JSON.parse(await fs.readFile(levelsPath, "utf8"));
 const collections = file.collections ?? [];
 const personal = new Set(collections.filter((c) => c.personal).map((c) => c.id));
 
+// `/play` is a public DEMO, not the full game: the iPad app carries the whole catalogue, the web
+// build carries a fixed small set. Growing the game must never silently bloat the demo, so the
+// demo's paintings are listed here explicitly. Edit this list (not the game) to change the demo.
+const DEMO = new Set([
+  "seurat_grande_jatte",
+  "rousseau_tropical_forest",
+  "hicks_peaceable_kingdom",
+  "rousseau_surprised",
+  "brueghel_noahs_ark",
+  "hondecoeter_menagerie",
+  "savery_landscape_with_birds",
+  "bruegel_hunters_in_the_snow",
+  "avercamp_winter_landscape",
+  "vangogh_starry_night",
+  "bruegel_childrens_games",
+  "hokusai_great_wave",
+  "cezanne_apples_and_oranges",
+  "peale_blackberries",
+]);
+
 const kept = [];
 const refused = [];
+const notInDemo = [];
+const seenDemo = new Set();
 for (const level of file.levels) {
   if (personal.has(level.collection)) {
     refused.push(level.id);
     continue;
   }
+  if (!DEMO.has(level.id)) {
+    notInDemo.push(level.id);
+    continue;
+  }
+  seenDemo.add(level.id);
   // Only what the game needs to play. No source paths, no encoder settings.
   kept.push({
     id: level.id,
@@ -62,6 +89,12 @@ for (const level of file.levels) {
       ...(g.thumb === undefined ? {} : { thumb: g.thumb }),
     })),
   });
+}
+
+const missing = [...DEMO].filter((id) => !seenDemo.has(id));
+if (missing.length) {
+  console.error(`demo list names ${missing.length} painting(s) not in the game: ${missing.join(", ")}`);
+  process.exit(2);
 }
 
 const out = {
@@ -93,3 +126,4 @@ const targets = kept.reduce((n, l) => n + l.items.reduce((m, g) => m + g.targets
 console.log(`wrote ${path.relative(REPO, outPath)}`);
 console.log(`  published ${kept.length} levels, ${targets} targets`);
 console.log(`  refused ${refused.length} personal: ${refused.join(", ") || "none"}`);
+console.log(`  held back ${notInDemo.length} not in the demo list`);
