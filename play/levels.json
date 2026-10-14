@@ -58,6 +58,20 @@
    "symbol": "basket.fill"
   },
   {
+   "id": "maps",
+   "titles": {
+    "en": "Old maps"
+   },
+   "symbol": "map.fill"
+  },
+  {
+   "id": "cities",
+   "titles": {
+    "en": "Towns and cities"
+   },
+   "symbol": "building.2.fill"
+  },
+  {
    "id": "yours",
    "titles": {
     "en": "Your collection"
