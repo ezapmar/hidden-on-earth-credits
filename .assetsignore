@@ -5,3 +5,10 @@ node_modules
 .git
 .wrangler
 wrangler.jsonc
+# Tests and their output are for the repository, not the site.
+tests
+test-results
+playwright-report
+vitest.config.js
+playwright.config.js
+.github

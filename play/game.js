@@ -88,28 +88,12 @@ function render() {
  * `play` (2048px) and `zoom` (3200px) are AVIF only: the WebP copies were more than half the
  * catalogue's bytes and every current browser decodes AVIF. "Every current browser" is not
  * "every browser", though, and a <picture> cannot fall back from a format it does not support
- * when no other source exists. So detect AVIF once, and a browser without it simply stays on
+ * when no other source exists. So data.js detects AVIF once, and a browser without it stays on
  * `fit`, which carries WebP. Blurrier past 1.6x, but never a broken image.
  */
 let avifOK = false;
 let shownTier = "fit";
 let pendingTier = null;
-
-const AVIF_1PX =
-  "data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRsc" +
-  "gAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAAB" +
-  "AAABGgAAAB0AAABEaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABR" +
-  "pc3BlAAAAAAAAAAEAAAABAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQAMAAAAABNjb2xybmNseAACAAIABoAAAAAXaX" +
-  "BtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKCBgABogQEDQgMgkQAAAAB8dSLfI=";
-
-function detectAvif() {
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.onload = () => resolve(img.width === 1);
-    img.onerror = () => resolve(false);
-    img.src = AVIF_1PX;
-  });
-}
 
 /* Which tier a zoom level deserves is core logic, in core/tiers.js, with its own tests.
    What is left here is the plumbing: preload, then swap once it has decoded, so the painting
