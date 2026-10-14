@@ -103,6 +103,28 @@
   .bar { margin-top: .4rem; height: 7px; border-radius: 999px; background: rgba(255,255,255,.15); overflow: hidden }
   .bar i { display: block; height: 100%; background: var(--vermilion); border-radius: 999px }
 
+  /* ------------------------------------------------------- the iOS app promo */
+  /* The foot of the picker, after the last row. Not on the game or win screen. */
+  .app-promo {
+    display: flex; align-items: center; gap: 1rem;
+    margin: .4rem clamp(1rem, 4vw, 2rem) 1rem; padding: 1rem 1.2rem;
+    background: var(--panel); border: 1px solid var(--edge); border-radius: 20px;
+  }
+  .app-promo-icon { width: 4rem; height: 4rem; border-radius: 22%; flex: 0 0 auto; display: block }
+  .app-promo-words { display: grid; gap: .45rem; justify-items: start; min-width: 0 }
+  .app-promo h2 { font-size: clamp(1.1rem, 3vw, 1.35rem); font-weight: 800 }
+  .app-promo p { margin: 0; font-size: .92rem; opacity: .75; max-width: 46ch }
+  .app-badge {
+    display: inline-flex; align-items: center; gap: .5rem; margin-top: .15rem;
+    padding: .55rem 1rem; border-radius: 999px; font-weight: 700;
+    background: var(--vermilion); color: var(--bone); text-decoration: none;
+  }
+  .app-badge .symbol { width: 1.2em; height: 1.2em; flex: 0 0 auto }
+  .app-badge.soon { background: transparent; color: var(--gold); border: 2px solid rgba(242,177,52,.45) }
+  a.app-badge:active { transform: translateY(1px) }
+  @media (prefers-reduced-motion: reduce) { a.app-badge:active { transform: none } }
+  @media (max-width: 420px) { .app-promo { flex-direction: column; align-items: flex-start } }
+
   /* -------------------------------------------------------- the sticker book */
   .book-head { display: grid; justify-items: center; gap: .2rem; padding: 2.2rem 1rem 1.4rem; text-align: center }
   .book-head h1 { font-size: clamp(1.8rem, 5vw, 2.4rem); font-weight: 800 }

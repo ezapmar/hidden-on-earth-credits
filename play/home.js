@@ -13,6 +13,11 @@ import { L10n, totalTargets } from "./core/index.js";
 import { collectionRows, pictureEl, state, stickerURLs, tierURLs } from "./data.js";
 import { symbolSVG } from "./symbols.js";
 
+// The App Store page for the iOS app. Empty until the app is live: the promo at the foot of
+// the picker then says "coming soon" instead of linking to a listing that does not exist yet.
+// Set it to the app's URL (https://apps.apple.com/app/id<number>) on release day.
+const APP_STORE_URL = "";
+
 const el = (tag, className, text) => {
   const n = document.createElement(tag);
   if (className) n.className = className;
@@ -80,6 +85,35 @@ function addPictureCard() {
   return card;
 }
 
+// "For more, download the iOS app." The web picker is a demo of a few paintings; the app has
+// the whole catalogue and Play Together. It sits at the foot of the picker, never on the game
+// or win screen, so nothing asks a child to leave mid-play or at the moment of a reward.
+function appPromo() {
+  const box = el("aside", "app-promo");
+  box.setAttribute("aria-label", "Get the iOS app");
+  const icon = el("img", "app-promo-icon");
+  icon.src = "/assets/icon-512.webp";
+  icon.alt = "";
+  icon.width = icon.height = 64;
+  const words = el("div", "app-promo-words");
+  words.append(el("h2", null, "For more, download the iOS app"),
+               el("p", null, "Many more paintings, and Play Together for the whole family round one iPad."));
+  let badge;
+  if (APP_STORE_URL) {
+    badge = el("a", "app-badge");
+    badge.href = APP_STORE_URL;
+    badge.target = "_blank";
+    badge.rel = "noopener";
+    badge.append(symbolSVG("ipad", "symbol"), el("span", null, "Download on the App Store"));
+  } else {
+    badge = el("span", "app-badge soon");
+    badge.append(symbolSVG("ipad", "symbol"), el("span", null, "Coming soon to the App Store"));
+  }
+  words.append(badge);
+  box.append(icon, words);
+  return box;
+}
+
 export function renderPicker(root, { onPick, onStickers }) {
   root.replaceChildren();
   const { library, progress } = state;
@@ -110,6 +144,7 @@ export function renderPicker(root, { onPick, onStickers }) {
     section.append(strip);
     root.append(section);
   }
+  root.append(appPromo());
 }
 
 export function renderStickerBook(root, { onPick, onHome }) {
