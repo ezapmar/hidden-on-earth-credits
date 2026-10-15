@@ -94,6 +94,34 @@ whatever happens to be on the machine that deployed it. It caught the two ways t
 drifted — `play/core/tiers.js` had been edited here rather than in its TypeScript source, and the
 commands above were documented before the scripts they call existed.
 
+## Tests
+
+The rules of the game (hit testing, zoom maths, progress, tiers) are tested where they are
+written, in `seek-and-find-web`, against 1,425 cases dumped from the Swift game. The tests here
+cover what this repository adds on top: the screens, the published data and the browser.
+
+```bash
+npm install
+npx playwright install chromium  # once
+npm test                         # unit and data tests (Vitest), under a second
+npm run test:e2e                 # the real /play/ in Chromium (Playwright), a few seconds
+npm run test:all                 # both; what .github/workflows/test.yml runs
+```
+
+| Folder | Runner | What it covers |
+|---|---|---|
+| `tests/unit/` | Vitest + jsdom | `data.js` (image URLs, collection rows, loading), `home.js` (picker and sticker book in every progress state), `symbols.js` |
+| `tests/data/` | Vitest | `play/levels.json`, `assets/paintings.json`, the files on disk, `sw.js`'s precache list and the counts the pages quote all agree; `make-play-data.mjs` refuses the family's pictures and reproduces the committed file byte for byte |
+| `tests/e2e/` | Playwright | Taps, misses, hints, winning, saving and resuming, speech, routing and Back, zoom buttons, wheel, drag, pinch, image tiers, the phone rotate prompt, offline play through the service worker |
+
+`game.js` and `app.js` are tested only in the browser: they run at import against the page's
+DOM and need real layout and pointer events, which jsdom does not have. The browser tests tap
+the target coordinates from `play/levels.json` through whatever zoom and pan apply, so a
+target that moves, or a painting whose aspect is wrong, fails a test.
+
+`tests/e2e/server.mjs` serves the repository root for Playwright. It is not `npm run serve`:
+Python's server queues five connections and parallel browsers loading ES modules overflow it.
+
 ## Hosting
 
 **Cloudflare serves `main` at https://hiddenonearth.ucer.us/.** Not Cloudflare Pages: the

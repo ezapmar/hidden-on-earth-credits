@@ -9,9 +9,16 @@
     "play:data": "node tools/make-play-data.mjs",
     "play:core": "cd ../seek-and-find-web && npm run build && npm run vendor -- ../hidden-on-earth-credits/play/core",
     "check": "node tools/make-play-data.mjs --check && node tools/verify-images.mjs && cd ../seek-and-find-web && npm run build && npm run vendor -- ../hidden-on-earth-credits/play/core --check",
-    "serve": "python3 -m http.server 8080"
+    "serve": "python3 -m http.server 8080",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:all": "vitest run && playwright test"
   },
   "devDependencies": {
-    "sharp": "^0.34.3"
+    "@playwright/test": "^1.64.1",
+    "jsdom": "^26.1.0",
+    "sharp": "^0.34.3",
+    "vitest": "^3.2.4"
   }
 }
