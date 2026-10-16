@@ -6,6 +6,10 @@
 /assets/img/*
   Cache-Control: public, max-age=31536000, immutable
 
+# The iPad app's zoom tier, fetched by the app; hashed names too (tools/publish-app-zoom.mjs).
+/assets/zoom/*
+  Cache-Control: public, max-age=31536000, immutable
+
 /assets/paintings.json
   Cache-Control: public, max-age=0, must-revalidate
 
