@@ -6,7 +6,7 @@ The public site for **Hidden on Earth: Seek & Find**, a seek-and-find game for c
 
 - [Home](https://ezapmar.github.io/hidden-on-earth-credits/): what the game is, a playable painting, the method, the paintings.
 - [Support](https://ezapmar.github.io/hidden-on-earth-credits/support.html): help and contact. This is the App Store Support URL.
-- [Privacy Policy](https://ezapmar.github.io/hidden-on-earth-credits/privacy.html): the app collects no data: no accounts, ads, analytics or tracking. It also covers this website and the image downloads a coming version of the app will make.
+- [Privacy Policy](https://ezapmar.github.io/hidden-on-earth-credits/privacy.html): the app collects no data: no accounts, ads, analytics or tracking. It also covers this website and the painting images the app downloads.
 - [Art credits and sources](https://ezapmar.github.io/hidden-on-earth-credits/credits.html): every painting is a public-domain artwork (CC0 museum open-access or Wikimedia Commons).
 
 Plain static HTML, served by Cloudflare from `main`. No build step at serve time, no external requests: fonts (Outfit, Hanken Grotesk, both OFL) are in `assets/fonts/`.
@@ -49,6 +49,25 @@ Both scripts take `--levels <path>` when the game checkout is somewhere else. Th
 ```bash
 node tools/build-images.mjs --include-private --out ../seek-and-find-web/public/img --manifest ../seek-and-find-web/public/paintings.json
 ```
+
+## The app's zoom tier
+
+The iPad app bundles `card`, `play`, thumbs and stickers, and downloads each public painting's
+`zoom` file from `assets/zoom/` the first time a child zooms far in (or all at once, from the
+app's settings). The app's image build writes those files outside its bundle and marks them
+`"remote"` in its manifest (`build-images.mjs --remote-tier zoom --remote-out ...`, command in
+the game's README). Then, from here:
+
+```bash
+npm run app:zoom                 # copies the app's remote files into assets/zoom/
+```
+
+They are the app's own bytes, not copies of `assets/img/`: the encoder is not byte-for-byte
+reproducible across machines, so the same painting built twice gets two hashed names, and the
+app asks for exactly the name in its manifest. Nothing in `assets/zoom/` is ever deleted, since
+an installed older build keeps asking for the files it shipped with. The script refuses the
+family's pictures, and a file whose bytes do not match its name. `npm run check` fails while a
+file the app wants is not published; `_headers` serves the folder immutable.
 
 ## Installing it
 

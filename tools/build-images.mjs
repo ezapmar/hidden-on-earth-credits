@@ -35,6 +35,14 @@
    --formats and --skip-tier narrow what a run emits. The iPad app reads AVIF only and goes
    card -> play -> zoom, never fit, so it builds with `--formats avif --skip-tier fit` and
    saves about 7 MB of files it would never open. The site needs both formats and all four.
+
+   --remote-tier zoom --remote-out <dir> keeps a tier out of the app bundle. For every public
+   level that tier's files are written to <dir> instead of --out, and the manifest marks them
+   "remote": true: the app downloads them from the site the first time they are needed, and
+   publish-app-zoom.mjs copies them from <dir> into the site. A personal level's files stay in
+   --out, since they are never published, and so does a tier too small to have its own file
+   (it shares the previous tier's). A file that only needs to change sides is moved, never
+   re-encoded, so its name and the copies already published stay valid.
 */
 import sharp from 'sharp';
 import { createHash } from 'node:crypto';
@@ -75,6 +83,8 @@ function parseArgs(argv) {
     only: [],
     includePrivate: false,
     force: false,
+    remoteTiers: [],
+    remoteOut: null,
   };
   for (let i = 0; i < argv.length; i++) {
     const k = argv[i], v = argv[i + 1];
@@ -85,18 +95,22 @@ function parseArgs(argv) {
     else if (k === '--formats') { a.formats = v.split(',').map((x) => x.trim()); i++; }
     else if (k === '--skip-tier') { a.skipTiers.push(v); i++; }
     else if (k === '--only') { a.only.push(v); i++; }
+    else if (k === '--remote-tier') { a.remoteTiers.push(v); i++; }
+    else if (k === '--remote-out') { a.remoteOut = path.resolve(v); i++; }
     else if (k === '--include-private') a.includePrivate = true;
     else if (k === '--force') a.force = true;
     else if (k === '--help' || k === '-h') { console.log(usage()); process.exit(0); }
     else throw new Error(`unknown argument ${k}`);
   }
   if (!a.art) a.art = path.join(path.dirname(a.levels), 'Art');
+  if (a.remoteTiers.length && !a.remoteOut) throw new Error('--remote-tier needs --remote-out');
   return a;
 }
 
 function usage() {
   return 'node tools/build-images.mjs [--levels <levels.json>] [--art <dir>] [--out <dir>] ' +
-    '[--manifest <file>] [--only <id>]... [--include-private] [--force]';
+    '[--manifest <file>] [--only <id>]... [--include-private] [--force] ' +
+    '[--formats avif,webp] [--skip-tier <tier>]... [--remote-tier <tier>... --remote-out <dir>]';
 }
 
 const sha = (buf) => createHash('sha256').update(buf).digest('hex');
@@ -149,35 +163,72 @@ async function encode(pipeline, format, small) {
   return { data, w: info.width, h: info.height };
 }
 
-async function writeVariants(outDir, relDir, stem, pipeline, small, formats = FORMATS) {
+async function writeVariants(outDir, relDir, stem, pipeline, small, formats = FORMATS, remote = false) {
   const entry = {};
+  await fs.mkdir(path.join(outDir, relDir), { recursive: true });
   for (const format of formats) {
     const { data, w, h } = await encode(pipeline, format, small);
     const name = `${stem}.${sha(data).slice(0, 10)}.${format}`;
     await fs.writeFile(path.join(outDir, relDir, name), data);
-    entry[format] = { path: `${relDir}/${name}`, bytes: data.length };
+    entry[format] = { path: `${relDir}/${name}`, bytes: data.length, ...(remote ? { remote: true } : {}) };
     entry.w = w; entry.h = h;
   }
   return entry;
 }
 
-function levelPaths(entry) {
+/* Every file a level references; `remote` true for the ones under --remote-out, false for
+   the ones under --out, undefined for both. */
+function levelPaths(entry, remote) {
   const paths = [];
-  for (const t of Object.values(entry.tiers)) for (const f of formatsOf(t)) paths.push(t[f].path);
-  for (const t of Object.values(entry.thumbs)) for (const f of formatsOf(t)) paths.push(t[f].path);
-  for (const f of formatsOf(entry.sticker)) paths.push(entry.sticker[f].path);
+  const add = (file) => { if (remote === undefined || Boolean(file.remote) === remote) paths.push(file.path); };
+  for (const t of Object.values(entry.tiers)) for (const f of formatsOf(t)) add(t[f]);
+  for (const t of Object.values(entry.thumbs)) for (const f of formatsOf(t)) add(t[f]);
+  for (const f of formatsOf(entry.sticker)) add(entry.sticker[f]);
   return paths;
 }
 
-function referencedPaths(manifest) {
+function referencedPaths(manifest, remote) {
   const set = new Set();
-  for (const lvl of Object.values(manifest.levels)) for (const p of levelPaths(lvl)) set.add(p);
+  for (const lvl of Object.values(manifest.levels)) for (const p of levelPaths(lvl, remote)) set.add(p);
   return set;
 }
 
-async function allFilesExist(outDir, entry) {
-  const checks = await Promise.all(levelPaths(entry).map((p) => exists(path.join(outDir, p))));
+async function allFilesExist(args, entry) {
+  const local = levelPaths(entry, false).map((p) => path.join(args.out, p));
+  const remote = levelPaths(entry, true).map((p) => args.remoteOut && path.join(args.remoteOut, p));
+  const checks = await Promise.all([...local, ...remote].map((p) => p && exists(p)));
   return checks.every(Boolean);
+}
+
+/* Whether a tier's files belong under --remote-out on this run. A tier that reuses another
+   tier's file (a source too small for it) stays with that file. */
+function wantsRemote(args, personal, entry, tier) {
+  if (personal || !args.remoteTiers.includes(tier)) return false;
+  const own = entry.tiers[tier];
+  return !Object.entries(entry.tiers).some(([other, t]) =>
+    other !== tier && !args.remoteTiers.includes(other) && formatsOf(own).some((f) => t[f]?.path === own[f].path));
+}
+
+/* Moves a reused level's files to the side this run wants them on, and marks them. Moving
+   keeps the bytes, so the hashed name, and every copy already published, stays valid. */
+async function placeFiles(args, personal, entry) {
+  for (const tier of Object.keys(entry.tiers)) {
+    const remote = wantsRemote(args, personal, entry, tier);
+    const t = entry.tiers[tier];
+    for (const f of formatsOf(t)) {
+      if (Boolean(t[f].remote) === remote) continue;
+      const from = path.join(t[f].remote ? args.remoteOut : args.out, t[f].path);
+      const to = path.join(remote ? args.remoteOut : args.out, t[f].path);
+      if (!(await exists(to))) {
+        if (!(await exists(from))) return false;          // gone: let the caller re-encode
+        await fs.mkdir(path.dirname(to), { recursive: true });
+        await fs.rename(from, to);
+      }
+      if (remote) t[f] = { ...t[f], remote: true };
+      else { const { remote: _, ...rest } = t[f]; t[f] = rest; }
+    }
+  }
+  return true;
 }
 
 /* What this run ships, which is TIER_FORMATS narrowed by --formats and --skip-tier.
@@ -207,7 +258,7 @@ function dropRetiredFormats(entry, args) {
   return entry;
 }
 
-async function buildLevel(level, args, previous) {
+async function buildLevel(level, args, previous, personal) {
   const id = level.id;
   const srcPath = (await exists(path.join(args.art, `${level.imageName}.jpg`)))
     ? path.join(args.art, `${level.imageName}.jpg`)
@@ -217,7 +268,8 @@ async function buildLevel(level, args, previous) {
   const srcHash = sha(src);
 
   if (!args.force && previous && previous.source.sha256 === srcHash && previous.settings === SETTINGS_KEY
-      && previous.schemaVersion === SETTINGS_VERSION && await allFilesExist(args.out, previous)) {
+      && previous.schemaVersion === SETTINGS_VERSION && await placeFiles(args, personal, previous)
+      && await allFilesExist(args, previous)) {
     return { entry: dropRetiredFormats(previous, args), skipped: true };
   }
 
@@ -253,7 +305,8 @@ async function buildLevel(level, args, previous) {
       [W >= H ? 'width' : 'height']: Math.max(size.w, size.h),
       fit: 'inside', withoutEnlargement: true, kernel: 'lanczos3',
     });
-    tiers[tier] = await writeVariants(args.out, id, tier, pipeline, false, formats);
+    const remote = !personal && args.remoteTiers.includes(tier);
+    tiers[tier] = await writeVariants(remote ? args.remoteOut : args.out, id, tier, pipeline, false, formats, remote);
     const got = tiers[tier];
     if (Math.max(got.w, got.h) !== Math.max(size.w, size.h) || Math.abs(got.w - size.w) > 1 || Math.abs(got.h - size.h) > 1) {
       throw new Error(`${id}/${tier}: expected ${key}, encoder produced ${got.w}x${got.h}`);
@@ -342,7 +395,7 @@ async function main() {
     }
     if (personal.has(level.collection) && !args.includePrivate) { skippedPrivate++; continue; }
     const started = Date.now();
-    const { entry, skipped } = await buildLevel(level, args, previous.levels[level.id]);
+    const { entry, skipped } = await buildLevel(level, args, previous.levels[level.id], personal.has(level.collection));
     manifest.levels[level.id] = entry;
     if (skipped) { reused++; continue; }
     built++;
@@ -358,10 +411,11 @@ async function main() {
   // prune() deletes everything under --out that the manifest does not reference, and the
   // manifest references only images. Writing it inside --out is the natural thing to do — it is
   // how the app bundles it — so keep it rather than deleting it and reporting success.
-  const keep = referencedPaths(manifest);
+  const keep = referencedPaths(manifest, false);
   const manifestRel = path.relative(args.out, args.manifest);
   if (!manifestRel.startsWith('..')) keep.add(manifestRel.split(path.sep).join('/'));
-  const removed = await prune(args.out, keep);
+  let removed = await prune(args.out, keep);
+  if (args.remoteOut) removed += await prune(args.remoteOut, referencedPaths(manifest, true));
 
   let total = { avif: 0, webp: 0 }, session = 0;
   const sessionTiers = new Set();
