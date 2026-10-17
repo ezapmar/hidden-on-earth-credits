@@ -69,6 +69,21 @@ an installed older build keeps asking for the files it shipped with. The script 
 family's pictures, and a file whose bytes do not match its name. `npm run check` fails while a
 file the app wants is not published; `_headers` serves the folder immutable.
 
+## The app's painter portraits
+
+The game's profile screen ("This is me") offers eight painters to be, each one a painter whose
+work is in the game. Their portraits come out of the same kind of script, one tier smaller:
+
+```bash
+npm run painters                 # cuts and encodes them into the app's Resources/Img/Painters/
+npm run painters -- --check      # every portrait painters.json names is there
+```
+
+It reads `SeekAndFind/Resources/painters.json` in the game, cuts each portrait's square `crop`
+out of its scan in `Resources/Painters/`, writes a 256px AVIF whose name carries a hash of its
+own bytes, and writes that name back into `painters.json`. The portraits are bundled with the
+app and are not published on this site; their sources are recorded in the game's `CREDITS.md`.
+
 ## Installing it
 
 `manifest.webmanifest` makes the browser game installable: Add to Home Screen on a phone or
