@@ -15,20 +15,28 @@
 
    Bump VERSION to drop every cache on the next visit (a changed manifest alone needs no bump:
    new files have new names and are fetched on use). */
-var VERSION = 'v3';
+var VERSION = 'v4';
 var STATIC_CACHE = 'hoe-static-' + VERSION;   // manifest + card + fit
 var PLAY_CACHE = 'hoe-play-' + VERSION;       // play + zoom, on use
 var PLAY_LIMIT = 16;                           // files: about 8 paintings with both tiers
 var BASE = new URL(self.registration.scope).pathname;
 var MANIFEST = 'assets/paintings.json';
+// Every file under play/, which the test holds this list to. Four of the core's modules
+// (avatars, painters, partyStore, player) are the profile half the app's "This is me" uses;
+// the demo does not import them, but they are vendored and served like the rest, so they are
+// cached with everything else rather than left to be fetched one day and missed offline.
 var SHELL = [
   'play/',
   'play/levels.json',
   'play/app.js',
+  'play/core/avatars.js',
   'play/core/gameSession.js',
   'play/core/index.js',
   'play/core/l10n.js',
   'play/core/level.js',
+  'play/core/painters.js',
+  'play/core/partyStore.js',
+  'play/core/player.js',
   'play/core/progress.js',
   'play/core/targetKey.js',
   'play/core/tiers.js',
