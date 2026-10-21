@@ -15,12 +15,14 @@
     node tools/build-painters.mjs [--game <seek-and-find dir>] [--check]
 
   --check encodes nothing and exits non-zero if a file in painters.json is missing from the
-  output directory; CI uses it the way it uses images:verify.
+  output directory, or a portrait has no row on this site's credits.html; CI uses it the way it
+  uses images:verify.
 */
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
+import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 
 /** The circle is drawn at 110pt at most, so 256px covers a 2x screen with room to spare. */
@@ -41,6 +43,7 @@ const resources = path.join(game, 'SeekAndFind', 'Resources');
 const manifestPath = path.join(resources, 'painters.json');
 const sourceDir = path.join(resources, 'Painters');
 const outDir = path.join(resources, 'Img', 'Painters');
+const creditsPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'credits.html');
 
 const manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8'));
 
@@ -56,7 +59,15 @@ if (check) {
     console.error(`painters: no encoded portrait for ${missing.join(', ')}. Run npm run painters.`);
     process.exit(1);
   }
-  console.log(`painters: ${manifest.painters.length} portraits present in ${path.relative(process.cwd(), outDir)}`);
+  // The app's "Painting credits" link lands on credits.html, so a portrait with no row there is
+  // a face nobody can look up. A row names the work the way painters.json does.
+  const credits = (await fs.readFile(creditsPath, 'utf8')).replaceAll('&amp;', '&').replaceAll('&nbsp;', ' ');
+  const uncredited = manifest.painters.filter((p) => !credits.includes(p.work)).map((p) => p.id);
+  if (uncredited.length) {
+    console.error(`painters: no row on credits.html for ${uncredited.join(', ')}. Add one under "The painter portraits".`);
+    process.exit(1);
+  }
+  console.log(`painters: ${manifest.painters.length} portraits present in ${path.relative(process.cwd(), outDir)}, all credited on credits.html`);
   process.exit(0);
 }
 
