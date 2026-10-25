@@ -72,12 +72,17 @@ export class GameSession {
         let bestUnfoundDistance = Infinity;
         let bestAny = null;
         let bestAnyDistance = Infinity;
+        // The view divides a fixed pixel size by the painting's width on screen, and a painting that
+        // has not laid out yet is 0 wide, so the floor can arrive as Infinity or NaN. `Math.max(r,
+        // NaN)` is NaN and `d > NaN` is false for every target, so the nearest target anywhere would
+        // count as a hit; Infinity does the same more directly. Neither is a radius: use no floor.
+        const floor = Number.isFinite(minRadius) ? minRadius : 0;
         for (const entry of this.#all) {
             const t = entry.target;
             const dx = point.x - t.x;
             const dy = (point.y - t.y) / ratio;
             const d = Math.sqrt(dx * dx + dy * dy);
-            if (d > Math.max(t.r, minRadius))
+            if (d > Math.max(t.r, floor))
                 continue;
             // Strictly less than, so a tie keeps the first in order, as Swift's `min(by:)` does.
             if (d < bestAnyDistance) {
