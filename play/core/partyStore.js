@@ -123,7 +123,16 @@ export class PartyStore {
         this.#onPhotosInUse?.(new Set());
     }
     #save() {
-        this.#store.setItem(ROSTER_KEY, JSON.stringify(this.#roster));
+        // The roster in memory is already what the screen shows. localStorage throws when the quota
+        // is full and in some private windows, and that must not take the profile screen down with
+        // it, nor the constructor on a device that has never had a roster written: the write is lost,
+        // the roster is not, and the next save writes all of it again.
+        try {
+            this.#store.setItem(ROSTER_KEY, JSON.stringify(this.#roster));
+        }
+        catch {
+            // Nothing to do here: the memory is right, and the storage is the platform's problem.
+        }
         const used = new Set();
         for (const player of this.#roster.players) {
             const file = photoFile(player.avatar);

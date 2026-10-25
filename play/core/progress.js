@@ -82,7 +82,7 @@ export class PlayerProgress {
         if (this.#completed.has(level.id))
             return;
         this.#completed.add(level.id);
-        this.#store.setItem(COMPLETED_KEY, JSON.stringify([...this.#completed].sort()));
+        this.#write(COMPLETED_KEY, JSON.stringify([...this.#completed].sort()));
     }
     /** Clears every star and every half-finished painting. */
     reset() {
@@ -96,6 +96,20 @@ export class PlayerProgress {
         for (const [levelId, keys] of [...this.#partial].sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))) {
             out[levelId] = [...keys].sort();
         }
-        this.#store.setItem(PARTIAL_KEY, JSON.stringify(out));
+        this.#write(PARTIAL_KEY, JSON.stringify(out));
+    }
+    /**
+     * localStorage throws when the quota is full and in some private windows, and this runs inside
+     * the tap handler. The target the child just found is already in memory by the time the write
+     * happens, so a failed write costs the saving and not the tap: she keeps her star for the rest
+     * of the session, and the next write that gets through carries the whole state with it.
+     */
+    #write(key, value) {
+        try {
+            this.#store.setItem(key, value);
+        }
+        catch {
+            // Nothing to do here: the memory is right, and the storage is the platform's problem.
+        }
     }
 }
