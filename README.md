@@ -76,13 +76,14 @@ work is in the game. Their portraits come out of the same kind of script, one ti
 
 ```bash
 npm run painters                 # cuts and encodes them into the app's Resources/Img/Painters/
-npm run painters -- --check      # every portrait painters.json names is there
+npm run painters -- --check      # every portrait painters.json names is there, and credited
 ```
 
 It reads `SeekAndFind/Resources/painters.json` in the game, cuts each portrait's square `crop`
 out of its scan in `Resources/Painters/`, writes a 256px AVIF whose name carries a hash of its
 own bytes, and writes that name back into `painters.json`. The portraits are bundled with the
-app and are not published on this site; their sources are recorded in the game's `CREDITS.md`.
+app and are not published on this site; their sources are recorded in the game's `CREDITS.md`
+and listed on `credits.html`, where `--check` fails on a portrait with no row.
 
 ## Installing it
 
