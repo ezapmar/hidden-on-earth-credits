@@ -340,12 +340,13 @@ async function buildLevel(level, args, previous, personal) {
   };
 }
 
-async function prune(outDir, keep) {
+async function prune(outDir, keep, leaveAlone = new Set()) {
   let removed = 0;
   async function walk(dir, rel) {
     const entries = await fs.readdir(dir, { withFileTypes: true });
     for (const e of entries) {
       const abs = path.join(dir, e.name), r = rel ? `${rel}/${e.name}` : e.name;
+      if (leaveAlone.has(r)) continue;
       if (e.isDirectory()) {
         await walk(abs, r);
         if ((await fs.readdir(abs)).length === 0) await fs.rmdir(abs);
@@ -414,7 +415,9 @@ async function main() {
   const keep = referencedPaths(manifest, false);
   const manifestRel = path.relative(args.out, args.manifest);
   if (!manifestRel.startsWith('..')) keep.add(manifestRel.split(path.sep).join('/'));
-  let removed = await prune(args.out, keep);
+  // The painter portraits live under --out too, in Painters/, written by build-painters.mjs
+  // from its own manifest; this run knows nothing about them and must not sweep them away.
+  let removed = await prune(args.out, keep, new Set(['Painters']));
   if (args.remoteOut) removed += await prune(args.remoteOut, referencedPaths(manifest, true));
 
   let total = { avif: 0, webp: 0 }, session = 0;
