@@ -235,6 +235,30 @@
       "path": "rousseau_tropical_forest/thumb-white_flowers.3b75e0430a.webp",
       "bytes": 2860
      }
+    },
+    "yellow_flowers": {
+     "avif": {
+      "path": "rousseau_tropical_forest/thumb-yellow_flowers.67ccbe8ff9.avif",
+      "bytes": 5572
+     },
+     "w": 128,
+     "h": 128,
+     "webp": {
+      "path": "rousseau_tropical_forest/thumb-yellow_flowers.1619b97593.webp",
+      "bytes": 5638
+     }
+    },
+    "red_leaves": {
+     "avif": {
+      "path": "rousseau_tropical_forest/thumb-red_leaves.71c087445e.avif",
+      "bytes": 4813
+     },
+     "w": 128,
+     "h": 128,
+     "webp": {
+      "path": "rousseau_tropical_forest/thumb-red_leaves.7f04f999b5.webp",
+      "bytes": 4110
+     }
     }
    },
    "sticker": {
@@ -1648,6 +1672,18 @@
       "bytes": 4956
      }
     },
+    "small_waves": {
+     "avif": {
+      "path": "hokusai_great_wave/thumb-small_waves.370f2b7f00.avif",
+      "bytes": 5561
+     },
+     "w": 128,
+     "h": 128,
+     "webp": {
+      "path": "hokusai_great_wave/thumb-small_waves.da6d324e4c.webp",
+      "bytes": 5766
+     }
+    },
     "boats": {
      "avif": {
       "path": "hokusai_great_wave/thumb-boats.7624266b56.avif",
@@ -1800,16 +1836,28 @@
       "bytes": 3444
      }
     },
-    "loose_apples": {
+    "apple_on_cloth": {
      "avif": {
-      "path": "cezanne_apples_and_oranges/thumb-loose_apples.240bcba43b.avif",
-      "bytes": 3048
+      "path": "cezanne_apples_and_oranges/thumb-apple_on_cloth.095bca81cc.avif",
+      "bytes": 3053
      },
      "w": 128,
      "h": 128,
      "webp": {
-      "path": "cezanne_apples_and_oranges/thumb-loose_apples.4e55504ec3.webp",
+      "path": "cezanne_apples_and_oranges/thumb-apple_on_cloth.4e55504ec3.webp",
       "bytes": 2984
+     }
+    },
+    "fruit_under_cloth": {
+     "avif": {
+      "path": "cezanne_apples_and_oranges/thumb-fruit_under_cloth.419e2e0d44.avif",
+      "bytes": 2441
+     },
+     "w": 128,
+     "h": 128,
+     "webp": {
+      "path": "cezanne_apples_and_oranges/thumb-fruit_under_cloth.6842437220.webp",
+      "bytes": 2514
      }
     },
     "white_cloth": {
