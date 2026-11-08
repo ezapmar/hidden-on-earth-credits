@@ -152,7 +152,7 @@
   if (!stage) return;
   var ITEMS = [
     { id: 'monkeys', name: 'Monkeys', targets: [
-      { x: 0.257, y: 0.363, r: 0.06 }, { x: 0.41, y: 0.604, r: 0.07 }, { x: 0.677, y: 0.396, r: 0.06 },
+      { x: 0.257, y: 0.363, r: 0.06 }, { x: 0.41, y: 0.604, r: 0.07 }, { x: 0.678, y: 0.43, r: 0.065 },
       { x: 0.747, y: 0.317, r: 0.05 }, { x: 0.67, y: 0.771, r: 0.08 } ] },
     { id: 'snake', name: 'Snake', targets: [ { x: 0.283, y: 0.727, r: 0.06 } ] },
     { id: 'flowers', name: 'White flowers', targets: [
