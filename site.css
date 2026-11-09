@@ -145,6 +145,10 @@ section.tight { padding-top: 0; }
 @media (max-width: 640px) {
   .nav-links a { padding: 6px 12px 6px 0; }
 }
+@media (max-width: 640px) {
+  .hero-facts { gap: 8px; }
+  .hero-facts li { padding: 8px 12px; font-size: 0.86rem; gap: 8px; }
+}
 
 /* hero: the deeper cream, one centre */
 .hero { background: var(--parchment); color: var(--soot); padding-block: 56px 72px; }
@@ -167,6 +171,19 @@ section.tight { padding-top: 0; }
 .btn-quiet { background: var(--cream); color: var(--soot); }
 .btn-quiet:hover { background: var(--marigold); }
 .hero .status { font-size: 0.92rem; color: var(--muted); }
+/* what a parent asks first, one chip each */
+.hero-facts {
+  list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 10px; max-width: 980px;
+}
+.hero-facts li {
+  display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px;
+  background: var(--paper); color: var(--soot); clip-path: var(--stepped); --step: 4px;
+  font-family: var(--display); font-weight: 600; font-size: 0.95rem; line-height: 1.2;
+}
+.hero-facts li::before {
+  content: ""; width: 8px; height: 8px; flex: none; background: var(--teal); transform: rotate(45deg);
+}
 
 /* woven band between sections */
 .band { height: 30px; width: 100%; display: block; }

@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """Point index.html at the pipeline's tiers: gallery cards, the playable painting, its HUD
-thumbs and its sticker. Idempotent: re-run after the pipeline whenever a hash changes."""
-import json, re, sys
+thumbs and its sticker, and write each gallery card's count and list of things to find from
+play/levels.json. Idempotent: re-run after the pipeline whenever a hash or a level changes."""
+import html as htmlmod, json, re, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 m = json.load(open(ROOT / 'assets/paintings.json'))
 L = m['levels']
+LEVELS = {l['id']: l for l in json.load(open(ROOT / 'play/levels.json'))['levels']}
 IMG = 'assets/' + m['base']          # assets/img/
 html = (ROOT / 'index.html').read_text()
 
@@ -95,5 +97,31 @@ html, k = re.subn(r'(<div class="stickers" data-wire="stickers" aria-hidden="tru
                   lambda mm: mm.group(1) + '\n' + strip + '\n    ' + mm.group(2), html)
 assert k == 1, 'sticker strip not found'
 
+# 6. each gallery card's "N things to find" and its list, from play/levels.json, so the page
+#    can never quote a count the game does not have. A number follows a name only when the
+#    painting holds more than one of it.
+def esc(s):
+    return htmlmod.escape(s, quote=True)
+
+cards = 0
+def card(match):
+    global cards
+    level = LEVELS.get(match.group(2))
+    if level is None:
+        sys.exit(f'{match.group(2)}: a gallery card with no level in play/levels.json')
+    cards += 1
+    items = level['items']
+    total = sum(len(i['targets']) for i in items)
+    things = ', '.join(esc(i['names']['en']) + (f' <b>{len(i["targets"])}</b>' if len(i['targets']) > 1 else '')
+                       for i in items)
+    return (f'{match.group(1)}<div class="by">{esc(level["artist"])} · {total} things to find</div>\n'
+            f'          <p class="find">{things}</p>')
+
+html = re.sub(r'(<article class="painting">\s*<picture>\s*<source type="image/avif" srcset="assets/img/([a-z_]+)/'
+              r'[\s\S]*?</h3>\n\s*)<div class="by">[^<]*</div>\n\s*<p class="find">[\s\S]*?</p>',
+              card, html)
+assert cards == len(LEVELS), f'{cards} gallery cards for {len(LEVELS)} levels'
+
 (ROOT / 'index.html').write_text(html)
-print(f'gallery cards rewritten: {n}; stage, sticker, {len(thumbs)} thumbs and {len(L)} strip stickers updated')
+print(f'gallery cards rewritten: {n}; stage, sticker, {len(thumbs)} thumbs and {len(L)} strip stickers updated; '
+      f'{cards} card lists written from play/levels.json')

@@ -1,7 +1,7 @@
 {
   "name": "Hidden on Earth: Seek & Find",
   "short_name": "Hidden on Earth",
-  "description": "A seek-and-find game for children, played on famous paintings.",
+  "description": "A seek-and-find game for the whole family, played on famous paintings.",
   "start_url": "/play/",
   "scope": "/",
   "display": "standalone",

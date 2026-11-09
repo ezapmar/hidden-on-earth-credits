@@ -166,6 +166,35 @@ describe("pages", () => {
     expect(play).toMatch(new RegExp(`content="[^"]*\\b${n} famous paintings`));
   });
 
+  it("list on each gallery card exactly what that painting holds", () => {
+    // tools/wire-site.py writes these from play/levels.json; this fails if a card is edited by
+    // hand, or a level changes and the script is not re-run.
+    const decode = (s) => s.replace(/&#x27;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+    const cards = [...home.matchAll(/<article class="painting">\s*<picture>\s*<source type="image\/avif" srcset="assets\/img\/([a-z_]+)\/[\s\S]*?<div class="by">([^<]*)<\/div>\s*<p class="find">([\s\S]*?)<\/p>/g)];
+    expect(cards.map((c) => c[1]).sort()).toEqual(library.levels.map((l) => l.id).sort());
+    for (const [, id, by, find] of cards) {
+      const level = raw.levels.find((l) => l.id === id);
+      const parsed = library.levels.find((l) => l.id === id);
+      expect(decode(by), id).toBe(`${level.artist} · ${totalTargets(parsed)} things to find`);
+      const things = level.items.map((i) => i.names.en + (i.targets.length > 1 ? ` <b>${i.targets.length}</b>` : ""));
+      expect(decode(find), id).toBe(things.join(", "));
+    }
+  });
+
+  it("give the home page's playable painting the game's own hiding places", () => {
+    const src = readRepoText("site.js");
+    const items = new Function(`return ${src.match(/var ITEMS = (\[[\s\S]*?\n\s*\]);/)[1]}`)();
+    const level = raw.levels.find((l) => l.id === "rousseau_tropical_forest");
+    const groups = { monkeys: "monkeys", snake: "snake", flowers: "white_flowers" };
+    expect(items.map((i) => i.id).sort()).toEqual(Object.keys(groups).sort());
+    for (const item of items) {
+      const group = level.items.find((g) => g.id === groups[item.id]);
+      expect(item.targets, item.id).toEqual(group.targets);
+      expect(item.name, item.id).toBe(group.names.en);
+    }
+  });
+
   it("have every element the game script looks up by id", () => {
     const ids = new Set([...play.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]));
     for (const file of ["play/app.js", "play/game.js"]) {
