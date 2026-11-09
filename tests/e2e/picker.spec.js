@@ -8,7 +8,7 @@ test.describe("picker", () => {
     await expect(page.locator("body")).toHaveAttribute("data-screen", "home");
     await expect(page.locator("#home button.card-painting")).toHaveCount(allLevels().length);
     await expect(page.locator("#home section h2").first()).toHaveText("Animals");
-    await expect(page.locator("#home section h2").filter({ hasText: "Your collection" })).toHaveCount(1);
+    await expect(page.locator("#home section h2").filter({ hasText: "Your pictures" })).toHaveCount(1);
   });
 
   test("loads every card picture", async ({ page }) => {

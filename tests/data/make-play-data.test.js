@@ -9,7 +9,10 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { readRepoJSON, readRepoText, repoPath } from "../fixtures/repo.js";
 
 const committed = readRepoJSON("play/levels.json");
-const personalCollection = committed.collections.find((c) => c.personal).id;
+// The game's row of the family's own pictures: published, empty, as the web's invitation.
+const picturesRow = committed.collections.find((c) => c.personal).id;
+// The game's row of Dünya's drawings: every picture in it is refused, so the row is not published.
+const drawingsRow = { id: "drawings", titles: { en: "Drawings" }, symbol: "paintbrush.fill", personal: true };
 
 let dir;
 beforeEach(() => { dir = mkdtempSync(path.join(tmpdir(), "play-data-")); });
@@ -22,13 +25,13 @@ function gameCatalogue({ drop = [] } = {}) {
     items: [{ id: "thing", names: { en: "Thing" }, targets: [{ x: 0.5, y: 0.5, r: 0.05 }] }],
   });
   return {
-    collections: committed.collections,
+    collections: [...committed.collections, drawingsRow],
     levels: [
       ...committed.levels
         .filter((l) => !drop.includes(l.id))
         // Fields the game keeps for the image build; none of them may be published.
         .map((l) => ({ ...l, source: `Sources/${l.id}.jpg`, license: "CC0" })),
-      extra("dunya_drawing", personalCollection),
+      extra("dunya_drawing", drawingsRow.id),
       extra("not_in_demo", "animals"),
     ],
   };
@@ -47,6 +50,14 @@ describe("make-play-data", () => {
     const res = run(gameCatalogue(), "--out", out);
     expect(res.status, res.stderr).toBe(0);
     expect(readFileSync(out, "utf8")).toBe(readRepoText("play/levels.json"));
+  });
+
+  it("publishes the empty row for a family's pictures and leaves out a row whose pictures are all refused", () => {
+    const out = path.join(dir, "out.json");
+    run(gameCatalogue(), "--out", out);
+    const rows = JSON.parse(readFileSync(out, "utf8")).collections.map((c) => c.id);
+    expect(rows).toContain(picturesRow);
+    expect(rows).not.toContain(drawingsRow.id);
   });
 
   it("refuses the personal collection's pictures and holds back what is not in the demo", () => {

@@ -72,9 +72,9 @@
    "symbol": "building.2.fill"
   },
   {
-   "id": "yours",
+   "id": "mine",
    "titles": {
-    "en": "Your collection"
+    "en": "Your pictures"
    },
    "symbol": "photo.on.rectangle.angled",
    "personal": true
