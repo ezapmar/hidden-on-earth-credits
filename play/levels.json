@@ -561,7 +561,7 @@
     {
      "id": "signature",
      "names": {
-      "en": "Painter's signature"
+      "en": "Painter's name"
      },
      "targets": [
       {
@@ -870,7 +870,7 @@
     {
      "id": "bullfinch",
      "names": {
-      "en": "Pink-breasted bird"
+      "en": "Little pink bird"
      },
      "targets": [
       {
@@ -1106,7 +1106,7 @@
     {
      "id": "inn_sign",
      "names": {
-      "en": "Inn sign"
+      "en": "Hanging sign"
      },
      "targets": [
       {
@@ -1382,7 +1382,7 @@
     {
      "id": "swirl",
      "names": {
-      "en": "Swirl in the sky"
+      "en": "Big swirl"
      },
      "targets": [
       {
@@ -1638,7 +1638,7 @@
     {
      "id": "japanese_writing",
      "names": {
-      "en": "Japanese writing"
+      "en": "Writing"
      },
      "targets": [
       {
@@ -1735,7 +1735,7 @@
     {
      "id": "fruits_by_the_jug",
      "names": {
-      "en": "Fruits next to the jug"
+      "en": "Fruits by the jug"
      },
      "targets": [
       {
@@ -1806,7 +1806,7 @@
     {
      "id": "fruit_under_cloth",
      "names": {
-      "en": "Fruit under the cloth"
+      "en": "Brown fruit"
      },
      "targets": [
       {
