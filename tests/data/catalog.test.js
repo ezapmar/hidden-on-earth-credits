@@ -221,6 +221,11 @@ describe("pages", () => {
     expect(group, "support.html has no Playing together group").not.toBeNull();
     expect([...group[1].matchAll(/<summary>/g)].length).toBeGreaterThanOrEqual(5);
     expect(home).toContain('href="support.html#together"');
+    // Both ways to play are named as the app names them, on both pages.
+    for (const [name, page] of [["index.html", home], ["support.html", group[1]]]) {
+      expect(page, name).toMatch(/Take turns/i);
+      expect(page, name).toMatch(/one team/i);
+    }
   });
 
   it("never sell the game as one for children", () => {
