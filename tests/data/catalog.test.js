@@ -215,6 +215,14 @@ describe("pages", () => {
     expect(img?.[1].length, "the screenshot needs an alt that describes it").toBeGreaterThan(40);
   });
 
+  it("answer a table's questions about playing together", () => {
+    const support = readRepoText("support.html");
+    const group = support.match(/<h2 id="together">[\s\S]*?<div class="faq">([\s\S]*?)<\/div>/);
+    expect(group, "support.html has no Playing together group").not.toBeNull();
+    expect([...group[1].matchAll(/<summary>/g)].length).toBeGreaterThanOrEqual(5);
+    expect(home).toContain('href="support.html#together"');
+  });
+
   it("never sell the game as one for children", () => {
     // AppStore.md's rule, which the listing broke for a month: the app is rated 4+ but is not in
     // the Kids Category, so no page may name children as the audience.
