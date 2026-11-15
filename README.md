@@ -44,6 +44,13 @@ Both scripts take `--levels <path>` when the game checkout is somewhere else. Th
 
 **The home page names the hashed files directly** (no build step at serve time). After a re-encode that changes hashes, run `python3 tools/wire-site.py` to repoint `index.html`; `images:verify` fails until that is done.
 
+**The one picture that is not a painting.** `assets/shots/` holds the Play Together screenshot on
+the home page, taken from the iPad app in the simulator (three players on Hicks's *Peaceable
+Kingdom*, the lion just found) and encoded by hand to AVIF and WebP at 1600px. It is outside
+`assets/img/`, so the image pipeline and `images:verify` leave it alone; the catalogue test
+checks the home page only references files that exist. Replace it by taking a new shot and
+re-running the two encodes, then update the file names in `index.html`.
+
 **Private pictures.** A level in a collection marked `"personal": true` (the family's own drawings) is skipped. This repository is public; those pictures stay in the app bundle. To generate them for the bundle, point the output elsewhere:
 
 ```bash
