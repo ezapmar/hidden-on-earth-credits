@@ -204,6 +204,27 @@ describe("pages", () => {
     }
   });
 
+  it("show Play Together with a picture that is on disk", () => {
+    // The screenshot is hand-made, so nothing but this test notices when it is renamed or
+    // re-encoded and the HTML is left behind.
+    expect(home).toContain('<section id="together">');
+    const sources = [...home.matchAll(/assets\/shots\/[^\s"'),]+/g)].map((m) => m[0]);
+    expect(sources.length).toBeGreaterThan(0);
+    for (const src of sources) expect(existsSync(repoPath(src)), src).toBe(true);
+    const img = home.match(/<img src="assets\/shots\/[^>]*alt="([^"]+)"/);
+    expect(img?.[1].length, "the screenshot needs an alt that describes it").toBeGreaterThan(40);
+  });
+
+  it("never sell the game as one for children", () => {
+    // AppStore.md's rule, which the listing broke for a month: the app is rated 4+ but is not in
+    // the Kids Category, so no page may name children as the audience.
+    const forbidden = /for kids|for children|kids game|kids' game|toddler|preschool|made for children/i;
+    for (const page of ["index.html", "support.html", "privacy.html", "credits.html", "play/index.html"]) {
+      const m = readRepoText(page).match(forbidden);
+      expect(m?.[0], `${page} says "${m?.[0]}"`).toBeUndefined();
+    }
+  });
+
   it("install to the game", () => {
     const webmanifest = readRepoJSON("manifest.webmanifest");
     expect(webmanifest.start_url).toBe("/play/");

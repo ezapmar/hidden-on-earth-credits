@@ -243,6 +243,12 @@ section.tight { padding-top: 0; }
 .stickers { display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 12px; margin-top: 20px; }
 .stickers img { width: 100%; aspect-ratio: 1; object-fit: cover; clip-path: var(--stepped); --step: 4px; }
 
+/* play together: one picture of the iPad in use, then what happens round it */
+.shot { margin: 0 0 40px; display: grid; gap: 12px; max-width: 900px; }
+.shot picture { display: block; }
+.shot img { width: 100%; height: auto; background: var(--parchment); clip-path: var(--stepped); --step: 7px; }
+.shot figcaption { color: var(--muted); font-size: 0.95rem; }
+
 /* the method: rules as cards */
 .rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; }
 .rule {
